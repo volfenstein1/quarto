@@ -1,0 +1,23 @@
+# DEEP LEARNING!
+
+- Less is more.
+- Implement and demonstrate a 'which beetle are you' classifier
+- Decision Tree with Visualization
+
+## HAND MADE NEURAL NETWORK
+
+- Build a model on some data
+
+## TIME SERIES ANALYSIS
+
+- Framework from Rob Mulla
+- Facebook Prophet
+- Best results from kaggle course
+- Predict energy market time series data via [timeseriesAI](https://github.com/timeseriesAI/tsai)
+    - Comment on Max Dama's quote on machine learning
+
+## NATURAL LANGUAGE PROCESSING
+- Build a miniGPT?
+
+## STABLE DIFFUSION
+- Play with Stable Diffusion

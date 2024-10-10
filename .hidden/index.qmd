@@ -1,0 +1,5 @@
+---
+title: "Following _fast.ai_"
+---
+
+In this website, I document my progress through the [fast.ai](https://www.fast.ai/) course.

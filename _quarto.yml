@@ -1,0 +1,42 @@
+project:
+  type: website
+
+website:
+  title: 'Wolfgang Schmaltz'
+  navbar:
+    right:
+      - text: Home
+        file: index.qmd
+      - text: Mathematics
+        file: mathematics.qmd
+      - text: Deep Learning
+        file: deep_learning.qmd
+
+  sidebar:
+      - title: 'Mathematics'
+        style: 'docked'
+        contents:
+          - file: mathematics.qmd
+            text: Mathematics
+      - title: 'Deep Learning'
+        style: 'docked'
+        contents:
+        - file: deep_learning.qmd
+          text: Deep Learning
+        - file: fastai-1.ipynb
+          text: 1 - Building a simple model
+        - file: fastai-2.ipynb
+          text: 2 - Which member of 'The Beatles' are you?
+        - file: fastai-3.ipynb
+          text: 3 - Comparing computer vision models
+        - file: fastai-3.5.ipynb
+      # - title: 'Stable Diffusion'
+      #   style: 'docked'
+
+format:
+  html:
+    theme: solar
+    toc: true
+
+execute:
+  freeze: true # never re-render during project render

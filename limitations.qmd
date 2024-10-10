@@ -1,0 +1,16 @@
+---
+title: "Limitations of machine learning"
+sidebar: false
+---
+
+What are the limitations?
+
+- https://www.nytimes.com/2023/05/16/technology/microsoft-ai-human-reasoning.html?action=click&pgtype=Article&state=default&module=styln-artificial-intelligence&variant=show&region=BELOW_MAIN_CONTENT&block=storyline_flex_guide_recirc
+- https://ryxcommar.com/2023/03/28/chatgpt-as-a-query-engine-on-a-giant-corpus-of-text/
+- https://www.nytimes.com/2023/07/02/science/ai-mathematics-machine-learning.html
+
+Look up other examples where ChatGPT is easily tricked and confused
+
+Use some examples from mathematics
+
+Look at Michael Hutchings facebook posts

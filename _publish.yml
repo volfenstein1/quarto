@@ -1,0 +1,4 @@
+- source: project
+  quarto-pub:
+    - id: 8cd03d0a-e78d-44cf-89ae-2a437132646e
+      url: 'https://volfenstein.quarto.pub/home'

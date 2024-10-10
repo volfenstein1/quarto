@@ -1,0 +1,745 @@
+---
+title: "Mathematics"
+sidebar: false
+bibliography: references.bib
+link-citations: true
+html-math-method:
+  method: mathjax
+---
+
+::: {.hidden}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Standard Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%mathbb
+\newcommand{\N}{{\mathbb N}}
+\newcommand{\R}{\mathbb{R}}
+\newcommand{\Z}{{\mathbb Z}}
+\newcommand{\B}{{\mathbb B}}
+\newcommand{\C}{{\mathbb C}}
+\newcommand{\E}{{\mathbb E}}
+\newcommand{\F}{{\mathbb F}}
+\newcommand{\G}{{\mathbb G}}
+\newcommand{\W}{{\mathbb W}}
+\newcommand{\Q}{{\mathbb Q}}
+\renewcommand{\H}{{\mathbb H}}
+\newcommand{\T}{{\mathbb T}}
+
+%greek
+\newcommand{\p}{\phi}
+\newcommand{\ph}{\varphi}
+\renewcommand{\a}{\alpha}
+\renewcommand{\b}{\beta}
+\newcommand{\de}{\delta}
+\renewcommand{\k}{\kappa}
+\newcommand{\ep}{\varepsilon}
+\newcommand{\eps}{\epsilon}
+\newcommand{\s}{\sigma}
+\newcommand{\e}{\eta}
+\newcommand{\g}{\gamma}
+\renewcommand{\th}{\theta}
+\renewcommand{\r}{\rho}
+\renewcommand{\t}{\tau}
+\renewcommand{\i}{\iota}
+\newcommand{\x}{\xi}
+\renewcommand{\c}{\chi}
+\newcommand{\n}{\nu}
+\newcommand{\m}{\mu}
+\newcommand{\z}{\zeta}
+\renewcommand{\l}{\lambda}
+
+%GREEK
+\newcommand{\De}{\Delta}
+\renewcommand{\L}{\Lambda}
+\renewcommand{\G}{\Gamma}
+\newcommand{\Si}{\Sigma}
+\newcommand{\Th}{\Theta}
+\newcommand{\X}{\Xi}
+\newcommand{\Om}{\Omega}
+\renewcommand{\P}{\Phi}
+
+%cal
+\newcommand{\cA}{{\mathcal A}}
+\newcommand{\cB}{{\mathcal B}}
+\newcommand{\cC}{{\mathcal C}}
+\newcommand{\cD}{{\mathcal D}}
+\newcommand{\cE}{{\mathcal E}}
+\newcommand{\cF}{{\mathcal F}}
+\newcommand{\cG}{{\mathcal G}}
+\newcommand{\cH}{{\mathcal H}}
+\newcommand{\cI}{{\mathcal I}}
+\newcommand{\cJ}{{\mathcal J}}
+\newcommand{\cK}{{\mathcal K}}
+\newcommand{\cL}{{\mathcal L}}
+\newcommand{\cM}{{\mathcal M}}
+\newcommand{\cN}{{\mathcal N}}
+\newcommand{\cO}{{\mathcal O}}
+\newcommand{\cP}{{\mathcal P}}
+\newcommand{\cQ}{{\mathcal Q}}
+\newcommand{\cR}{{\mathcal R}}
+\newcommand{\cS}{{\mathcal S}}
+\newcommand{\cT}{{\mathcal T}}
+\newcommand{\cU}{{\mathcal U}}
+\newcommand{\cV}{{\mathcal V}}
+\newcommand{\cW}{{\mathcal W}}
+\newcommand{\cX}{{\mathcal X}}
+\newcommand{\cY}{{\mathcal Y}}
+\newcommand{\cZ}{{\mathcal Z}}
+
+%tilde
+\newcommand{\ta}{{\tilde\alpha}}
+\newcommand{\tg}{{\tilde g}}
+\newcommand{\tu}{{\tilde u}}
+\newcommand{\tw}{{\tilde w}}
+\newcommand{\tep}{{\tilde\ep}}
+\newcommand{\tx}{{\tilde\x}}
+\newcommand{\tA}{{\tilde A}}
+\newcommand{\tC}{{\tilde C}}
+\newcommand{\tD}{{\tilde D}}
+\newcommand{\tM}{{\tilde M}}
+\newcommand{\tR}{{\tilde R}}
+\newcommand{\tP}{{\tilde\Phi}}
+\newcommand{\tU}{{\tilde U}}
+\newcommand{\tX}{{\tilde\X}}
+
+%bar
+\newcommand{\bc}{{\bar c}}
+\newcommand{\br}{{\bar r}}
+\newcommand{\bph}{{\bar\p}}
+\newcommand{\bp}{{\bar p}}
+\newcommand{\bq}{{\bar q}}
+\newcommand{\bx}{{\bar x}}
+\newcommand{\by}{{\bar y}}
+\newcommand{\brh}{{\bar\r}}
+%\def\bm{{\bar\m}}
+\newcommand{\bep}{{\bar\ep}}
+\newcommand{\bt}{{\bar\t}}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Math Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+%compactified moduli space
+\newcommand{\CM}{\bar{\mathcal{M}}}
+
+% % % % %SYMPLECTIC GEOMETRY % % % % %
+\newcommand{\ww}{\omega}
+\newcommand{\CP}{\mathbb{C}P}
+\newcommand{\delbar}{\bar{\partial}}
+\newcommand{\delbarj}{\delbar_J}
+
+\newcommand{\delbarinv}{\smash{\overline{\partial}}\vphantom{\partial}^{-1}}
+\newcommand{\delbarjinv}{\smash{\delbarj}\vphantom{\partial}^{-1}}
+
+% % % % %Hat Delbar % % % % %
+\newcommand{\hdelbar}{
+\mathchoice
+{% \displaystyle
+\hat{\overline{\partial}}
+}
+{% \textstyle
+\scalerel*{\hat{\overline{\partial}}}{\hat{M}}
+}
+{}{}
+}
+\newcommand{\hdelbarj}{
+\mathchoice
+{% \displaystyle
+\hat{\overline{\partial}}\_J
+}
+{% \textstyle
+\scalerel*{\hat{\overline{\partial}}\_J}{\hat{M}\_J}
+}
+{}{}
+}
+
+\newcommand{\hb}{
+\mathchoice
+{% \displaystyle
+B*{\frac{1}{2}}
+}
+{% \textstyle
+B*{1/2}
+}
+{}{}
+}
+
+\newcommand{\abs}[1]{\lvert#1\rvert}
+\newcommand{\norm}[1]{\left\Vert#1\right\Vert}
+
+\DeclareMathOperator{\codim}{codim}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\ind}{ind}
+\DeclareMathOperator{\dR}{dR}
+
+% % % % %COLORS % % % % %
+\newcommand{\red}[1]{\textcolor{red}{#1}}
+\newcommand{\green}[1]{\textcolor{green}{#1}}
+\newcommand{\blue}[1]{\textcolor{blue}{#1}}
+
+% % % % %GROMOV-WITTEN LANGUAGE % % % % %
+\DeclareMathOperator{\GW}{GW}
+\DeclareMathOperator{\PD}{PD}
+
+% % % % %THOM LANGUAGE % % % % %
+\newcommand{\Orth}{\text{O}}
+\newcommand{\SO}{\text{SO}}
+
+% % % % %POLYFOLD LANGUAGE % % % % %
+\newcommand{\ssc}{\text{sc}}
+\newcommand{\dmspace}{\bar{\mathcal{M}}}
+\newcommand{\dmlog}{\smash{\bar{\mathcal{M}}}\vphantom{\mathcal{M}}^{\text{log}}}
+\newcommand{\dmexp}{\smash{\bar{\mathcal{M}}}\vphantom{\mathcal{M}}^{\text{exp}}}
+\newcommand{\nspace}{\overline{\mathcal{N}}}
+\newcommand{\av}{\text{av}}
+
+\newcommand{\bssc}{\text{Sc}}
+\newcommand{\supp}{\operatorname{supp}}
+\newcommand{\id}{\operatorname{id}}
+\newcommand{\pt}{\operatorname{pt}}
+\newcommand{\sign}{\text{sgn}}
+\newcommand{\Aut}{\text{Aut}}
+\newcommand{\pr}{\operatorname{pr}}
+:::
+
+## My research accomplishments
+
+In 1994, Kontsevich and Manin stated the Gromov--Witten axioms. At the time, it was not possible for them to give a complete proof; the field of Gromov--Witten theory was premature, and it would take years for a mathematically rigorous definition of a Gromov--Witten invariant to develop. In 2017, _polyfold theory_, as developed by Hofer, Wysocki, and Zehnder, was successful in giving a well-defined Gromov--Witten invariant for general symplectic manifolds.
+
+The focus of my mathematical career has been in giving a complete proof of the Gromov--Witten axioms using the tools and techniques of polyfold Gromov--Witten invariants. In 2019, I succeeded in this research project.
+
+My research accomplishments to date are the following:
+
+- Following the work of Thom, I solved the Steenrod problem for closed orientable orbifolds, proving that the rational homology groups of a closed orientable orbifold have a basis consisting of classes represented by closed embedded full suborbifolds whose normal bundles have fiberwise trivial isotropy action.
+- I proved that the polyfold Gromov--Witten invariants, originally defined via integration of differential forms, may equivalently be defined as intersection numbers against a basis of representing suborbifolds.
+- I provided a general framework for proving that polyfold invariants are _natural_, and in particular demonstrated that the polyfold Gromov--Witten invariants do not depend on auxiliary choices.
+- I constructed the universal curve polyfold on which it is possible to define the $k$th-marked point forgetting map and to pullback abstract perturbations.
+- I gave a complete proof of the Gromov--Witten axioms for the polyfold Gromov--Witten invariants.
+- I showed that the classical pseudocycle Gromov--Witten invariants, defined for semipositive symplectic manifolds, are a strict subset of the more general polyfold Gromov--Witten invariants.
+
+## History of the Gromov--Witten axioms
+
+In 1985 Gromov published the paper "Pseudo holomorphic curves in symplectic manifolds", laying the foundations for the modern study of pseudo holomorphic curves (also know as $J$-holomorphic curves) in symplectic topology [@G].
+In this paper, Gromov proved a compactness result for the moduli space of $J$-holomorphic curves in a fixed homology class. This paper contained antecedents to the modern notion of the Gromov--Witten invariants in the proofs of the nonsqueezing theorem and the uniqueness of symplectic structures on $\CP^2$.
+
+Around 1988, inspired by Floer's study of gauge theory on three manifolds, Witten introduced the topological sigma model [@floer1988instanton; @witten1988topological].
+The invariants of this model are the "$k$-point correlation functions", another precursor to the modern notion of the Gromov--Witten invariants.
+Witten also observed some of the relationships between these invariants and possible degenerations of Riemann surfaces [@witten1990two].
+Further precursors to the notion of the Gromov--Witten invariants can also be seen in McDuff's classification of symplectic ruled surfaces [@mcduff1991symplectic].
+
+In 1993 Ruan gave a modern definition of the genus-zero Gromov--Witten invariants for semipositive symplectic manifolds [@ruan1996topological; @ruan1994symplectic]. At the end of 1993, Ruan and Tian established the associativity of the quantum product for semipositive symplectic manifolds, giving a mathematical basis to the composition law of Witten's topological sigma model [@rt1995quatumcohomology].
+
+In 1994 Kontsevich and Manin stated the Gromov--Witten axioms, given as a list of formal relations between the Gromov--Witten invariants [@KM].
+At the time it was not possible for Kontsevich and Manin to give a proof of the relations they listed; the definition of the Gromov--Witten invariant (complete with homology classes from a Deligne--Mumford space) would require in addition new ideas involving "stable maps" [@Kstable].
+Hence they used to term "axiom" with the presumed meaning "to take for assumption without proof"/ "to use as a premise for further reasoning". And indeed, from these starting assumptions they were able to establish foundational results in enumerative geometry, answers to esoteric questions such as:
+
+> **Kontsevich's recursion formula.** _Let $d\geq 1$. How many degree $d$ rational curves in $\CP^2$ pass through $3d - 1$ points in general position?_
+
+Moreover, in this paper they outlined some of the formal consequences of the axioms by demonstrating how to combine the invariants into a Gromov--Witten potential, and interpret the axioms as differential equations which the potential satisfies.
+
+To varying extents, this work has predated the construction of a well-defined Gromov--Witten invariant in symplectic geometry for $J$-holomorphic curves of arbitrary genus, and for all closed symplectic manifolds.
+Efforts to construct a well-defined Gromov--Witten invariant constitute an ever growing list of publications, including but not limited to the following: [@LT; @FO; @fukaya2012technical; @Si; @cieliebak2007symplectic; @mcduff2012smooth; @mcduff2018fundamental; @MWtopology; @ionel2013natural; @pardon2016algebraic].
+A discussion of some of the difficulties inherent in these approaches can be found in [@ffgw2016polyfoldsfirstandsecondlook].
+Similarly, there have been several efforts to prove the Gromov--Witten axioms [@FO; @MSbook; @castellano2016genus].
+
+Over the past two decades, Hofer, Wysocki, and Zehnder have developed a new approach to resolving transversality issues that arise in the study of $J$-holomorphic curves in symplectic geometry called _polyfold theory_ [@HWZ1; @HWZ2; @HWZ3; @HWZGW; @HWZsc; @HWZdm; @HWZint; @HWZbook]. This approach has been successful in constructing a well-defined Gromov--Witten invariant for arbitrary genus and for general symplectic manifolds [@HWZGW].
+
+With a fully general Gromov--Witten invariant finally defined rigorously, my research has fixated on answering the following question:
+
+> Is it possible to finally prove the Gromov--Witten axioms using polyfold theory?
+
+## What is a Gromov--Witten invariant?
+
+Let $(M,\ww)$ be a closed symplectic manifold of dimension $\dim M = 2n$, and let $J$ be a $\ww$-compatible almost complex structure.
+For a fixed homology class $A\in H_2(M,\Z)$, and for fixed integers $g\geq 0$, $k\geq 0$, we consider the set of $J$-holomorphic curves:
+
+$$
+	\cM_{A,g,k}(J) :=
+	\left\{
+	\begin{array}{c}
+		u: (\Sigma_g,j) \to M \\
+		\{z_1,\ldots,z_k\}\in \Sigma_g
+	\end{array}
+	\biggm|
+	\begin{array}{c}
+		\tfrac{1}{2} (du+J\circ du\circ j)=0 \\
+		u_*[\Sigma_g] = A
+	\end{array}
+	\right\}
+	\biggm/
+	\begin{array}{l}
+		u \sim u\circ \phi, \\
+		\phi\in \Aut
+	\end{array}
+$$
+
+consisting of smooth maps $u:(\Sigma_g,j)\to M$ which satisfy the Cauchy--Riemann equation modulo reparametrization; here $(\Sigma_g,j)$ is a genus $g$ Riemann surface and $\Aut$ is the automorphism group of the Riemann surface $(\Sigma_g,j)$ which preserves the ordering of the marked points.
+
+Gromov proved this set has a natural compactification in [@G], which was later refined into the stable map compactification of Kontsevich in [@Kstable], and thus we may also consider its compactification, the **Gromov--Witten moduli space**:
+
+$$
+	\CM_{A,g,k} (J) := \cM_{A,g,k} (J) \sqcup \{\text{stable nodal $J$-holomorphic curves}\}.
+$$
+
+We seek to use this space to construct invariants of the symplectic manifold $M$.
+To this end, we define the **evaluation map** which evaluates a stable curve on each marked point:
+
+$$
+	ev: \CM_{A,g,k} (J) \to M\times \cdots \times M.
+$$
+
+On the top stratum of non-noded stable $J$-holomorphic curves it is given by
+
+$$
+	ev\left([(u,z_1,\ldots,z_k)] \right): = (u(z_1),\ldots, u(z_k)).
+$$
+
+With the fixed integers $g \geq 0$, $k \geq 3$ we also consider the associated **Deligne--Mumford space**, the natural compactification of the space of configurations of a complex structure and $k$-marked points on a genus $g$ Riemann surface modulo biholomorphic equivalence:
+
+$$
+	\dmspace_{g,k} := \text{cl} \left(\{ j, \{z_1,\ldots,z_k\}\in \Sigma_g \mid j \text{ complex structure on } \Sigma_g, z_i\neq z_j \text{ if } i \neq j\} / \text{Aut} \right).
+$$
+
+When $g = 0$ this space is a finite-dimensional manifold, and when $g\neq 0$ this space is a finite-dimensional orbifold, in either case of dimension
+$\text{dim}$ $\dmspace_{g,k} = 6g - 6 + 2k$
+We may define a **projection map** from the Gromov--Witten moduli space to the Deligne--Mumford space which forgets the curve which maps to $M$ and which stabilizes the resulting unstable domain components:
+
+$$
+	\pi: \CM_{A,g,k} (J) \to \dmspace_{g,k}.
+$$
+
+On the top stratum of non-noded stable $J$-holomorphic curves it forgets the map $u$ and is given by
+
+$$
+	\pi\left([(u,j,z_1,\ldots,z_k)]\right) := [(j,z_1,\ldots,z_k)].
+$$
+
+The traditional interpretation of a **Gromov--Witten invariant** is the (supposedly) finite count of $J$-holomorphic curves which at the $i$th-marked point pass through a submanifold $\cX_i \subset M$ and whose marked point configuration is restricted by the projection map to a suborbifold $\cB \subset \dmspace_{g,k}$. This can be visualized as the intersection number of the Gromov--Witten moduli space $\CM_{A,g,k}(J)$ with the product suborbifold $\cX_1\times \cdots \times \cX_k \times \cB$ via the map $ev_1\times \cdots \times ev_k \times \pi$ as depicted in the following diagram:
+
+$$
+\begin{align*}
+\CM_{A,g,k}(J) \xrightarrow{ev_1\times \cdots \times ev_k \times \pi} M\times \cdots & \times M \times \CM_{g,k} \\
+																																					& \cup \\
+																													\cX_1\times \cdots &\times \cX_k \times \cB.
+\end{align*}
+$$
+
+Such an intersection number should depend only on the homology classes of the submanifolds / suborbifolds, and should be independent of the almost complex structure. This count can be packaged algebraically as a homomorphism:
+
+$$
+	\GW_{A,g,k} : H_*(M;\Q)^{\otimes k} \times H_*(\dmspace_{g,k};\Q) \to \Q.
+$$
+
+A foundational problem in symplectic geometry is to actually show that such a Gromov--Witten invariant is _well-defined_.
+Ideally, we would like to define a Gromov--Witten invariant _rigorously_ via an intersection number:
+
+$$
+ \GW_{A,g,k} ([\cX_1],\ldots,[\cX_k];[\cB]) = (ev\times \pi) (\CM_{A,g,k} (J)) \cdot (\cX_1\times \cdots \times \cX_k \times \cB),
+$$
+
+or as an integral:
+
+$$
+ \GW_{A,g,k} ([\cX_1],\ldots,[\cX_k];[\cB]) = \int_{\CM_{A,g,k}(J)} ev^* (\PD [\cX_1]\wedge \cdots \wedge \PD [\cX_k]) \wedge \pi^* \PD [\cB],
+$$
+
+or as a pairing with a (virtual) fundamental class:
+
+$$
+ \GW_{A,g,k} ([\cX_1],\ldots,[\cX_k];[\cB]) = \left\langle (ev\times\pi)_* [\CM_{A,g,k}(J)], \PD [\cX_1\times\cdots\times\cX_k\times\cB] \right\rangle.
+$$
+
+Such definitions require additional structure on the Gromov--Witten moduli space; an intersection number requires tangent spaces and notions of transversal intersection, an integral requires smooth partitions of unity and notions of differential forms, and a (virtual) fundamental class requires a distinguished homology class on the topological space.
+
+However, _a priori_, the Gromov--Witten moduli space only has the structure of a compact topological space, and this alone is insufficient to define any of the above. More structure is needed.
+
+## The classical pseudocycle Gromov--Witten invariant
+
+The classical approach to defining the Gromov--Witten invariants is to show that the Gromov--Witten moduli space has the structure of a _pseudocycle_.
+
+If the Cauchy--Riemann section were completely transversal to the zero section, i.e., transversal when considered on all possible nodal strata of the space of $J$-curves,
+then the top stratum of the space of $J$-curves would have the structure of a finite-dimensional manifold and all nodal strata would have the structure of manifolds with codimension at least $2$ relative to the top stratum.
+Thus the space of $J$-curves would have the structure of a "pseudocycle", i.e., a space whose boundary (the nodal strata) would be _invisible_ from the point of view of homology.
+
+**Definition.**
+Let $M$ be a smooth manifold. A smooth map $f: V \to M$ is a $d$-dimensional **pseudocycle** if $V$ is an oriented $d$-dimensional manifold $V$ such that the image $f(V)$ has compact closure and such that the image of the boundary $f(\bar{V} \setminus V)$ has dimension _at most_ $\leq d - 2$.
+
+Pseudocycles have sufficient structure for defining intersection numbers, as for dimension reasons the boundary will not contribute to the intersection number.
+
+However, transversality of the Cauchy--Riemann section is often impossible to obtain through classical techniques, i.e., perturbation of an almost complex structure.
+As a consequence, the nodal strata may have dimension larger than expected---indeed, larger than the dimension of the top stratum.
+This situation is a fundamental obstacle to the rigorous definition of a Gromov--Witten invariant; after all, for dimension reasons, any (nonzero) contribution to the intersection number from such a nodal stratum with large dimension would no longer be finite.
+
+The pseudocycle approach to defining Gromov--Witten invariants deals with this difficulty by imposing strict conditions on the symplectic manifold which disallows such phenomena in the nodal strata.
+The "semipositive" condition was first introduced by McDuff in 1991 in [@mcduff1991symplectic]: a symplectic manifold $(M^{2n},\ww)$ is called **semipositive** if, for every $A\in \pi_2(M)$,
+
+$$
+	\ww(A) >0,\ c_1(A) \geq 3-n \quad \implies \quad c_1(A) \geq 0.
+$$
+
+This condition may seem ad-hoc, but it is specifically designed to guarantee that in the genus-zero case, the strata of nodal $J$-curves will have codimension at least $2$ relative to the dimension of the top stratum of non-noded simple $J$-curves.
+
+**Theorem.** [@MSbook, Thms. 6.6.1, 6.7.1]
+_Let $(M,\ww)$ be a semipositive sympletic manifold. There exists a regular almost complex structure on $M$ such that the evaluation map from the genus-zero Gromov--Witten moduli space to the product_ $M\times \cdots \times M,$
+
+$$
+	ev: \CM_{A,0,k}(J) \to M\times\cdots\times M,
+$$
+
+_is a pseudocycle._
+
+The **pseudocycle Gromov--Witten invariant** is the homomorphism
+
+$$
+	\text{pseudocycle-}\GW_{A,0,k} : H_* (M;\Q)^{\otimes k} \to \Q
+$$
+
+defined via the intersection number of the pseudocycle $ev : \cM^*_{A,0,k} (J) \to M\times\cdots\times M$ with a basis of representing submanifolds $\cX \subset M$:
+
+$$
+	\text{pseudocycle-}\GW_{A,0,k} ([\cX_1],\ldots,[\cX_k]) :=
+	ev({\cM^*_{A,0,k}(J)}) \cdot \left(\cX_1 \times\cdots\times \cX_k \right).
+$$
+
+The invariant does not depend on the choice of regular almost complex structure $J$, nor on the choice of representing basis.
+
+## The polyfold Gromov--Witten invariant
+
+Polyfold theory, developed by Hofer, Wysocki, and Zehnder, is a modern approach to resolving transversality issues that arise in attempts to solve moduli space problems in symplectic geometry.
+The polyfold theoretic approach to solving a moduli space problem is to recast the problem into familiar terms from differential geometry.
+To do this, we may construct a "Gromov--Witten polyfold" $\cZ_{A,g,k}$---a massive, infinite-dimensional ambient space, designed to contain the entire unperturbed Gromov--Witten moduli space $\CM_{A,g,k}(J)$ as a compact subset.
+We may furthermore construct a "strong polyfold bundle" $\cW_{A,g,k}$ over $\cZ_{A,g,k}$; the Cauchy--Riemann operator then defines a "scale smooth Fredholm section" of this bundle, $\delbarj :\cZ_{A,g,k} \to \cW_{A,g,k}$, such that $\delbarjinv(0) = \CM_{A,g,k}(J)$.
+We can construct "abstract perturbations" $p$ of this section such that $\delbarj +p$ is transverse to the zero section and such that $(\delbarj+p)^{-1}(0)$ is a compact set.
+In this way, we may take a scale smooth Fredholm section and "regularize" the unperturbed Gromov--Witten moduli space yielding a **perturbed Gromov--Witten moduli space** $\cS_{A,g,k}(p):= (\delbarj+p)^{-1}(0)$ which has the structure of a compact oriented "weighted branched orbifold".
+
+$$
+		\begin{array}{c}
+		\CM_{A,g,k}(J) = \delbarj^{-1}(0)        \\
+		\text{\small{compact topological space}} \\
+		\end{array}
+		\xrightarrow{\text{``polyfold regularization''}}
+		\begin{array}{c}
+			\cS_{A,g,k}(p):=(\delbarj+p)^{-1}(0) \\
+			\text{\small{compact ``weighted branched orbifold''}}
+		\end{array}
+$$
+
+This approach has been successful in giving a well-defined Gromov--Witten invariant for curves of arbitrary genus, and for all closed symplectic manifolds.
+
+Consider homology classes $\alpha_1,\ldots, \alpha_k \in H_* (M;\Q)$ and $\beta\in H_* (\dmlog_{g,k};\Q)$.
+We can represent the Poincar\'e duals of the $\alpha_i$ and $\beta$ by closed differential forms in the de Rahm cohomology groups, $\PD(\alpha_i)\in H^*_{\dR} (M)$ and $\PD(\beta)\in H^*_{\dR}(\dmlog_{g,k})$.
+By pulling back via the evaluation and projection maps, we obtain a closed $\ssc$-smooth differential form
+
+$$
+	ev_1^* \PD (\alpha_1) \wedge \cdots \wedge ev_k^* \PD(\alpha_k) \wedge\pi^* \PD (\beta) \in H^*_{\dR} (\cZ_{A,g,k}).
+$$
+
+**Theorem.** [@HWZGW, Thm. 1.12]
+_The **polyfold Gromov--Witten invariant** is the homomorphism_
+
+$$
+		\GW_{A,g,k} : H_* (M;\Q)^{\otimes k} \otimes H_* (\dmlog_{g,k}; \Q) \to \Q
+$$
+
+_defined via the "branched integration" of [@HWZint]:_
+
+$$
+		\GW_{A,g,k} (\alpha_1,\ldots,\alpha_k;\beta) : = \int_{\cS_{A,g,k}(p)} ev_1^* \PD (\alpha_1) \wedge \cdots \wedge ev_k^* \PD(\alpha_k) \wedge\pi^* \PD (\beta).
+$$
+
+_This invariant does not depend on the choice of perturbation._
+
+## Orbifolds and the Steenrod problem
+
+The Steenrod problem was first presented in [@eilenberg1949problems] and asked the following question:
+
+> Can any homology class of a finite polyhedron be represented as an image of the fundamental class of some manifold?
+
+In [@thom1954quelques] Thom conclusively answered this problem, completely solving it for closed orientable manifolds.
+
+**Theorem** [@thom1954quelques, Thm II.1]
+_The rational homology groups of a closed orientable manifold have a basis consisting of classes represented by closed embedded submanifolds._
+
+For solving this problem, and for his related work inventing cobordism theory, Thom was awarded the Fields medal in 1958.
+Aided by the modern language of ep-groupoids, I was able to follow the same approach as Thom and obtain the following analogue for orbifolds.
+
+**Theorem** [@schmaltz2019steenrod, The Steenrod problem for orbifolds]
+_The rational homology groups of a closed orientable orbifold have a basis consisting of classes represented by "closed embedded full suborbifolds whose normal bundles have fiberwise trivial isotropy action"._
+
+In other words, given a closed orientable orbifold $\mathcal{O}$ there exists a basis $\{[\mathcal{X}_i]\}$ of the rational homology groups $H_*(\mathcal{O};\mathbb{Q})$ which consists of the fundamental classes of such "closed embedded full suborbifolds $\mathcal{X}_i\subset \mathcal{O}$ whose normal bundles have fiberwise trivial isotropy action".
+Such a suborbifold is called a **representing suborbifold**.
+
+Representing suborbifolds are well-suited for general intersection theories.
+Given such a suborbifold, the underlying topological space of the normal bundle is a vector bundle over the underlying topological space of the suborbifold.
+In contrast, the underlying topological space of an arbitrary orbifold bundle will generally not be a vector bundle.
+This means it is possible to use single valued sections (as opposed to multisections) for arguments involving perturbations.
+
+![The Steenrod problem for orbifolds](steenrod-blackboard.jpg)
+
+## Polyfold Gromov--Witten invariants as intersection numbers
+
+The earliest interpretations of the Gromov--Witten invariants present in the literature were given in terms of counting a finite number of curves [@MSbook; @ruan1994symplectic; @ruan1996topological].
+For example, Ruan described the Gromov--Witten invariants as a finite sum, counted with multiplicity, of nonmultiple cover $J$-spheres in $\cM^*_{(A,J)}$ which intersect representatives of given cycles in the symplectic manifold [@ruan1996topological, Thm. A].
+
+However, such definitions have previously been restricted to genus zero Gromov--Witten invariants in semipositive symplectic manifolds.
+Observe that in the genus $0$ case the Grothendieck--Knudsen spaces $\dmlog_{0,k}$ are finite-dimensional manifolds.
+In contrast, if genus $g >0$ the general Deligne--Mumford spaces $\dmlog_{g,k}$ are orbifolds.
+Therefore, in the genus $0$ case extant methods---such as representing a homology class as a pseudocycle in a manifold \cite{zinger2008pseudocycles} or, indeed, the Steenrod problem for manifolds---were sufficient to interpret the Gromov--Witten invariants as an intersection number.
+
+Using the Steenrod problem for orbifolds, I was able to prove that the polyfold Gromov--Witten invariants may equivalently be defined as an intersection number.
+Let $\cS_{A,g,k}(p)$ be a perturbed Gromov--Witten moduli space, and let $\cX_1\times \cdots \times \cX_k \times \cB$ be a representing suborbifold of $M^k \times \dmlog_{g,k}$.
+
+I showed that transversality of a perturbed solution space of a polyfold with a representing submanifolds/suborbifolds may _always_ be achieved through either of the following:
+
+- Through the perturbation of the representing suborbifold; due to the properties of the normal bundle representing suborbifolds may always be perturbed [@schmaltz2019steenrod, Prop. 3.9].
+- Assuming the map defined on the ambient polyfold is a submersion, we may obtain transversality through choice of a suitable abstract perturbation [@schmaltz2019steenrod, Prop. 3.10].\footnote{In the case of polyfold Gromov--Witten theory the projection to the Deligne--Mumford orbifold,
+  $\pi: \cZ*{A,g,k} \to \dmlog*{g,k}$ is not a submersion; hence to obtain transversality we must perturb the representing suborbifold $\cB\subset \dmlog*{g,k}$.}
+
+When $\dim \cS_{A,g,k}(p) + \dim \left(\cX_1 \times\cdots\times \cX_k \times \cB\right) = \dim (M^k \times \dmlog_{g,k})$ the intersection number is given by the signed weighted count of a finite number of points of intersection.
+
+**Theorem** [@schmaltz2019steenrod, Polyfold Gromov--Witten invariants as intersection numbers]
+_The polyfold Gromov--Witten invariant may equivalently be defined as the intersection number evaluated on a basis of representing submanifolds $\cX \subset M$ and representing suborbifolds $\cB \subset \cO$:_
+
+$$
+	\GW_{A,g,k} ([\cX_1],\ldots,[\cX_k];[\cB]) :=
+	\left(ev_1\times\cdots\times ev_k\times\pi\right)|_{\cS_{A,g,k}(p)} \cdot \left(\cX_1 \times\cdots\times \cX_k \times \cB\right).
+$$
+
+_The invariant does not depend on the choice of abstract perturbation, nor on the choice of representing basis._
+
+Thus the traditional geometric interpretation of the Gromov--Witten invariants as a "count of curves" is made literal.
+
+![A Gromov--Witten invariant](gw-invariant.jpg)
+
+## A polyfold proof of the Gromov--Witten axioms
+
+In 2019, I succeeded in giving a complete proof of the Gromov--Witten axioms.
+
+**Theorem** [@schmaltz2019axioms, Polyfold Gromov--Witten axioms]
+_The polyfold Gromov--Witten invariants satisfy the Gromov--Witten axioms:_
+
+**Effective axiom.** _If_ $\ww(A)<0$ _then_ $\GW_{A,g,k} = 0$.
+
+**Grading axiom.** _If_ $\GW_{A,g,k} (\alpha_1,\ldots,\alpha_k; \beta) \neq 0$ _then_
+
+$$
+	\sum_{i=1}^k (2n - \deg (\alpha_i)) + (6g-6+2k - \deg(\beta)) = 2c_1(A) + (2n - 6)(1-g) + 2k.
+$$
+
+**Homology axiom.** _There exists a homology class_
+
+$$
+    	\sigma_{A,g,k} \in H_{2c_1(A) + (2n-6)(1-g) + 2k} (M^k\times \dmspace_{g,k};\Q)
+$$
+
+_such that_
+
+$$
+    	\GW_{A,g,k} (\alpha_1,\ldots,\alpha_k; \beta) = \langle p_1^* \PD(\alpha_1) \smallsmile \cdots \smallsmile p_k^*\PD (\alpha_k) \smallsmile p_0^*\PD(\beta), \sigma_{A,g,k} \rangle
+$$
+
+_where_ $p_i: M^k \times \dmspace_{g,k} \to M$ _denotes the projection onto the_ $i$_th factor and the map_ $p_0:M^k \times \dmspace_{g,k}\to\dmspace_{g,k}$ _denotes the projection onto the last factor._
+
+**Zero axiom.** _If_ $A=0,\ g=0$ _then_ $\GW_{0,0,k} (\alpha_1,\ldots,\alpha_k;\beta) = 0$ _whenever_ $\deg (\beta) >0$, _and_
+
+$$
+    	\GW_{0,0,k} (\alpha_1,\ldots,\alpha_k; [\pt]) = \int_M \PD(\alpha_1) \wedge \cdots \wedge \PD(\alpha_k).
+$$
+
+**Symmetry axiom.** _Fix a permutation_ $\sigma: \{1,\ldots, k\}\to \{1,\ldots,k\}$. _Consider the permutation map_ $\sigma:\dmlog_{g,k}\to \dmlog_{g,k}, \ [\Sigma,j,M,D]  \mapsto [\Sigma,j,M^\sigma,D]$ _where_ $M = \{z_1,\ldots,z_k\}$ _and where_ $M^\sigma := \{z'_1,\ldots,z'_k\},$ $z'_i:= z_{\sigma(i)}$.
+_Then_
+
+$$
+    	\GW_{A,g,k} (\alpha_{\sigma(1)},\ldots,\alpha_{\sigma(k)}; \sigma_*\beta) = (-1)^{N(\sigma;\alpha_i)} \GW_{A,g,k} (\alpha_1,\ldots,\alpha_k; \beta)
+$$
+
+_where_ $N(\sigma;\alpha_i):= \sharp 	\{	i<j \mid \sigma(i)> \sigma(j), \deg (\alpha_i)\deg(\alpha_j)\in 2\Z +1\}$.
+
+**Definition.** [@KM, Eq. 2.3] We say that $(A,g,k)$ is a **basic class** if it is equal to one of the following: $(A,0,3)$, $(A,1,1)$, or $(A,g\geq 2,0)$.
+
+The point is, for such values of $g$ and $k$ we will have $\dmspace_{g,k-1} = \emptyset$ by definition.
+
+**Fundamental class axiom.** _Consider the fundamental classes_ $[M]\in H_{2n}(M;\Q)$ _and_ $[\dmlog_{g,k}] \in H_{6g-6+2k}(\dmlog_{g,k};\Q)$. _Suppose that_ $A\neq 0$ _and that_ $(A,g,k)$ _is not basic. Then_
+
+$$
+    	\GW_{A,g,k} (\alpha_1,\ldots,\alpha_{k-1},[M]; [\dmlog_{g,k}]) = 0.
+$$
+
+_Consider the canonical section_ $s_i :\dmlog_{g,k-1} \to \dmlog_{g,k}$ _defined by doubling the_ $i$_th-marked point. Then_
+
+$$
+    	\GW_{A,g,k} (\alpha_1,\ldots,\alpha_{k-1},[M]; s_{i*}\beta) = \GW_{A,g,k-1} (\alpha_1,\ldots,\alpha_{k-1};\beta).
+$$
+
+**Divisor axiom.** _Suppose_ $(A,g,k)$ _is not basic. If_ $\deg (\alpha_k) = 2n-2$ _then_
+
+$$
+    	\GW_{A,g,k} (\alpha_1,\ldots,\alpha_k; \PD (ft_k^* \PD (\beta))) = (A\cdot \alpha_k ) \ \GW_{A,g,k-1} (\alpha_1,\ldots,\alpha_{k-1};\beta),
+$$
+
+_where_ $A\cdot \alpha_k$ _is given by the homological intersection product._
+
+Let $\{e_\nu \} \in H^*(M;\Q)$ be a homogeneous basis and let $\{e^\mu \} \in H^*(M;\Q)$ be the dual basis with respect to Poincaré duality, i.e., $\langle e_\nu \smallsmile e^\mu, [M] \rangle = \delta_{\nu \mu}$.
+It follows from the Künneth formula that $\{e_\nu \otimes e^\mu \}$ is a basis for $H^*(M\times M;\Q)$.
+We correct the sign by redefining $e_\nu$ as $(-1)^{\deg e_\nu} e_\nu$.
+We can write the Poincaré dual of the diagonal $\Delta \subset M\times M$ in this basis as
+$\PD([\Delta]) = \sum_\nu e_\nu \otimes e^\nu$.
+
+**Splitting axiom.** _Fix a partition_ $S_0 \sqcup S_1 =\{1,\ldots, k\}$.
+_Let_ $k_0 := \sharp S_0$, $k_1 := \sharp S_1$ _and let_ $g_0$, $g_1 \geq 0$ _such that_ $g = g_0 + g_1$,
+_and_ $k_i + g_i \geq 2$ for $i=0,1$.
+_Consider the natural map_
+$$\phi_S : \dmspace_{k_0+1 , g_0}\times \dmspace_{k_1+1 , g_1} \to \dmspace_{g,k}$$
+_which identifies the last marked point of a stable noded Riemann surface in_ $\dmspace_{k_0+1 , g_0}$ _with the first marked point of a stable noded Riemann surface in_ $\dmspace_{k_1+1, g_1}$, _and which maps the first_ $k_0$ _marked points of_ $\dmspace_{g_0,k_0+1}$ _to marked points indexed by_ $S_0$ _and likewise maps the last_ $k_1$ _marked points of_ $\dmspace_{g_1,k_1+1}$ _to marked points indexed by_ $S_1$.
+_Then_
+
+$$
+    \begin{align*}
+    	 & \GW_{A,g,k} (\alpha_1, \ldots, \alpha_k; \phi_{S*} (\beta_0\otimes \beta_1) ) =
+    	(-1)^{N(S;\alpha)} \sum_{A_0+A_1 = A}	\sum_\nu                                     \\
+    	 & \qquad
+    	\GW_{A_0,g_0,k_0+1} (\{\alpha_i\}_{i\in S_0}, \PD (e_\nu) ; \beta_0)
+    	\cdot
+    	\GW_{A_1,g_1,k_1+1} (\PD (e^\nu), \{\alpha_j\}_{j\in S_1} ; \beta_1)
+    \end{align*}
+$$
+
+_where_ $N(S;\alpha)=\sharp \{j<i \mid i\in S_0, j\in S_1, \deg(\alpha_i)\deg(\alpha_j)\in 2\Z +1 \}$.
+
+**Genus reduction axiom.** _Consider the natural map_
+$$\psi: \dmspace_{g-1,k+2} \to \dmspace_{g,k}$$
+_which identifies the last two marked points of a stable noded Riemann surface, increasing the arithmetic genus by one._
+_Then_
+
+$$
+  2 \cdot \GW_{A,g,k} (\alpha_1, \ldots, \alpha_k; \psi_* \beta) = \sum_\nu \GW_{A,g-1,k+2} (\alpha_1,\ldots,\alpha_k, \PD (e_\nu) , \PD (e^\nu) ; \beta).
+$$
+
+## Strategy of the proof of the Gromov--Witten axioms
+
+The Gromov--Witten axioms give relationships between the Gromov--Witten invariants.
+These relationships are determined by the geometry of certain naturally defined maps defined between the unperturbed Gromov--Witten moduli spaces, namely:
+
+- permutation maps, $$\sigma : \CM_{A,g,k}(J) \to \CM_{A,g,k}(J),$$
+- $k$th-marked point forgetting maps, $$ft_k : \CM_{A,g,k}(J) \to \CM_{A,g,k-1}(J),$$
+- canonical sections, $$s_i : \CM_{A,g,k-1}(J) \hookrightarrow \CM_{A,g,k}(J).$$
+
+Furthermore, using the map
+
+$$
+	ev_{k_0+1} \times ev_1 : \CM_{A_0,g_0,k_0+1}(J) \times \CM_{A_1,g_1,k_1+1}(J) \to M\times M
+$$
+
+we may consider the subset $(ev_{k_0+1} \times ev_1 )^{-1}(\Delta)$ of the product unperturbed Gromov--Witten moduli space with a constraint imposed by the diagonal $\Delta \subset M\times M$.
+We then additionally have:
+
+- inclusion maps, and maps $\phi$ which identify the marked points $z_{k_0+1}$ and $z_1'$,
+  $$
+  	\begin{align*}
+  		\CM_{A_0,g_0,k_0+1}(J) & \times \CM_{A_1,g_1,k_1+1}(J) \\
+  		i \bigg{\uparrow} & \\
+  		(ev_{k_0+1} & \times ev_1 )^{-1}(\Delta) \xrightarrow{\phi} \CM_{A_0+A_1,g_0+g_1,k_0+k_1}(J)
+  	\end{align*}
+  $$
+  Likewise, using the map
+  $ev_{k+1} \times ev_{k+2} : \CM_{A,g-1,k+2}(J) \to M\times M$
+  we may consider the subset $(ev_{k+1} \times ev_{k+2} )^{-1}(\Delta)$ of the unperturbed Gromov--Witten moduli space with a constraint imposed by the diagonal $\Delta \subset M\times M$.
+  We then additionally have:
+- inclusion maps, and maps $\psi$ which identify the marked points $z_{k+1}$ and $z_{k+2}$ (increasing the arithmetic genus by one),
+  $$
+  	\begin{align*}
+  		\CM_{A,g-1,k+2}& (J)	\\
+  		i \bigg{\uparrow} \qquad &\\
+  		(ev_{k+1} \times ev_{k+2}& )^{-1}(\Delta) \xrightarrow{\psi} \CM_{A,g,k}(J)
+  	\end{align*}
+  $$
+
+Intuitively, we should prove the Gromov--Witten axioms by interpreting the Gromov--Witten invariants as a finite count of curves and using the geometry of the above maps to directly compare such counts with respect to constraints imposed by the homology classes on $M$ and $\dmlog_{g,k}$.
+
+A substantial amount of work is required to make this intuition rigorous in the context of an abstract perturbation theory.
+A deep understanding of the full machinery of polyfold theory, in addition to the geometry of the Gromov--Witten invariants is necessary to navigate substantial difficulties that we encounter.
+
+## Difficulties in proving the polyfold Gromov--Witten axioms
+
+Proving this required a substantial amount of work, and relied on the results of [@schmaltz2019naturality; @schmaltz2019steenrod].
+The Gromov--Witten axioms give relationships between the Gromov--Witten invariants.
+These relationships are determined by the geometry of certain naturally defined maps defined between the unperturbed Gromov--Witten moduli spaces, namely the permutation maps, the $k$th-marked point forgetting maps, in addition to certain natural maps which identify marked points into nodal pairs, where the Gromov--Witten moduli space is subject to a diagonal constraint.
+With the exception of the $k$th-marked point forgetting maps, we may pullback abstract perturbations in order to obtain well-defined restricted maps between perturbed Gromov--Witten moduli spaces.
+
+The branched integral is useful for giving a well-defined definition of the polyfold Gromov--Witten invariants and moreover showing that they are, in fact, invariants and do not depend on choices. But integration is not the best viewpoint for giving a proof of all of the axioms.
+Intuitively, we should prove the Gromov--Witten axioms by interpreting the Gromov--Witten invariants as an intersection number and using the geometry of the above maps to directly compare such counts with respect to constraints imposed by the homology classes on $M$ and $\dmlog_{g,k}$.
+And indeed, via [@schmaltz2019steenrod] this intuition is made rigorous, and is precisely my approach to proving the axioms.
+
+However, problems arise when we try to define a $k$th-marked point forgetting map between perturbed Gromov--Witten moduli spaces---such a map does not even exist.
+The construction of the smooth structure for the Deligne--Mumford orbifolds as described in [@HWZGW] and [@HWZdm] requires a choice: that of a "gluing profile," i.e., a smooth diffeomorphism $\varphi: (0,1]\to [0,\infty).$
+Given a noded Riemann surface and a nonzero parameter $a \in \C$ we use the gluing profile to replace a region of the node with a cylinder of finite length $\varphi(\abs{a})$.
+The logarithmic gluing profile is given by
+$\varphi_{\log} (r) = -\frac{1}{2\pi} \log (r)$
+and produces the classical holomorphic Deligne--Mumford orbifolds $\dmlog_{g,k}$. There is also an exponential gluing profile, given by
+$\varphi_{\exp} (r) = e^{1/r} - e$
+which produces Deligne--Mumford orbifolds $\dmexp_{g,k}$ which are only smooth orbifolds. The exponential gluing profile is required for the scale smoothness of certain maps used to define the Gromov--Witten polyfolds.
+
+This use of nonstandard smooth structure has the following consequence:
+
+> **Problem 1.** In general the map $ft_k: \dmexp_{g,k} \to \dmexp_{g,k-1}$ is continuous but not differentiable.
+
+Independent of the usage of a nonstandard gluing profile, there is no hope whatsoever of defining a $k$th-marked point forgetting map on the Gromov--Witten polyfolds as they are defined:
+
+> **Problem 2.** In general there does not exist a natural map $ft_k$ on the Gromov--Witten polyfolds.
+
+To explain, a stable curve in $\cZ_{A,g,k}$ may contain a "destabilizing ghost component," i.e., a component $C_k\simeq S^2$ with precisely $3$ special points, one of which is the $k$th-marked point, and such that $\int_{C_k} u^*\ww =0,$ $u|_{C_k} \neq\text{const}.$
+After removal of the $k$th-marked point from such a component we cannot consider the resulting data as a stable curve in $\cZ_{A,g,k-1}$.
+
+We might try to restrict to a subset $\cZ^\text{const}_{A,g,k}\subset \cZ_{A,g,k}$ consisting of stable curves which are constant on such destabilizing ghost components. The $k$th-marked point forgetting map is then well-defined on this subset.
+However, if we consider $\mathcal{Z}^\text{const}_{A,g,k}\subset \mathcal{Z}_{A,g,k}$ with the subspace topology, and $\mathcal{Z}_{A,g,k-1}$ with the usual polyfold topology, then:
+
+> **Problem 3.** In general the well-defined restriction $ft_k:\cZ_{A,g,k}^\text{const} \to \mathcal{Z}_{A,g,k-1}$ is not continuous.
+
+There is a final problem. In general, the projection map must factor through the $k$th-marked point forgetting map; this is due to the need to forget the added stabilizing points. Thus, in order to obtain a smooth projection map we must map to the logarithmic Deligne--Mumford orbifold.
+However:
+
+> **Problem 4.** While the projection $\pi : \cZ_{A,g,k} \to \dmlog_{g,k}$ is $\ssc$-smooth, in general it is not a submersion.
+
+This has important consequences if we wish to consider the Gromov--Witten invariant as an intersection number; the only way to get transversality of the projection map with a representing suborbifold $\cB \subset \dmlog_{g,k}$ is through perturbation of the suborbifold.
+This is made possible by the existence of representing suborbifolds, for which perturbation is possible, the existence of which is guaranteed by [@schmaltz2019steenrod].
+
+## The universal curve Gromov--Witten polyfold
+
+In essence, the central problem is that the Gromov--Witten polyfolds as constructed are not "universal curves".
+My proof of the Gromov--Witten axioms rectifies this by constructing a universal curve polyfold $\cZ^\text{uc}_{A,g,k}$ over $\cZ_{A,g,k-1}$, on which we may consider a well-defined $k$th-marked point forgetting map
+
+$$
+	ft_k : \cZ^\text{uc}_{A,g,k} \to \cZ_{A,g,k-1}.
+$$
+
+The preimage of stable curve in $\cZ_{A,g,k-1}$ via $ft_k$ can be identified with the underlying Riemann surface with nodes identified, thereby explaining the choice of nomenclature "universal curve".
+It is possible to pullback regular perturbations via this map, and hence obtain a well-defined map between perturbed Gromov--Witten moduli spaces.
+
+Now we find ourselves in the following situation: given the Gromov--Witten moduli space $\CM_{A,g,k}$ we can define polyfold Gromov--Witten invariants associated to the usual Gromov--Witten polyfold $\cZ_{A,g,k}$ and associated to the universal curve polyfold $\cZ^\text{uc}_{A,g,k}$ which, a priori, we cannot assume are equivalent.
+
+In [@schmaltz2019naturality], I present a general framework for proving that polyfold invariants are _natural_, which applied to polyfold Gromov--Witten theory yields the following result.
+
+**Theorem.** [@schmaltz2019naturality, Naturality of the polyfold Gromov--Witten invariants]
+_The polyfold Gromov--Witten invariants are natural, and do not depend on auxiliary choices made in their construction.
+In particular, the Gromov--Witten invariants associated to the usual Gromov--Witten polyfold and associated to the universal curve Gromov--Witten polyfold are identical._
+
+## Pseudocycle Gromov--Witten invariants are a strict subset of polyfold Gromov--Witten invariants
+
+I unified the classical definition of a Gromov--Witten invariant as a pseudocycle and the modern definition of a Gromov--Witten invariant via polyfold theory by proving they are equivalent.
+
+**Theorem.** [@schmaltz2023equivalence, Main result]
+_For a given semipositive symplectic manifold, the pseudocycle genus-zero Gromov--Witten invariants are equal to the polyfold genus-zero Gromov--Witten invariants._
+
+Since the polyfold Gromov--Witten invariants are not restricted to genus-zero, nor to semipositive symplectic manifolds, we have
+
+$$
+	\left\{ \begin{array}{c} \textit{pseudocycle} \\ \textit{Gromov-Witten} \\ \textit{invariants} \end{array} \right\}
+	\subsetneq
+	\left\{ \begin{array}{c} \textit{polyfold} \\ \textit{Gromov-Witten} \\ \textit{invariants} \end{array} \right\}.
+$$
+
+### References
+
+::: {#refs}
+:::
