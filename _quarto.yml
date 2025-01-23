@@ -1,35 +1,43 @@
 project:
   type: website
+  resources: 
+    - CV - Wolfgang Schmaltz.pdf
 
 website:
   title: 'Wolfgang Schmaltz'
+  favicon: icon.png
   navbar:
     right:
-      - text: Home
+      - text: Profile
         file: index.qmd
-      - text: Mathematics
+      - text: Research Mathematics
         file: mathematics.qmd
-      - text: Deep Learning
-        file: deep_learning.qmd
+      - text: Limitations of AI
+        file: limitations.qmd
+      - text: Forecasting
+      - text: Wolfgang-GPT
+        file: gpt.qmd
 
   sidebar:
-      - title: 'Mathematics'
+      - title: 'Research Mathematics'
         style: 'docked'
         contents:
           - file: mathematics.qmd
-            text: Mathematics
-      - title: 'Deep Learning'
-        style: 'docked'
-        contents:
-        - file: deep_learning.qmd
-          text: Deep Learning
-        - file: fastai-1.ipynb
-          text: 1 - Building a simple model
-        - file: fastai-2.ipynb
-          text: 2 - Which member of 'The Beatles' are you?
-        - file: fastai-3.ipynb
-          text: 3 - Comparing computer vision models
-        - file: fastai-3.5.ipynb
+            text: Research Mathematics
+      - title: 'Limitations of AI'
+        style: docked
+      # - title: 'Deep Learning'
+      #   style: 'docked'
+      #   contents:
+      #   - file: deep_learning.qmd
+      #     text: Deep Learning
+      #   - file: fastai-1.ipynb
+      #     text: 1 - Building a simple model
+      #   - file: fastai-2.ipynb
+      #     text: 2 - Which member of 'The Beatles' are you?
+      #   - file: fastai-3.ipynb
+      #     text: 3 - Comparing computer vision models
+      #   - file: fastai-3.5.ipynb
       # - title: 'Stable Diffusion'
       #   style: 'docked'
 

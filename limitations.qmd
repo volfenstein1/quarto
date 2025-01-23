@@ -1,16 +1,327 @@
 ---
-title: "Limitations of machine learning"
+title: "Mathematics and the Limitations of Modern Artifical Intelligence"
 sidebar: false
+html-math-method:
+  method: mathjax
 ---
 
-What are the limitations?
+Some years ago, at one of the UC Berkeley afternoon teas I was speaking with a colleague of mine.
+He had just returned from a conference on "New Developments in Microlocal Sheaf Theory" (or something along those lines, I do not remember this precisely).
+What I do remember, vividly, is his description of a fascinating encounter.
+At the conference was a child, only 12-year-old, a rising prodigy in algebraic geometry, surrounded by people at least double his age.
+The colleague was naturally intrigued, and did his best to converse with the kid.
 
-- https://www.nytimes.com/2023/05/16/technology/microsoft-ai-human-reasoning.html?action=click&pgtype=Article&state=default&module=styln-artificial-intelligence&variant=show&region=BELOW_MAIN_CONTENT&block=storyline_flex_guide_recirc
-- https://ryxcommar.com/2023/03/28/chatgpt-as-a-query-engine-on-a-giant-corpus-of-text/
-- https://www.nytimes.com/2023/07/02/science/ai-mathematics-machine-learning.html
+"It was the strangest thing. He seemed to know the entirety of Hartshorne's _Algebraic Geometry_ by heart. He could rattle of the exact statement of, for example, the _Lemma of Hironaka_ if you asked him."
 
-Look up other examples where ChatGPT is easily tricked and confused
+"But there was no understanding of the meaning behind the words. I have no doubt he was a bright kid, with potential, so no offense by any means. But memorizing a theorem is not the same as understanding it."
 
-Use some examples from mathematics
+The above story presents a dichotomy, that of _knowing_ vs. _understanding_.
+When we evaluate the capabilities and potential of modern Artificial Intelligence amidst the endless hype, we really ought to keep this fundamental contrast in mind.
 
-Look at Michael Hutchings facebook posts
+## The conventional wisdom: AI mathematicians are imminent
+
+<!-- Some Predictions of imminent AI mathematicians -->
+
+Is automation and economic disruption, long a concern for blue collar factory workers, coming for the jobs of academic mathematicians?
+According to the conventional wisdom, Artificial Intelligence will someday soon replace humans for all information-related tasks.
+Pointedly, this supposedly includes mathematics, ranging from simple calculations to Putnam and IMO problems to research level mathematics.
+
+The New York Times informs us that [A.I. Is Coming for Mathematics, Too](https://www.nytimes.com/2023/07/02/science/ai-mathematics-machine-learning.html), and suggests that the deductive jumps of reasoning required by mathematics are already being replicated by the impenetrable black boxes of neural networks.
+In an anecdote, a neural network is described as managing to correctly predict some desired mathematical constant, but unable to further elaborate or explain its conclusion: "the neural net had somehow intuitively discerned a mathematical truth, but the logical 'why' of it was far from obvious".
+Inspection of the layers of the neural network proved predictably fruitless.
+
+The Fields medalist Terrence Tao describes his own [experience](https://mathstodon.xyz/@tao/113132503432772494) toying with GPT-4 as being "roughly on par with trying to advise a mediocre, but not completely incompetent, (static simulation of a) graduate student"; given a complex analysis problem, and with hints and prodding, it was able to give an accurate proof.
+
+Entering the realm of science-fiction, the prominent computer scientist and artificial intelligence researcher Christian Szegedy optimistically predicts that by June 2026 we will see ["super-human mathematician AI"](https://x.com/chrszegedy/status/1759050899291598956?mx=2).
+
+![](prediction.png)
+
+However.
+
+Despite the breathless hype.
+
+<!-- > _The (current) reality is that artificial intelligence cannot reliably solve original mathematical problems._ -->
+
+## The (current) reality: AI cannot reliably solve math problems
+
+<!-- at the moment, are ill-suited to discovering new mathematics -->
+
+Playing around with any of the top of the line chatbots, it is easy to be initially impressed.
+They can convincingly (and correctly) compute a complicated integral requiring complex analysis, or even write a proof of Weinstein's neighborhood theorem!
+
+Playing around a little more, it isn't hard at all for chatbots to produce gibberish; responses usually contain horrific basic arithmetical errors, hallucinations of connections between unrelated concepts, or unconditional overconfidence in the veracity of the given answer. (See the next sections for some illustrative experiments!)
+
+So, are chatbots right now deducing the answers using logic and reasoning, arriving at the answer deductive step by deductive step?
+Or are they regurgitating tweaked answers they have seen before, after ingesting the world's online libraries?
+OpenAI's research LLM, o1-preview, showed a [30% drop in accuracy](https://openreview.net/forum?id=YXnwlZe0yf) on a benchmark based on Putnam competition problems simply by tweaking the given questions.
+
+When evaluating the mathematical capabilities of LLMs, it is helpful to have a bit of an understanding for how GPTs, i.e., _generative pretrained transformers_, actually work.
+
+get a feel for this myself, I built [Wolfgang-GPT](gpt.qmd)
+
+<!-- Can say more after completing WOLFGANG-GPT -->
+
+TOKENIZATION
+
+STATIC SIMULATION
+
+THE OUTCOME - SUPERFICIAL ANSWERS
+
+SIMILAR PROBLEMS
+
+CHURNING THROUGH SEA OF INFORMATION
+
+There is a lot of value in this however!
+
+## Where to look for a future breakthrough
+
+first: formal proof assistants, FrontierMath
+
+Formal proof assistant
+
+SAT solver
+Trained on lean
+
+<!-- ## WHAT DO AI PROGRAMS PRIORITIZE? -->
+
+<!-- CHAT programs judge their answers on -->
+<!-- loss functions are geared towards superficially confident and superficially convincing answers, rather than "correct" answers, where correctness may be deemed as something like, mathematically accurate, without real gaps, even if sketched, even if hesitant. -->
+<!-- loss function approximates answers which appear at a glance to be convincing, rather than answers which are maybe less polished but more accurate -->
+<!-- I would prefer the opposite! -->
+<!-- Humans, students, etc can be claimed to operate in the opposite direction; a student who answers cautiously with the sketches of a correct answer -->
+
+## TO ITS CREDIT, MATH HAS SOME ELEMENTS WELL SUITED FOR MACHINE LEARNING
+
+**LOOK TO TERRENCE TAO'S PAPER FOR GUIDANCE HERE**
+
+To its credit, some elements should be somewhat well-suited for machine learning techniques
+
+Mathematics is:
+
+- static
+- extremely quantitative
+- rigorous and well-defined
+
+WILL NEED SOME FURTHER BREAKTHROUGHS, WAKE ME UP WHEN A COMPUTER SOLVES A FRONTIER MATH PROBLEM
+
+<!-- **LOOK TO TERRENCE TAO'S PAPER FOR GUIDANCE HERE** -->
+
+<!-- However, mathematics also requires genuine abstraction and understanding. -->
+
+<!-- And indeed, without a doubt chatbots appear at first glance to be quite impressive. -->
+<!-- And to some extent they are! -->
+<!-- But to some extent this is also superficial. -->
+
+<!-- Personally I can only conclude -->
+
+<!-- Artificial intelligence is sometimes correct and gives accurate and full explanations. -->
+
+<!-- The most fascinating part of the experiment is how confidently and wrongly an artificial intelligence will state its answer. -->
+<!-- It doesn't seem to differentiate levels of certainty: if it could, then the algorithm underlying it could iterate and give a better answer. -->
+
+<!-- But we don't even have to look that far. Chatbots fail and get confused at even the most basic problems. -->
+
+<!-- Notice the confidence of the ai bots! -->
+
+<!-- Wake me up when an chatbot can solve even one problem from https://epoch.ai/frontiermath. -->
+
+To illustrate my points, and just for fun, let's look at how some of the top chatbots perform when asked some math problems.
+
+# Microsoft Copilot factors the number $12$
+
+**Prompt:** List all the ways three distinct integers have a product of 12
+
+`Microsoft Copilot`
+
+> We're looking for sets of three distinct integers whose product equals 12. Let's find all possible combinations:
+>
+> - 1 × 2 × 6 = 12
+> - 1 × 3 × 4 = 12
+> - (−1) × (−2) × 6 = 12
+> - (−1) × (−3) × 4 = 12
+> - (−2) × (−3) × (-2) = 12 (Here, I swapped -1 and -3 but it still remains a valid distinct set)
+>
+> So, the unique sets of three distinct integers whose product is 12 are (1, 2, 6), (1, 3, 4), (-1, -2, 6), (-1, -3, 4), (-2, -3, -2).
+>
+> Mathematical puzzles can be such a treasure trove of logical thinking! What's your next brain teaser?
+
+The actual answer is:
+
+$$
+\begin{align}
+&(-3, -1, 4),\ (-12, -1, 1),\ (1, 2, 6),\ (-6, -2, 1),\ (-4, -1, 3), \\
+&(1, 3, 4),\ (-4, -3, 1),\ (-3, -2, 2),\ (-6, -1, 2),\ (-2, -1, 6)
+\end{align}
+$$
+
+A few things stand out about copilots answer:
+
+- it has difficulty handling edge cases, such as $(-12,-1,1)$,
+- it is not very systematic in terms of indentifying distinct triplets,
+- it is hillariously bad at checking its answer; note that the last triplet $(-2,-3,-2)$ satisfies neither condition; $-2$ is repeated and the product is of course $-12$.
+
+<!-- > List all the ways three distinct positive integers have a product of 24. -->
+
+<!-- Here are the sets of three distinct positive integers whose product is 24: -->
+
+<!-- - 1 × 3 × 8 =24 -->
+<!-- - 1 × 4 × 6 =24 -->
+<!-- - 2 × 3 × 4 =24 -->
+
+<!-- These three sets show the magic of numbers combining in different ways to form the same product. Got any more riddles up your sleeve? -->
+
+# Anthropic's Claude.ai factors a prime number
+
+**Prompt:** What is the third largest prime factor of the number 600851475143?
+
+`Claude.ai`
+
+> Let me solve this step by step.
+>
+> 1. First, let me find all prime factors of 600851475143:
+>    - Let's divide it by the smallest prime number possible at each step
+>    - 600851475143 = 1471 × 408533975
+>    - 408533975 = 1471 × 277725
+>    - 277725 = 5 × 55545
+>    - 55545 = 5 × 11109
+>    - 11109 = 3 × 3703
+>    - 3703 = 71 × 52.15...
+> 2. Therefore, 600851475143 = 1471 × 1471 × 5 × 5 × 3 × 71
+> 3. Looking at unique prime factors only:
+>    - 1471
+>    - 5
+>    - 3
+>    - 71
+> 4. Ordering these from largest to smallest:
+>    - 1471
+>    - 71
+>    - 5
+>    - 3
+>
+> Therefore, the third largest prime factor is 5.
+
+Everywhere you look there is a basic error, by my count, at least $4$.
+Conceptually, the most egregious is the attempted factorization by a noninteger, $3703 = 71 × 52.15...$, followed immediately by listing $71$ as a prime factor.
+
+(The actual factorization is
+$600851475143 = 71 \times 839 \times 1471 \times 6857$
+so the answer to the prompt is $839$.)
+
+# Google Gemini and Function Preimages
+
+<!-- > We call a positive integer **double pandigital** if it uses all the digits 0 to 9 exactly twice (with no leading zero). For example, 40561817703823564929 is one such number. How many double pandigital numbers are divisible by 3? -->
+
+<!-- To be divisible by 3, a number's digit sum must be divisible by 3. -->
+
+<!-- A double pandigital number has each digit from 0 to 9 twice, so its digit sum is: -->
+
+<!-- $$ -->
+<!-- 2 * (0 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9) = 2 * 45 = 90 -->
+<!-- $$ -->
+
+<!-- Since 90 is divisible by 3, **all double pandigital numbers are divisible by 3**. -->
+
+<!-- Therefore, to find the number of double pandigital numbers, we just need to find the total number of ways to arrange 10 digits twice, ensuring no leading zero. -->
+
+<!-- There are 9 choices for the first digit (since it can't be 0), then 10 choices for each of the remaining 19 digits. So, the total number of double pandigital numbers is: -->
+
+<!-- $$ -->
+<!-- 9 * 10^{19} = 9,000,000,000,000,000,000 -->
+<!-- $$ -->
+
+<!-- **So, there are 9,000,000,000,000,000,000 double pandigital numbers, and all of them are divisible by 3.** -->
+
+**Prompt:** Prove that $f(f^{-1}(A)) = A$.
+
+`Google Gemini`
+
+> To prove that $f(f^{-1}(A)) = A$, we need to show that both sets are subsets of each other.
+>
+> ### Part 1: $f(f^{-1}(A)) ⊆ A$
+>
+> Let $y$ be an arbitrary element of $f(f^{-1}(A))$. This means that there exists an $x$ in $f^{-1}(A)$ such that $f(x) = y$.
+>
+> By the definition of the inverse image, $x$ being in $f^{-1}(A)$ implies that $f(x)$ is in $A$. Therefore, $y = f(x)$ is in $A$.
+>
+> Since $y$ was an arbitrary element of $f(f^{-1}(A))$, this shows that every element of $f(f^{-1}(A))$ is also an element of $A$. Hence, $f(f^{-1}(A)) ⊆ A$.
+>
+> ### Part 2: $A ⊆ f(f^{-1}(A))$
+>
+> Let $x$ be an arbitrary element of $A$. Since $f$ is a function, there exists an element $y = f(x)$ in the codomain of $f$.
+>
+> Now, by the definition of the inverse image, $x$ is in $f^{-1}(y)$. Since $y = f(x)$, this means $x$ is in $f^{-1}(f(x))$.
+>
+> Therefore, $x$ is in $f^{-1}(f(A))$, which implies that $f(x) = y$ is in $f(f^{-1}(A))$.
+>
+> Since $x$ was an arbitrary element of $A$, this shows that every element of $A$ is also an element of $f(f^{-1}(A))$. Hence, $A ⊆ f(f^{-1}(A))$.
+>
+> ### Conclusion:
+>
+> From parts 1 and 2, we have shown that $f(f^{-1}(A)) ⊆ A$ and $A ⊆ f(f^{-1}(A))$. Therefore, $f(f^{-1}(A)) = A$.
+
+I gave this problem to some students in an intro math course. In the process of trying to probe possible approaches for a proof, they produced an instructive, and obvious, counterexample: $$f: \{0\} \to \{0,1\},\ f(0)=0,\ A=\{0,1\}.$$
+
+# ChatGPT-4 and the Kontsevich Recursion Formula
+
+**Prompt:** Let d $\geq$ 1. How many degree $d$ rational curves in $\mathbb{CP}^2$ pass through $3d - 1$ points in general position?
+
+`ChatGPT-4`
+
+> To determine the number of degree $d$ rational curves in $\mathbb{CP}^2$ that pass through $3d - 1$ points in general position, we can use the theory of intersection numbers and rational curves in projective spaces.
+>
+> ### Step 1: Understanding Rational Curves
+>
+> A rational curve of degree $d$ in $\mathbb{CP}^2$ can be represented by a map $\mathbb{CP}^1 \to \mathbb{CP}^2$ that has degree $d$. Such curves can be thought of as the images of a rational parameterization of degree $d$.
+>
+> ### Step 2: Conditions for Passing Through Points
+>
+> A degree $d$ rational curve can be defined by a polynomial equation of degree $d$ in homogeneous coordinates. To find how many such curves pass through a given set of points, we need to take into account:
+>
+> 1. The total number of points that the curve can pass through.
+> 2. The constraints imposed by those points being in general position.
+>
+> ### Step 3: Counting Curves
+>
+> When we have $3d - 1$ points in general position, we need to count how many degree $d$ curves can pass through these points.
+>
+> - The degree $d$ rational curves in $\mathbb{CP}^2$ correspond to a degree $d$ homogeneous polynomial, and the number of such curves that pass through $m$ general points can be computed using a formula derived from intersection theory.
+>
+> ### Step 4: Application of the Formula
+>
+> The general formula for counting the number of degree $d$ rational curves passing through $m$ points in general position in $\mathbb{CP}^2$ is given by:
+>
+> $$
+> N(d,m) = \binom{m - 1}{d - 1}
+> $$
+>
+> provided that $m \geq 3d - 1$.
+>
+> In our case, since $m = 3d - 1$:
+>
+> $$
+> N(d, 3d - 1) = \binom{(3d - 1) - 1}{d - 1} = \binom{3d - 2}{d - 1}
+> $$
+>
+> ### Conclusion
+>
+> Thus, the number of degree $d$ rational curves in $\mathbb{CP}^2$ that pass through $3d - 1$ points in general position is:
+>
+> $$
+> \boxed{\binom{3d - 2}{d - 1}}
+> $$
+
+This question was mostly just for fun, to see what kind of answer ChatGPT-4 would give to a question of fundamental importance in enumerative geometry, and which I understand deeply and completely.
+And indeed, ChatGPT-4's answer is a confidently stated hallucination, disconnected with any sort of mathematical reality.
+
+The correct answer is given by the initial condition $N_1 = 1$ and by the recursion formula:
+
+$$
+N_d = \sum_{k+l = d} N_k\cdot N_l \cdot
+\left(
+k^2\cdot l^2 \cdot \binom{3d-4}{3k-2}
+- k^3\cdot l \cdot \binom{3d-4}{3k-1}
+\right)
+$$
+
+The proof rests upon the enumerative foundations provided by the Gromov--Witten axioms.
+An understanding of the **splitting axiom**, the **divisor axiom**, and the **fundamental class axiom** are necessary to derive the above recursive formula.

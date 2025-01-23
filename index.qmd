@@ -2,13 +2,13 @@
 title: "Wolfgang Schmaltz"
 about:
   template: trestles
-  image: profile.jpg
+  image: profile2.jpg
   links:
     - icon: envelope
       text: Email
       href: mailto:volfenstein@gmail.com
     - text: CV
-      href: https://www.dropbox.com/s/mlh2z340fc188vh/CV%20-%20Wolfgang%20Schmaltz.pdf?dl=0
+      href: "CV - Wolfgang Schmaltz.pdf"
     - text: LinkedIn
       href: https://www.linkedin.com/in/wolfgang-schmaltz/
     - icon: github
@@ -20,6 +20,8 @@ about:
     - text: Kaggle
       href: https://www.kaggle.com/volfenstein
 sidebar: false
+html-math-method:
+  method: mathjax
 ---
 
 ## Biography
@@ -27,19 +29,60 @@ sidebar: false
 ## Education
 
 PhD in Mathematics \
-University of California, Berkeley | Berkeley, CA \
+University of California, Berkeley; Berkeley, CA \
 16 August 2012 - 11 May 2018
 
 B.S. in Mathematics \
-University of Chicago | Chicago, IL \
+University of Chicago; Chicago, IL \
 24 September 2007 - 11 June 2011
 
 ## Postdoctoral Appointments
 
 Faculty of Mathematics \
-Ruhr-Universität Bochum | Bochum, Germany \
-1 March 2020 - Present
+Ruhr-Universität Bochum; Bochum, Germany \
+1 March 2020 - 31 December 2024
 
 Mathematics Institute \
-Justus-Liebig University | Gießen, Germany \
+Justus-Liebig University; Gießen, Germany \
 1 January 2018 - 29 February 2020
+
+## Papers
+
+[Pseudocycle Gromov--Witten invariants are a strict subset of polyfold Gromov--Witten invariants](https://arxiv.org/abs/2308.14204)
+
+[Non-fillability of overtwisted contact manifolds via polyfolds (joint with S. Suhr, K. Zehmisch)](https://arxiv.org/abs/2011.02249)
+
+[The Gromov--Witten axioms for symplectic manifolds via polyfold theory](https://arxiv.org/abs/1912.13374)
+
+[Naturality of polyfold invariants and pulling back abstract perturbations](https://arxiv.org/abs/1912.13370)
+
+[The Steenrod problem for orbifolds and polyfold invariants as intersection numbers](https://arxiv.org/abs/1904.02186)
+
+## Invited Talks
+
+Orbifold Intersection Theory and Polyfold Gromov--Witten Invariants \
+_28 November 2023; Heidelberg Geometry Seminar; Heidelberg, Germany_
+
+Pseudocycle Gromov--Witten Invariants $\subsetneq$ Polyfold Gromov--Witten Invariants \
+_11 February 2021; Arbeitsgemeinschaft; Bochum, Germany_
+
+The Steenrod problem for orbifolds and polyfold Gromov--Witten invariants \
+_10 December 2020; Oberseminar Dynamische Systeme; Bochum, Germany_
+
+Gromov--Witten Axioms for Symplectic Manifolds via Polyfold Theory \
+_15 April 2019; Berlin-Hamburg-Seminar; Berlin, Germany_
+
+Gromov--Witten Axioms for Symplectic Manifolds via Polyfold Theory \
+_24 October 2018; SISSA; Trieste, Italy_
+
+Gromov--Witten Axioms for Symplectic Manifolds via Polyfold Theory \
+_30 August 2018; Symplectic Field Theory IX: Polyfolds for SFT; Augsburg, Germany_
+
+Gromov--Witten Axioms for Symplectic Manifolds via Polyfold Theory \
+_5 July 2018; Justus-Liebig University; Gießen, Germany_
+
+Naturality of Polyfold Invariants \
+_2 May 2018; Mathematical Sciences Research Institute; Berkeley, California_
+
+The Polyfold Gromov–Witten Invariants \& Gromov--Witten Axioms for Symplectic Manifolds via Polyfold Theory \
+_25 April 2018; Berkeley Topology Seminar; Berkeley, California_

@@ -205,7 +205,7 @@ B*{1/2}
 
 ## My research accomplishments
 
-In 1994, Kontsevich and Manin stated the Gromov--Witten axioms. At the time, it was not possible for them to give a complete proof; the field of Gromov--Witten theory was premature, and it would take years for a mathematically rigorous definition of a Gromov--Witten invariant to develop. In 2017, _polyfold theory_, as developed by Hofer, Wysocki, and Zehnder, was successful in giving a well-defined Gromov--Witten invariant for general symplectic manifolds.
+In 1994, Kontsevich and Manin stated the Gromov--Witten axioms. At the time, it was not possible for them to give a complete proof; the field of Gromov--Witten theory was not yet mature, and it would take years for a mathematically rigorous definition of a Gromov--Witten invariant to develop. In 2017, _polyfold theory_, as developed by Hofer, Wysocki, and Zehnder, was successful in giving a well-defined Gromov--Witten invariant for general symplectic manifolds.
 
 The focus of my mathematical career has been in giving a complete proof of the Gromov--Witten axioms using the tools and techniques of polyfold Gromov--Witten invariants. In 2019, I succeeded in this research project.
 
@@ -247,7 +247,7 @@ Over the past two decades, Hofer, Wysocki, and Zehnder have developed a new appr
 
 With a fully general Gromov--Witten invariant finally defined rigorously, my research has fixated on answering the following question:
 
-> Is it possible to finally prove the Gromov--Witten axioms using polyfold theory?
+> Is it finally possible to prove the Gromov--Witten axioms by using polyfold theory?
 
 ## What is a Gromov--Witten invariant?
 
@@ -475,7 +475,7 @@ Given such a suborbifold, the underlying topological space of the normal bundle 
 In contrast, the underlying topological space of an arbitrary orbifold bundle will generally not be a vector bundle.
 This means it is possible to use single valued sections (as opposed to multisections) for arguments involving perturbations.
 
-![The Steenrod problem for orbifolds](steenrod-blackboard.jpg)
+![A sketch of the proof of the Steenrod problem for orbifolds, Heidelberg Geometry Seminar, 28 November, 2023](steenrod-blackboard.jpg)
 
 ## Polyfold Gromov--Witten invariants as intersection numbers
 
@@ -615,6 +615,8 @@ _Then_
 $$
   2 \cdot \GW_{A,g,k} (\alpha_1, \ldots, \alpha_k; \psi_* \beta) = \sum_\nu \GW_{A,g-1,k+2} (\alpha_1,\ldots,\alpha_k, \PD (e_\nu) , \PD (e^\nu) ; \beta).
 $$
+
+![Gromov--Witten Axioms for Symplectic Manifolds via Polyfold Theory, Symplectic Field Theory IX, 30 August 2018](sft-03-enhanced.jpg)
 
 ## Strategy of the proof of the Gromov--Witten axioms
 

@@ -1,0 +1,41 @@
+---
+title: "Wolfgang-GPT"
+sidebar: false
+html-math-method:
+  method: mathjax
+---
+
+# Wolfgang-GPT
+
+Why?
+
+Once you build something, it demystifies it a bit. You become a bit more aware of how it works, why it works, and it's shortcomings.
+It stops feeling like magic, but maybe you are able to do a bit more with it.
+
+## History of LLMs
+
+## The ascent of transformers
+
+[Attention Is All You Need](https://arxiv.org/abs/1706.03762)
+
+![GPT](transformers.png)
+
+## LLM overview
+
+## Preparing the training data
+
+Raw data:
+
+- plain text LaTex code from arxiv papers
+
+Cleaning up the data:
+[arxiv Latex cleaner](https://github.com/google-research/arxiv-latex-cleaner)
+
+Tokenizer for latex:
+[mathberta](https://huggingface.co/witiko/mathberta)
+
+## The Output
+
+Pretty nonsensical! But keep in mind, I'm one guy who built this with a laptop from 2014. You can of course get more impressive results with 100 mathematics and computer science PhDs and with billions of dollars of computing resources.
+
+The point was to get a feel for the underlying mechanisms of an LLM.
