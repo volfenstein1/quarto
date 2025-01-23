@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Climbing – Wolfgang Schmaltz</title>
+<title>Wolfgang-GPT – Wolfgang Schmaltz</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -106,7 +106,7 @@ ul.task-list li input[type="checkbox"] {
     </span>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./gpt.html"> 
+    <a class="nav-link active" href="./gpt.html" aria-current="page"> 
 <span class="menu-text">Wolfgang-GPT</span></a>
   </li>  
 </ul>
@@ -125,11 +125,14 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#avalonia" id="toc-avalonia" class="nav-link active" data-scroll-target="#avalonia">Avalonia</a></li>
-  <li><a href="#the-5-classic-7as" id="toc-the-5-classic-7as" class="nav-link" data-scroll-target="#the-5-classic-7as">The 5 Classic 7As</a></li>
-  <li><a href="#the-long-legs-of-gullich" id="toc-the-long-legs-of-gullich" class="nav-link" data-scroll-target="#the-long-legs-of-gullich">The Long Legs of Gullich</a></li>
-  <li><a href="#italy---ragno-di-mare" id="toc-italy---ragno-di-mare" class="nav-link" data-scroll-target="#italy---ragno-di-mare">Italy - Ragno di Mare</a></li>
-  <li><a href="#the-wilder-kaiser" id="toc-the-wilder-kaiser" class="nav-link" data-scroll-target="#the-wilder-kaiser">The Wilder Kaiser</a></li>
+  <li><a href="#wolfgang-gpt" id="toc-wolfgang-gpt" class="nav-link active" data-scroll-target="#wolfgang-gpt">Wolfgang-GPT</a>
+  <ul class="collapse">
+  <li><a href="#history-of-llms" id="toc-history-of-llms" class="nav-link" data-scroll-target="#history-of-llms">History of LLMs</a></li>
+  <li><a href="#the-ascent-of-transformers" id="toc-the-ascent-of-transformers" class="nav-link" data-scroll-target="#the-ascent-of-transformers">The ascent of transformers</a></li>
+  <li><a href="#llm-overview" id="toc-llm-overview" class="nav-link" data-scroll-target="#llm-overview">LLM overview</a></li>
+  <li><a href="#preparing-the-training-data" id="toc-preparing-the-training-data" class="nav-link" data-scroll-target="#preparing-the-training-data">Preparing the training data</a></li>
+  <li><a href="#the-output" id="toc-the-output" class="nav-link" data-scroll-target="#the-output">The Output</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -138,7 +141,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Climbing</h1>
+<h1 class="title">Wolfgang-GPT</h1>
 </div>
 
 
@@ -155,22 +158,42 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="avalonia" class="level2">
-<h2 class="anchored" data-anchor-id="avalonia">Avalonia</h2>
+<section id="wolfgang-gpt" class="level1">
+<h1>Wolfgang-GPT</h1>
+<p>Why?</p>
+<p>Once you build something, it demystifies it a bit. You become a bit more aware of how it works, why it works, and it’s shortcomings. It stops feeling like magic, but maybe you are able to do a bit more with it.</p>
+<section id="history-of-llms" class="level2">
+<h2 class="anchored" data-anchor-id="history-of-llms">History of LLMs</h2>
 </section>
-<section id="the-5-classic-7as" class="level2">
-<h2 class="anchored" data-anchor-id="the-5-classic-7as">The 5 Classic 7As</h2>
+<section id="the-ascent-of-transformers" class="level2">
+<h2 class="anchored" data-anchor-id="the-ascent-of-transformers">The ascent of transformers</h2>
+<p><a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a></p>
+<div class="quarto-figure quarto-figure-center">
+<figure class="figure">
+<p><img src="transformers.png" class="img-fluid figure-img"></p>
+<figcaption>GPT</figcaption>
+</figure>
+</div>
 </section>
-<section id="the-long-legs-of-gullich" class="level2">
-<h2 class="anchored" data-anchor-id="the-long-legs-of-gullich">The Long Legs of Gullich</h2>
+<section id="llm-overview" class="level2">
+<h2 class="anchored" data-anchor-id="llm-overview">LLM overview</h2>
 </section>
-<section id="italy---ragno-di-mare" class="level2">
-<h2 class="anchored" data-anchor-id="italy---ragno-di-mare">Italy - Ragno di Mare</h2>
+<section id="preparing-the-training-data" class="level2">
+<h2 class="anchored" data-anchor-id="preparing-the-training-data">Preparing the training data</h2>
+<p>Raw data:</p>
+<ul>
+<li>plain text LaTex code from arxiv papers</li>
+</ul>
+<p>Cleaning up the data: <a href="https://github.com/google-research/arxiv-latex-cleaner">arxiv Latex cleaner</a></p>
+<p>Tokenizer for latex: <a href="https://huggingface.co/witiko/mathberta">mathberta</a></p>
 </section>
-<section id="the-wilder-kaiser" class="level2">
-<h2 class="anchored" data-anchor-id="the-wilder-kaiser">The Wilder Kaiser</h2>
+<section id="the-output" class="level2">
+<h2 class="anchored" data-anchor-id="the-output">The Output</h2>
+<p>Pretty nonsensical! But keep in mind, I’m one guy who built this with a laptop from 2014. You can of course get more impressive results with 100 mathematics and computer science PhDs and with billions of dollars of computing resources.</p>
+<p>The point was to get a feel for the underlying mechanisms of an LLM.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->

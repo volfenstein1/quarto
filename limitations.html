@@ -2,12 +2,12 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.5.57">
+<meta name="generator" content="quarto-1.7.6">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Limitations of machine learning – Wolfgang Schmaltz</title>
+<title>Mathematics and the Limitations of Modern Artifical Intelligence – Wolfgang Schmaltz</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -36,10 +36,10 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-d0a9048d95e02c7ff9c82715fd5ddea4.css" rel="stylesheet" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-922b7d4eaa32d29c8d508f3d8cf3162d.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -68,6 +68,35 @@ ul.task-list li input[type="checkbox"] {
   }
 }</script>
 
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
 
 </head>
 
@@ -90,15 +119,24 @@ ul.task-list li input[type="checkbox"] {
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
   <li class="nav-item">
     <a class="nav-link" href="./index.html"> 
-<span class="menu-text">Home</span></a>
+<span class="menu-text">Profile</span></a>
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./mathematics.html"> 
-<span class="menu-text">Mathematics</span></a>
+<span class="menu-text">Research Mathematics</span></a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./deep_learning.html"> 
-<span class="menu-text">Deep Learning</span></a>
+    <a class="nav-link active" href="./limitations.html" aria-current="page"> 
+<span class="menu-text">Limitations of AI</span></a>
+  </li>  
+  <li class="nav-item">
+    <span class="nav-link">
+<span class="menu-text">Forecasting</span>
+    </span>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./gpt.html"> 
+<span class="menu-text">Wolfgang-GPT</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -111,15 +149,28 @@ ul.task-list li input[type="checkbox"] {
 <div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
 <!-- sidebar -->
 <!-- margin-sidebar -->
-    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar zindex-bottom">
-        
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#the-conventional-wisdom-ai-mathematicians-are-imminent" id="toc-the-conventional-wisdom-ai-mathematicians-are-imminent" class="nav-link active" data-scroll-target="#the-conventional-wisdom-ai-mathematicians-are-imminent">The conventional wisdom: AI mathematicians are imminent</a></li>
+  <li><a href="#the-current-reality-ai-cannot-reliably-solve-math-problems" id="toc-the-current-reality-ai-cannot-reliably-solve-math-problems" class="nav-link" data-scroll-target="#the-current-reality-ai-cannot-reliably-solve-math-problems">The (current) reality: AI cannot reliably solve math problems</a></li>
+  <li><a href="#where-to-look-for-a-future-breakthrough" id="toc-where-to-look-for-a-future-breakthrough" class="nav-link" data-scroll-target="#where-to-look-for-a-future-breakthrough">Where to look for a future breakthrough</a></li>
+  <li><a href="#to-its-credit-math-has-some-elements-well-suited-for-machine-learning" id="toc-to-its-credit-math-has-some-elements-well-suited-for-machine-learning" class="nav-link" data-scroll-target="#to-its-credit-math-has-some-elements-well-suited-for-machine-learning">TO ITS CREDIT, MATH HAS SOME ELEMENTS WELL SUITED FOR MACHINE LEARNING</a></li>
+  <li><a href="#microsoft-copilot-factors-the-number-12" id="toc-microsoft-copilot-factors-the-number-12" class="nav-link" data-scroll-target="#microsoft-copilot-factors-the-number-12">Microsoft Copilot factors the number <span class="math inline">\(12\)</span></a></li>
+  <li><a href="#anthropics-claude.ai-factors-a-prime-number" id="toc-anthropics-claude.ai-factors-a-prime-number" class="nav-link" data-scroll-target="#anthropics-claude.ai-factors-a-prime-number">Anthropic’s Claude.ai factors a prime number</a></li>
+  <li><a href="#google-gemini-and-function-preimages" id="toc-google-gemini-and-function-preimages" class="nav-link" data-scroll-target="#google-gemini-and-function-preimages">Google Gemini and Function Preimages</a></li>
+  <li><a href="#chatgpt-4-and-the-kontsevich-recursion-formula" id="toc-chatgpt-4-and-the-kontsevich-recursion-formula" class="nav-link" data-scroll-target="#chatgpt-4-and-the-kontsevich-recursion-formula">ChatGPT-4 and the Kontsevich Recursion Formula</a></li>
+  </ul>
+</nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Limitations of machine learning</h1>
+<h1 class="title">Mathematics and the Limitations of Modern Artifical Intelligence</h1>
 </div>
 
 
@@ -136,17 +187,229 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<p>What are the limitations?</p>
+<p>Some years ago, at one of the UC Berkeley afternoon teas I was speaking with a colleague of mine. He had just returned from a conference on “New Developments in Microlocal Sheaf Theory” (or something along those lines, I do not remember this precisely). What I do remember, vividly, is his description of a fascinating encounter. At the conference was a child, only 12-year-old, a rising prodigy in algebraic geometry, surrounded by people at least double his age. The colleague was naturally intrigued, and did his best to converse with the kid.</p>
+<p>“It was the strangest thing. He seemed to know the entirety of Hartshorne’s <em>Algebraic Geometry</em> by heart. He could rattle of the exact statement of, for example, the <em>Lemma of Hironaka</em> if you asked him.”</p>
+<p>“But there was no understanding of the meaning behind the words. I have no doubt he was a bright kid, with potential, so no offense by any means. But memorizing a theorem is not the same as understanding it.”</p>
+<p>The above story presents a dichotomy, that of <em>knowing</em> vs.&nbsp;<em>understanding</em>. When we evaluate the capabilities and potential of modern Artificial Intelligence amidst the endless hype, we really ought to keep this fundamental contrast in mind.</p>
+<section id="the-conventional-wisdom-ai-mathematicians-are-imminent" class="level2">
+<h2 class="anchored" data-anchor-id="the-conventional-wisdom-ai-mathematicians-are-imminent">The conventional wisdom: AI mathematicians are imminent</h2>
+<!-- Some Predictions of imminent AI mathematicians -->
+<p>Is automation and economic disruption, long a concern for blue collar factory workers, coming for the jobs of academic mathematicians? According to the conventional wisdom, Artificial Intelligence will someday soon replace humans for all information-related tasks. Pointedly, this supposedly includes mathematics, ranging from simple calculations to Putnam and IMO problems to research level mathematics.</p>
+<p>The New York Times informs us that <a href="https://www.nytimes.com/2023/07/02/science/ai-mathematics-machine-learning.html">A.I. Is Coming for Mathematics, Too</a>, and suggests that the deductive jumps of reasoning required by mathematics are already being replicated by the impenetrable black boxes of neural networks. In an anecdote, a neural network is described as managing to correctly predict some desired mathematical constant, but unable to further elaborate or explain its conclusion: “the neural net had somehow intuitively discerned a mathematical truth, but the logical ‘why’ of it was far from obvious”. Inspection of the layers of the neural network proved predictably fruitless.</p>
+<p>The Fields medalist Terrence Tao describes his own <a href="https://mathstodon.xyz/@tao/113132503432772494">experience</a> toying with GPT-4 as being “roughly on par with trying to advise a mediocre, but not completely incompetent, (static simulation of a) graduate student”; given a complex analysis problem, and with hints and prodding, it was able to give an accurate proof.</p>
+<p>Entering the realm of science-fiction, the prominent computer scientist and artificial intelligence researcher Christian Szegedy optimistically predicts that by June 2026 we will see <a href="https://x.com/chrszegedy/status/1759050899291598956?mx=2">“super-human mathematician AI”</a>.</p>
+<p><img src="prediction.png" class="img-fluid"></p>
+<p>However.</p>
+<p>Despite the breathless hype.</p>
+<!-- > _The (current) reality is that artificial intelligence cannot reliably solve original mathematical problems._ -->
+</section>
+<section id="the-current-reality-ai-cannot-reliably-solve-math-problems" class="level2">
+<h2 class="anchored" data-anchor-id="the-current-reality-ai-cannot-reliably-solve-math-problems">The (current) reality: AI cannot reliably solve math problems</h2>
+<!-- at the moment, are ill-suited to discovering new mathematics -->
+<p>Playing around with any of the top of the line chatbots, it is easy to be initially impressed. They can convincingly (and correctly) compute a complicated integral requiring complex analysis, or even write a proof of Weinstein’s neighborhood theorem!</p>
+<p>Playing around a little more, it isn’t hard at all for chatbots to produce gibberish; responses usually contain horrific basic arithmetical errors, hallucinations of connections between unrelated concepts, or unconditional overconfidence in the veracity of the given answer. (See the next sections for some illustrative experiments!)</p>
+<p>So, are chatbots right now deducing the answers using logic and reasoning, arriving at the answer deductive step by deductive step? Or are they regurgitating tweaked answers they have seen before, after ingesting the world’s online libraries? OpenAI’s research LLM, o1-preview, showed a <a href="https://openreview.net/forum?id=YXnwlZe0yf">30% drop in accuracy</a> on a benchmark based on Putnam competition problems simply by tweaking the given questions.</p>
+<p>I wanted to When evaluating the mathematical capabilities of LLMs, it is helpful to have a bit of an understanding for how modern LLMs actually work. get a feel for this myself, I built <a href="./gpt.html">Wolfgang-GPT</a></p>
+<!-- Can say more after completing WOLFGANG-GPT -->
+<p>TOKENIZATION</p>
+<p>STATIC SIMULATION</p>
+<p>THE OUTCOME - SUPERFICIAL ANSWERS</p>
+<p>SIMILAR PROBLEMS</p>
+<p>CHURNING THROUGH SEA OF INFORMATION</p>
+<p>There is a lot of value in this however!</p>
+</section>
+<section id="where-to-look-for-a-future-breakthrough" class="level2">
+<h2 class="anchored" data-anchor-id="where-to-look-for-a-future-breakthrough">Where to look for a future breakthrough</h2>
+<p>first: formal proof assistants, FrontierMath</p>
+<p>Formal proof assistant</p>
+<p>SAT solver Trained on lean</p>
+<!-- ## WHAT DO AI PROGRAMS PRIORITIZE? -->
+<!-- CHAT programs judge their answers on -->
+<!-- loss functions are geared towards superficially confident and superficially convincing answers, rather than "correct" answers, where correctness may be deemed as something like, mathematically accurate, without real gaps, even if sketched, even if hesitant. -->
+<!-- loss function approximates answers which appear at a glance to be convincing, rather than answers which are maybe less polished but more accurate -->
+<!-- I would prefer the opposite! -->
+<!-- Humans, students, etc can be claimed to operate in the opposite direction; a student who answers cautiously with the sketches of a correct answer -->
+</section>
+<section id="to-its-credit-math-has-some-elements-well-suited-for-machine-learning" class="level2">
+<h2 class="anchored" data-anchor-id="to-its-credit-math-has-some-elements-well-suited-for-machine-learning">TO ITS CREDIT, MATH HAS SOME ELEMENTS WELL SUITED FOR MACHINE LEARNING</h2>
+<p><strong>LOOK TO TERRENCE TAO’S PAPER FOR GUIDANCE HERE</strong></p>
+<p>To its credit, some elements should be somewhat well-suited for machine learning techniques</p>
+<p>Mathematics is:</p>
 <ul>
-<li>https://www.nytimes.com/2023/05/16/technology/microsoft-ai-human-reasoning.html?action=click&amp;pgtype=Article&amp;state=default&amp;module=styln-artificial-intelligence&amp;variant=show&amp;region=BELOW_MAIN_CONTENT&amp;block=storyline_flex_guide_recirc</li>
-<li>https://ryxcommar.com/2023/03/28/chatgpt-as-a-query-engine-on-a-giant-corpus-of-text/</li>
-<li>https://www.nytimes.com/2023/07/02/science/ai-mathematics-machine-learning.html</li>
+<li>static</li>
+<li>extremely quantitative</li>
+<li>rigorous and well-defined</li>
 </ul>
-<p>Look up other examples where ChatGPT is easily tricked and confused</p>
-<p>Use some examples from mathematics</p>
-<p>Look at Michael Hutchings facebook posts</p>
+<p>WILL NEED SOME FURTHER BREAKTHROUGHS, WAKE ME UP WHEN A COMPUTER SOLVES A FRONTIER MATH PROBLEM</p>
+<!-- **LOOK TO TERRENCE TAO'S PAPER FOR GUIDANCE HERE** -->
+<!-- However, mathematics also requires genuine abstraction and understanding. -->
+<!-- And indeed, without a doubt chatbots appear at first glance to be quite impressive. -->
+<!-- And to some extent they are! -->
+<!-- But to some extent this is also superficial. -->
+<!-- Personally I can only conclude -->
+<!-- Artificial intelligence is sometimes correct and gives accurate and full explanations. -->
+<!-- The most fascinating part of the experiment is how confidently and wrongly an artificial intelligence will state its answer. -->
+<!-- It doesn't seem to differentiate levels of certainty: if it could, then the algorithm underlying it could iterate and give a better answer. -->
+<!-- But we don't even have to look that far. Chatbots fail and get confused at even the most basic problems. -->
+<!-- Notice the confidence of the ai bots! -->
+<!-- Wake me up when an chatbot can solve even one problem from https://epoch.ai/frontiermath. -->
+<p>To illustrate my points, and just for fun, let’s look at how some of the top chatbots perform when asked some math problems.</p>
+</section>
+<section id="microsoft-copilot-factors-the-number-12" class="level1">
+<h1>Microsoft Copilot factors the number <span class="math inline">\(12\)</span></h1>
+<p><strong>Prompt:</strong> List all the ways three distinct integers have a product of 12</p>
+<p><code>Microsoft Copilot</code></p>
+<blockquote class="blockquote">
+<p>We’re looking for sets of three distinct integers whose product equals 12. Let’s find all possible combinations:</p>
+<ul>
+<li>1 × 2 × 6 = 12</li>
+<li>1 × 3 × 4 = 12</li>
+<li>(−1) × (−2) × 6 = 12</li>
+<li>(−1) × (−3) × 4 = 12</li>
+<li>(−2) × (−3) × (-2) = 12 (Here, I swapped -1 and -3 but it still remains a valid distinct set)</li>
+</ul>
+<p>So, the unique sets of three distinct integers whose product is 12 are (1, 2, 6), (1, 3, 4), (-1, -2, 6), (-1, -3, 4), (-2, -3, -2).</p>
+<p>Mathematical puzzles can be such a treasure trove of logical thinking! What’s your next brain teaser?</p>
+</blockquote>
+<p>The actual answer is:</p>
+<p><span class="math display">\[
+\begin{align}
+&amp;(-3, -1, 4),\ (-12, -1, 1),\ (1, 2, 6),\ (-6, -2, 1),\ (-4, -1, 3), \\
+&amp;(1, 3, 4),\ (-4, -3, 1),\ (-3, -2, 2),\ (-6, -1, 2),\ (-2, -1, 6)
+\end{align}
+\]</span></p>
+<p>A few things stand out about copilots answer:</p>
+<ul>
+<li>it has difficulty handling edge cases, such as <span class="math inline">\((-12,-1,1)\)</span>,</li>
+<li>it is not very systematic in terms of indentifying distinct triplets,</li>
+<li>it is hillariously bad at checking its answer; note that the last triplet <span class="math inline">\((-2,-3,-2)\)</span> satisfies neither condition; <span class="math inline">\(-2\)</span> is repeated and the product is of course <span class="math inline">\(-12\)</span>.</li>
+</ul>
+<!-- > List all the ways three distinct positive integers have a product of 24. -->
+<!-- Here are the sets of three distinct positive integers whose product is 24: -->
+<!-- - 1 × 3 × 8 =24 -->
+<!-- - 1 × 4 × 6 =24 -->
+<!-- - 2 × 3 × 4 =24 -->
+<!-- These three sets show the magic of numbers combining in different ways to form the same product. Got any more riddles up your sleeve? -->
+</section>
+<section id="anthropics-claude.ai-factors-a-prime-number" class="level1">
+<h1>Anthropic’s Claude.ai factors a prime number</h1>
+<p><strong>Prompt:</strong> What is the third largest prime factor of the number 600851475143?</p>
+<p><code>Claude.ai</code></p>
+<blockquote class="blockquote">
+<p>Let me solve this step by step.</p>
+<ol type="1">
+<li>First, let me find all prime factors of 600851475143:
+<ul>
+<li>Let’s divide it by the smallest prime number possible at each step</li>
+<li>600851475143 = 1471 × 408533975</li>
+<li>408533975 = 1471 × 277725</li>
+<li>277725 = 5 × 55545</li>
+<li>55545 = 5 × 11109</li>
+<li>11109 = 3 × 3703</li>
+<li>3703 = 71 × 52.15…</li>
+</ul></li>
+<li>Therefore, 600851475143 = 1471 × 1471 × 5 × 5 × 3 × 71</li>
+<li>Looking at unique prime factors only:
+<ul>
+<li>1471</li>
+<li>5</li>
+<li>3</li>
+<li>71</li>
+</ul></li>
+<li>Ordering these from largest to smallest:
+<ul>
+<li>1471</li>
+<li>71</li>
+<li>5</li>
+<li>3</li>
+</ul></li>
+</ol>
+<p>Therefore, the third largest prime factor is 5.</p>
+</blockquote>
+<p>Everywhere you look there is a basic error, by my count, at least <span class="math inline">\(4\)</span>. Conceptually, the most egregious is the attempted factorization by a noninteger, <span class="math inline">\(3703 = 71 × 52.15...\)</span>, followed immediately by listing <span class="math inline">\(71\)</span> as a prime factor.</p>
+<p>(The actual factorization is <span class="math inline">\(600851475143 = 71 \times 839 \times 1471 \times 6857\)</span> so the answer to the prompt is <span class="math inline">\(839\)</span>.)</p>
+</section>
+<section id="google-gemini-and-function-preimages" class="level1">
+<h1>Google Gemini and Function Preimages</h1>
+<!-- > We call a positive integer **double pandigital** if it uses all the digits 0 to 9 exactly twice (with no leading zero). For example, 40561817703823564929 is one such number. How many double pandigital numbers are divisible by 3? -->
+<!-- To be divisible by 3, a number's digit sum must be divisible by 3. -->
+<!-- A double pandigital number has each digit from 0 to 9 twice, so its digit sum is: -->
+<!-- $$ -->
+<!-- 2 * (0 + 1 + 2 + 3 + 4 + 5 + 6 + 7 + 8 + 9) = 2 * 45 = 90 -->
+<!-- $$ -->
+<!-- Since 90 is divisible by 3, **all double pandigital numbers are divisible by 3**. -->
+<!-- Therefore, to find the number of double pandigital numbers, we just need to find the total number of ways to arrange 10 digits twice, ensuring no leading zero. -->
+<!-- There are 9 choices for the first digit (since it can't be 0), then 10 choices for each of the remaining 19 digits. So, the total number of double pandigital numbers is: -->
+<!-- $$ -->
+<!-- 9 * 10^{19} = 9,000,000,000,000,000,000 -->
+<!-- $$ -->
+<!-- **So, there are 9,000,000,000,000,000,000 double pandigital numbers, and all of them are divisible by 3.** -->
+<p><strong>Prompt:</strong> Prove that <span class="math inline">\(f(f^{-1}(A)) = A\)</span>.</p>
+<p><code>Google Gemini</code></p>
+<blockquote class="blockquote">
+<p>To prove that <span class="math inline">\(f(f^{-1}(A)) = A\)</span>, we need to show that both sets are subsets of each other.</p>
+<h3 id="part-1-ff-1a-a" class="anchored" data-anchor-id="google-gemini-and-function-preimages">Part 1: <span class="math inline">\(f(f^{-1}(A)) ⊆ A\)</span></h3>
+<p>Let <span class="math inline">\(y\)</span> be an arbitrary element of <span class="math inline">\(f(f^{-1}(A))\)</span>. This means that there exists an <span class="math inline">\(x\)</span> in <span class="math inline">\(f^{-1}(A)\)</span> such that <span class="math inline">\(f(x) = y\)</span>.</p>
+<p>By the definition of the inverse image, <span class="math inline">\(x\)</span> being in <span class="math inline">\(f^{-1}(A)\)</span> implies that <span class="math inline">\(f(x)\)</span> is in <span class="math inline">\(A\)</span>. Therefore, <span class="math inline">\(y = f(x)\)</span> is in <span class="math inline">\(A\)</span>.</p>
+<p>Since <span class="math inline">\(y\)</span> was an arbitrary element of <span class="math inline">\(f(f^{-1}(A))\)</span>, this shows that every element of <span class="math inline">\(f(f^{-1}(A))\)</span> is also an element of <span class="math inline">\(A\)</span>. Hence, <span class="math inline">\(f(f^{-1}(A)) ⊆ A\)</span>.</p>
+<h3 id="part-2-a-ff-1a" class="anchored">Part 2: <span class="math inline">\(A ⊆ f(f^{-1}(A))\)</span></h3>
+<p>Let <span class="math inline">\(x\)</span> be an arbitrary element of <span class="math inline">\(A\)</span>. Since <span class="math inline">\(f\)</span> is a function, there exists an element <span class="math inline">\(y = f(x)\)</span> in the codomain of <span class="math inline">\(f\)</span>.</p>
+<p>Now, by the definition of the inverse image, <span class="math inline">\(x\)</span> is in <span class="math inline">\(f^{-1}(y)\)</span>. Since <span class="math inline">\(y = f(x)\)</span>, this means <span class="math inline">\(x\)</span> is in <span class="math inline">\(f^{-1}(f(x))\)</span>.</p>
+<p>Therefore, <span class="math inline">\(x\)</span> is in <span class="math inline">\(f^{-1}(f(A))\)</span>, which implies that <span class="math inline">\(f(x) = y\)</span> is in <span class="math inline">\(f(f^{-1}(A))\)</span>.</p>
+<p>Since <span class="math inline">\(x\)</span> was an arbitrary element of <span class="math inline">\(A\)</span>, this shows that every element of <span class="math inline">\(A\)</span> is also an element of <span class="math inline">\(f(f^{-1}(A))\)</span>. Hence, <span class="math inline">\(A ⊆ f(f^{-1}(A))\)</span>.</p>
+<h3 id="conclusion" class="anchored">Conclusion:</h3>
+<p>From parts 1 and 2, we have shown that <span class="math inline">\(f(f^{-1}(A)) ⊆ A\)</span> and <span class="math inline">\(A ⊆ f(f^{-1}(A))\)</span>. Therefore, <span class="math inline">\(f(f^{-1}(A)) = A\)</span>.</p>
+</blockquote>
+<p>I gave this problem to some students in an intro math course. In the process of trying to probe possible approaches for a proof, they produced an instructive, and obvious, counterexample: <span class="math display">\[f: \{0\} \to \{0,1\},\ f(0)=0,\ A=\{0,1\}.\]</span></p>
+</section>
+<section id="chatgpt-4-and-the-kontsevich-recursion-formula" class="level1">
+<h1>ChatGPT-4 and the Kontsevich Recursion Formula</h1>
+<p><strong>Prompt:</strong> Let d <span class="math inline">\(\geq\)</span> 1. How many degree <span class="math inline">\(d\)</span> rational curves in <span class="math inline">\(\mathbb{CP}^2\)</span> pass through <span class="math inline">\(3d - 1\)</span> points in general position?</p>
+<p><code>ChatGPT-4</code></p>
+<blockquote class="blockquote">
+<p>To determine the number of degree <span class="math inline">\(d\)</span> rational curves in <span class="math inline">\(\mathbb{CP}^2\)</span> that pass through <span class="math inline">\(3d - 1\)</span> points in general position, we can use the theory of intersection numbers and rational curves in projective spaces.</p>
+<h3 id="step-1-understanding-rational-curves" class="anchored" data-anchor-id="chatgpt-4-and-the-kontsevich-recursion-formula">Step 1: Understanding Rational Curves</h3>
+<p>A rational curve of degree <span class="math inline">\(d\)</span> in <span class="math inline">\(\mathbb{CP}^2\)</span> can be represented by a map <span class="math inline">\(\mathbb{CP}^1 \to \mathbb{CP}^2\)</span> that has degree <span class="math inline">\(d\)</span>. Such curves can be thought of as the images of a rational parameterization of degree <span class="math inline">\(d\)</span>.</p>
+<h3 id="step-2-conditions-for-passing-through-points" class="anchored">Step 2: Conditions for Passing Through Points</h3>
+<p>A degree <span class="math inline">\(d\)</span> rational curve can be defined by a polynomial equation of degree <span class="math inline">\(d\)</span> in homogeneous coordinates. To find how many such curves pass through a given set of points, we need to take into account:</p>
+<ol type="1">
+<li>The total number of points that the curve can pass through.</li>
+<li>The constraints imposed by those points being in general position.</li>
+</ol>
+<h3 id="step-3-counting-curves" class="anchored">Step 3: Counting Curves</h3>
+<p>When we have <span class="math inline">\(3d - 1\)</span> points in general position, we need to count how many degree <span class="math inline">\(d\)</span> curves can pass through these points.</p>
+<ul>
+<li>The degree <span class="math inline">\(d\)</span> rational curves in <span class="math inline">\(\mathbb{CP}^2\)</span> correspond to a degree <span class="math inline">\(d\)</span> homogeneous polynomial, and the number of such curves that pass through <span class="math inline">\(m\)</span> general points can be computed using a formula derived from intersection theory.</li>
+</ul>
+<h3 id="step-4-application-of-the-formula" class="anchored">Step 4: Application of the Formula</h3>
+<p>The general formula for counting the number of degree <span class="math inline">\(d\)</span> rational curves passing through <span class="math inline">\(m\)</span> points in general position in <span class="math inline">\(\mathbb{CP}^2\)</span> is given by:</p>
+<p><span class="math display">\[
+N(d,m) = \binom{m - 1}{d - 1}
+\]</span></p>
+<p>provided that <span class="math inline">\(m \geq 3d - 1\)</span>.</p>
+<p>In our case, since <span class="math inline">\(m = 3d - 1\)</span>:</p>
+<p><span class="math display">\[
+N(d, 3d - 1) = \binom{(3d - 1) - 1}{d - 1} = \binom{3d - 2}{d - 1}
+\]</span></p>
+<h3 id="conclusion-1" class="anchored">Conclusion</h3>
+<p>Thus, the number of degree <span class="math inline">\(d\)</span> rational curves in <span class="math inline">\(\mathbb{CP}^2\)</span> that pass through <span class="math inline">\(3d - 1\)</span> points in general position is:</p>
+<p><span class="math display">\[
+\boxed{\binom{3d - 2}{d - 1}}
+\]</span></p>
+</blockquote>
+<p>This question was mostly just for fun, to see what kind of answer ChatGPT-4 would give to a question of fundamental importance in enumerative geometry, and which I understand deeply and completely. And indeed, ChatGPT-4’s answer is a confidently stated hallucination, disconnected with any sort of mathematical reality.</p>
+<p>The correct answer is given by the initial condition <span class="math inline">\(N_1 = 1\)</span> and by the recursion formula:</p>
+<p><span class="math display">\[
+N_d = \sum_{k+l = d} N_k\cdot N_l \cdot
+\left(
+k^2\cdot l^2 \cdot \binom{3d-4}{3k-2}
+- k^3\cdot l \cdot \binom{3d-4}{3k-1}
+\right)
+\]</span></p>
+<p>The proof rests upon the enumerative foundations provided by the Gromov–Witten axioms. An understanding of the <strong>splitting axiom</strong>, the <strong>divisor axiom</strong>, and the <strong>fundamental class axiom</strong> are necessary to derive the above recursive formula.</p>
 
 
+</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
@@ -231,8 +494,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
   });
   clipboard.on('success', onCopySuccess);
   if (window.document.getElementById('quarto-embedded-source-code-modal')) {
-    // For code content inside modals, clipBoardJS needs to be initialized with a container option
-    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
     const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
       text: getTextToCopy,
       container: window.document.getElementById('quarto-embedded-source-code-modal')
@@ -343,7 +604,6 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       if (window.Quarto?.typesetMath) {
         window.Quarto.typesetMath(note);
       }
-      // TODO in 1.5, we should make sure this works without a callout special case
       if (note.classList.contains("callout")) {
         return note.outerHTML;
       } else {
