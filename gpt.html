@@ -159,6 +159,15 @@ window.Quarto = {
   <li><a href="#the-output-after-pretraining-and-finetuning" id="toc-the-output-after-pretraining-and-finetuning" class="nav-link" data-scroll-target="#the-output-after-pretraining-and-finetuning">The Output after Pretraining and Finetuning</a></li>
   <li><a href="#the-code" id="toc-the-code" class="nav-link" data-scroll-target="#the-code">The Code</a></li>
   </ul></li>
+  <li><a href="#wolfgang-gpt-1" id="toc-wolfgang-gpt-1" class="nav-link" data-scroll-target="#wolfgang-gpt-1">WOLFGANG-GPT</a>
+  <ul class="collapse">
+  <li><a href="#tokenizer" id="toc-tokenizer" class="nav-link" data-scroll-target="#tokenizer">Tokenizer</a></li>
+  <li><a href="#neural-network-model" id="toc-neural-network-model" class="nav-link" data-scroll-target="#neural-network-model">Neural Network Model</a></li>
+  <li><a href="#self-attention" id="toc-self-attention" class="nav-link" data-scroll-target="#self-attention">Self-attention</a>
+  <ul class="collapse">
+  <li><a href="#raw-code" id="toc-raw-code" class="nav-link" data-scroll-target="#raw-code">Raw Code</a></li>
+  </ul></li>
+  </ul></li>
   </ul>
 <div class="quarto-alternate-notebooks"><h2>Notebooks</h2><ul><li><a href="wolfgang_GPT-preview.html"><i class="bi bi-journal-code"></i>WOLFGANG-GPT</a></li></ul></div></nav>
     </div>
@@ -210,6 +219,7 @@ window.Quarto = {
 <ul>
 <li>plain text LaTex code from arxiv papers</li>
 </ul>
+<p><a href="WOLFGANG_TRAINING.tex">WOLFGANG_TRAINING.tex</a></p>
 <p>Cleaning up the data: <a href="https://github.com/google-research/arxiv-latex-cleaner">arxiv Latex cleaner</a></p>
 <p>Tokenizer for latex: <a href="https://huggingface.co/witiko/mathberta">mathberta</a></p>
 </section>
@@ -224,16 +234,17 @@ window.Quarto = {
 <section id="the-code" class="level2">
 <h2 class="anchored" data-anchor-id="the-code">The Code</h2>
 </section>
-<div class="quarto-embed-nb-cell">
-<section id="wolfgang-gpt-1" class="level2">
-<h2 class="anchored" data-anchor-id="wolfgang-gpt-1">WOLFGANG-GPT</h2>
+</section>
+<section id="wolfgang-gpt-1" class="level1 quarto-embed-nb-cell">
+<h1>WOLFGANG-GPT</h1>
 <p>Wolfgang-GPT is trained on a data set consisting mainly of my mathematics research papers. I used <a href="https://github.com/google-research/arxiv-latex-cleaner">arxiv-latex-cleaner</a> to clean up the tex files a bit; this mostly means the removal of all commented text.</p>
-<div id="cell-3" class="cell" data-outputid="e606ea32-f4ad-4439-9979-84ed93bb2a7f">
+<p>You can see the training set here: <a href="WOLFGANG_TRAINING.tex">WOLFGANG_TRAINING.tex</a>.</p>
+<div id="cell-4" class="cell" data-outputid="f7810fa4-c095-4e39-ddc8-6c382f502780" data-execution_count="16">
 <div class="cell-output cell-output-stdout">
 <pre><code>Length of WOLFGANG_TRAINING dataset:  3750026</code></pre>
 </div>
 </div>
-<div id="cell-4" class="cell" data-outputid="659b4129-1ff6-4622-8b61-c2894eefe3fa">
+<div id="cell-5" class="cell" data-outputid="a782b746-4a76-4ef3-9603-5fef5a27c109" data-execution_count="17">
 <div class="cell-output cell-output-stdout">
 <pre><code>The Steenrod problem for closed orientable manifolds was solved completely by Thom.
 Following this approach, we solve the Steenrod problem for closed orientable orbifolds, proving that the rational homology groups of a closed orientable orbifold have a basis consisting of classes represented by suborbifolds whose normal bundles have fiberwise trivial isotropy action.
@@ -250,32 +261,42 @@ The Steenrod problem was first presented in \cite{eilenberg1949problems} and ask
 In \cite{thom1954quelques},\footnote{The reader should be advised that the commonly available English translation of this paper introduces a few errors which ar</code></pre>
 </div>
 </div>
-<div id="cell-5" class="cell" data-outputid="6613d232-2a85-4433-c9da-68dbf63e17ac">
+<div id="cell-6" class="cell" data-outputid="e1ca5ae7-392c-4ee2-f40d-301297038eda" data-execution_count="18">
 <div class="cell-output cell-output-stdout">
 <pre><code>Unique characters:      
  !"#$%&amp;'()*+,-./0123456789:;&lt;=&gt;?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`abcdefghijklmnopqrstuvwxyz{|}~δ�
 Number of unique characters:  99</code></pre>
 </div>
 </div>
-<p>A very rudimentary tokenizer, in this case the encoder is a mapping: $ { } ^{#{}} $ and the decoder is the inverse. Each unique character gives a basis element of <span class="math inline">\(\mathbb{R}^n\)</span> via a one-hot encoding. Could obtain more sophistication by tokenizing on syllables and chunks of latex code.</p>
-<div id="cell-7" class="cell" data-outputid="a98bdfd8-dd32-4d7d-8efe-bd4e57f31b2b">
+<section id="tokenizer" class="level2">
+<h2 class="anchored" data-anchor-id="tokenizer">Tokenizer</h2>
+<p>A tokenizer splits the training into disjoint chunks and embeds the chunks into a vector space <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
+<p>We use a very rudimentary tokenizer, with chunks given by the individual characters: $ $</p>
+<p>Each unique character is encoded as a basis element of <span class="math inline">\(\mathbb{R}^n\)</span> via a one-hot encoding: $ { } ^{#{}} $ and the decoder is the inverse.</p>
+<p>We could obtain more sophistication by tokenizing on syllables and chunks of latex code, for example, see the tokenizer used by the <a href="https://huggingface.co/witiko/mathberta">MathBERTa</a> model.</p>
+<div id="cell-8" class="cell" data-outputid="0fb65a94-3038-4898-c7b2-ae9f52527836" data-execution_count="19">
 <div class="cell-output cell-output-stdout">
 <pre><code>[54, 74, 75, 85, 2, 85, 71, 80, 86, 71, 80, 69, 71, 2, 75, 85, 2, 67, 2, 86, 71, 85, 86, 16, 2, 42, 71, 84, 71, 2, 75, 85, 2, 85, 81, 79, 71, 2, 79, 67, 86, 74, 2, 6, 10, 47, 14, 62, 81, 79, 71, 73, 67, 11, 6, 16]
 This sentence is a test. Here is some math $(M,\omega)$.</code></pre>
 </div>
 </div>
-<div id="cell-8" class="cell" data-outputid="2bec3197-d00f-428c-fdf0-1f3e62ec85da">
+<div id="cell-9" class="cell" data-outputid="f20272d5-51ed-47be-d28d-0a2919976dbc" data-execution_count="20">
 <div class="cell-output cell-output-stdout">
 <pre><code>torch.Size([3750026]) torch.int64
 tensor([54, 74, 71,  ...,  2, 67, 84])</code></pre>
 </div>
 </div>
-<div id="cell-10" class="cell" data-outputid="d329494b-902d-4100-f15d-9fda31b4e88a">
-<div class="cell-output cell-output-display" data-execution_count="13">
+</section>
+<section id="neural-network-model" class="level2">
+<h2 class="anchored" data-anchor-id="neural-network-model">Neural Network Model</h2>
+<p>Given a sequence of tokens, we can train a neural network model to predict the most likely next token: $ . $</p>
+<p>The input consists of a block of tokens up to size <code>block_size</code>, and the target is the next token.</p>
+<div id="cell-12" class="cell" data-outputid="9c90882c-b037-4a16-a749-e4df219118f7" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>tensor([54, 74, 71,  2, 53, 86, 71, 71, 80])</code></pre>
 </div>
 </div>
-<div id="cell-11" class="cell" data-outputid="3246e57c-d932-486c-82a4-10d87cbf63a7">
+<div id="cell-13" class="cell" data-outputid="2f85de5d-fe43-4c5e-a10c-89fe24ccbf59" data-execution_count="23">
 <div class="cell-output cell-output-stdout">
 <pre><code>When input is tensor([54]) the target is: tensor(74)
 When input is tensor([54, 74]) the target is: tensor(71)
@@ -287,7 +308,7 @@ When input is tensor([54, 74, 71,  2, 53, 86, 71]) the target is: tensor(71)
 When input is tensor([54, 74, 71,  2, 53, 86, 71, 71]) the target is: tensor(80)</code></pre>
 </div>
 </div>
-<div id="cell-12" class="cell" data-outputid="138e3a68-0299-43d0-de4d-fabf82563c48">
+<div id="cell-14" class="cell" data-outputid="619c7ead-db87-446d-a538-5cc11e56c010" data-execution_count="24">
 <div class="cell-output cell-output-stdout">
 <pre><code>inputs:
 torch.Size([4, 8])
@@ -336,7 +357,7 @@ when input is [80, 73, 2, 79, 67, 82, 14] the target: 1
 when input is [80, 73, 2, 79, 67, 82, 14, 1] the target: 68</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-outputid="e1722d9a-e9f8-41a6-883d-fb4762a69ccb">
+<div id="cell-15" class="cell" data-outputid="e91d9150-9e24-4745-abd4-3cf91baab32b" data-execution_count="25">
 <div class="cell-output cell-output-stdout">
 <pre><code>tensor([[87, 85, 65, 93, 67, 62, 75, 80],
         [81, 80,  2, 81, 72,  2, 86, 74],
@@ -344,7 +365,7 @@ when input is [80, 73, 2, 79, 67, 82, 14, 1] the target: 68</code></pre>
         [80, 73,  2, 79, 67, 82, 14,  1]])</code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-outputid="ac29f0cc-baf6-47cd-bd44-86ec8b50b2ae">
+<div id="cell-16" class="cell" data-outputid="07f11e22-a404-4008-e83e-989824cb3767" data-execution_count="26">
 <div class="cell-output cell-output-stdout">
 <pre><code>torch.Size([32, 99])
 tensor(4.7986, grad_fn=&lt;NllLossBackward0&gt;)
@@ -352,12 +373,13 @@ tensor(4.7986, grad_fn=&lt;NllLossBackward0&gt;)
 WS')0!bwTpfIH[^+7)SD|p*gK:Sg/&amp;[#?|CbmZ2.5 @ovδ1&lt;Qsuk</code></pre>
 </div>
 </div>
-<div id="cell-16" class="cell" data-outputid="c7cbfc20-e245-451e-e8f1-585f73b5cc2e">
+<div id="cell-18" class="cell" data-outputid="cb73d783-244d-43e2-fc1d-5395fb0df388" data-execution_count="28">
 <div class="cell-output cell-output-stdout">
 <pre><code>2.787367343902588</code></pre>
 </div>
 </div>
-<div id="cell-17" class="cell" data-outputid="d3ea50a7-b009-49eb-c531-4fae5ae727ab">
+<p>Having trained the model, we can see what it outputs starting from an empty input. At this point, it can pick out some basic patterns between the placements of vowels, consonants, and spaces. We see some outputs that almost resemble words.</p>
+<div id="cell-20" class="cell" data-outputid="a4cd11d0-d6d6-4f4a-ff25-63c4b7b1372e" data-execution_count="29">
 <div class="cell-output cell-output-stdout">
 <pre><code>    \ tor s U$z)$ *}_{s $. scet  ima_nds,
 
@@ -374,7 +396,7 @@ $ $\rs oe t{d LQ) &amp;=    L_bet(S^{(n oucr{E$\p WZ}. tumalu'')=Ded Dr $mot ma'
 <h2 class="anchored" data-anchor-id="self-attention">Self-attention</h2>
 <p>The previous results were unintelligible, obviously. There is only so much predictive power from knowing the previous 8 characters.</p>
 <p>The self-attention is defined by the intially opaque equation: $ (Q, K, V) = ( ) V. $ In what follows, we will decipher the meaning of this equation.</p>
-<div id="cell-19" class="cell" data-outputid="5a7f6ab6-3533-4f44-eab2-eb3c4dce250d">
+<div id="cell-22" class="cell" data-outputid="1e31c4f1-ff3d-486f-bf69-814c5af7429a" data-execution_count="30">
 <div class="cell-output cell-output-stdout">
 <pre><code>a=
 tensor([[1.0000, 0.0000, 0.0000],
@@ -392,12 +414,12 @@ tensor([[2.0000, 7.0000],
         [4.6667, 5.3333]])</code></pre>
 </div>
 </div>
-<div id="cell-20" class="cell" data-outputid="84301aff-e164-434c-8109-5701be2d1ae3">
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div id="cell-23" class="cell" data-outputid="9343458e-936a-41fd-ca73-edb2cbafc96b" data-execution_count="31">
+<div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>torch.Size([4, 8, 2])</code></pre>
 </div>
 </div>
-<div id="cell-22" class="cell" data-outputid="feb733e2-08ff-48ac-90c7-5e6d7b3ef41e">
+<div id="cell-25" class="cell" data-outputid="3ae792bb-afcb-426f-c2bf-0ddd7b33a5db" data-execution_count="33">
 <div class="cell-output cell-output-stdout">
 <pre><code>tensor([[1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],
         [0.5000, 0.5000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],
@@ -408,22 +430,22 @@ tensor([[2.0000, 7.0000],
         [0.1429, 0.1429, 0.1429, 0.1429, 0.1429, 0.1429, 0.1429, 0.0000],
         [0.1250, 0.1250, 0.1250, 0.1250, 0.1250, 0.1250, 0.1250, 0.1250]])</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>False</code></pre>
 </div>
 </div>
-<div id="cell-23" class="cell" data-outputid="1379317f-410a-4d13-e563-3f6752d3df3c">
-<div class="cell-output cell-output-display" data-execution_count="25">
+<div id="cell-26" class="cell" data-outputid="b47fb844-e04e-4cc5-e296-d182e5479725" data-execution_count="34">
+<div class="cell-output cell-output-display" data-execution_count="34">
 <pre><code>False</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-outputid="854bcbe7-eed3-41dd-a4d6-474ab19727c6">
-<div class="cell-output cell-output-display" data-execution_count="26">
+<div id="cell-27" class="cell" data-outputid="48b36def-0a60-4603-b4bf-96a6c655833a" data-execution_count="35">
+<div class="cell-output cell-output-display" data-execution_count="35">
 <pre><code>torch.Size([4, 8, 16])</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-outputid="4debb415-ee1d-4189-8f4a-3e7c68c9d01e">
-<div class="cell-output cell-output-display" data-execution_count="27">
+<div id="cell-28" class="cell" data-outputid="da7e90f7-ae16-47aa-d314-865bfbd05333" data-execution_count="36">
+<div class="cell-output cell-output-display" data-execution_count="36">
 <pre><code>tensor([[1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],
         [0.1574, 0.8426, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],
         [0.2088, 0.1646, 0.6266, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],
@@ -435,50 +457,50 @@ tensor([[2.0000, 7.0000],
        grad_fn=&lt;SelectBackward0&gt;)</code></pre>
 </div>
 </div>
-<div id="cell-27" class="cell" data-outputid="29e1de2b-9d0f-4a98-826f-b48a54464c19">
-<div class="cell-output cell-output-display" data-execution_count="29">
+<div id="cell-30" class="cell" data-outputid="042b214c-d577-4529-f846-ec5ab88f6365" data-execution_count="38">
+<div class="cell-output cell-output-display" data-execution_count="38">
 <pre><code>tensor(1.0449)</code></pre>
 </div>
 </div>
-<div id="cell-28" class="cell" data-outputid="24c3a0a8-5175-49ae-aaeb-92ee1aabbb2c">
-<div class="cell-output cell-output-display" data-execution_count="30">
+<div id="cell-31" class="cell" data-outputid="2ba2db85-173e-4536-d7a0-ea61e4966f66" data-execution_count="39">
+<div class="cell-output cell-output-display" data-execution_count="39">
 <pre><code>tensor(1.0700)</code></pre>
 </div>
 </div>
-<div id="cell-29" class="cell" data-outputid="c6c0d8df-27c9-4ccd-9234-40d876865c0d">
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div id="cell-32" class="cell" data-outputid="b3f5bad6-411a-443a-b2fc-7c1e4991343a" data-execution_count="40">
+<div class="cell-output cell-output-display" data-execution_count="40">
 <pre><code>tensor(1.0918)</code></pre>
 </div>
 </div>
-<div id="cell-30" class="cell" data-outputid="f9e8d141-46b8-4200-fa81-981c0526f71a">
-<div class="cell-output cell-output-display" data-execution_count="32">
+<div id="cell-33" class="cell" data-outputid="c8dfc01c-ed30-47ba-a0c2-68c298c58fb3" data-execution_count="41">
+<div class="cell-output cell-output-display" data-execution_count="41">
 <pre><code>tensor([0.1925, 0.1426, 0.2351, 0.1426, 0.2872])</code></pre>
 </div>
 </div>
-<div id="cell-31" class="cell" data-outputid="5a8ae59c-5ef0-496f-e852-1a8568808770">
-<div class="cell-output cell-output-display" data-execution_count="33">
+<div id="cell-34" class="cell" data-outputid="16bf1b4a-f18e-4368-ba2a-8279def2657e" data-execution_count="42">
+<div class="cell-output cell-output-display" data-execution_count="42">
 <pre><code>tensor([0.0326, 0.0030, 0.1615, 0.0030, 0.8000])</code></pre>
 </div>
 </div>
-<div id="cell-32" class="cell" data-outputid="6af03252-30fc-4ef3-b078-2e544e4abae7">
-<div class="cell-output cell-output-display" data-execution_count="34">
+<div id="cell-35" class="cell" data-outputid="d4682e5b-88e4-455f-c0c2-ad7fdd9a5117" data-execution_count="43">
+<div class="cell-output cell-output-display" data-execution_count="43">
 <pre><code>torch.Size([32, 100])</code></pre>
 </div>
 </div>
-<div id="cell-33" class="cell" data-outputid="80a70bcb-dcdc-44bc-8d86-8b026e38af4d">
-<div class="cell-output cell-output-display" data-execution_count="35">
+<div id="cell-36" class="cell" data-outputid="e8fcd31e-80d3-436d-cb47-447f2cf76909" data-execution_count="44">
+<div class="cell-output cell-output-display" data-execution_count="44">
 <pre><code>(tensor(0.1469), tensor(0.8803))</code></pre>
 </div>
 </div>
-<div id="cell-34" class="cell" data-outputid="0a230065-90a8-4bd5-b643-6fb50c74374c">
-<div class="cell-output cell-output-display" data-execution_count="36">
+<div id="cell-37" class="cell" data-outputid="8c5853da-2590-4ce7-f95a-b4d77d370225" data-execution_count="45">
+<div class="cell-output cell-output-display" data-execution_count="45">
 <pre><code>(tensor(-9.5367e-09), tensor(1.0000))</code></pre>
 </div>
 </div>
 <section id="raw-code" class="level3">
 <h3 class="anchored" data-anchor-id="raw-code">Raw Code</h3>
 <p>Code all in one place. Can run this as a single cell if you want!</p>
-<div id="cell-36" class="cell" data-outputid="e96b5269-b515-4055-a6c8-19c30d504591">
+<div id="cell-39" class="cell" data-outputid="d754bdc9-4d2e-43dd-d524-036db2340b6f" data-execution_count="46">
 <div class="cell-output cell-output-stdout">
 <pre><code>0.216163 M parameters
 step 0: train loss 4.8271, val loss 4.8334
@@ -615,10 +637,9 @@ w_{\ast\colon X} =(\tau (\bigl( \phi &amp; \wh{V}_\ast) (\big )\circ d_{m+i}(TD,
 </div>
 </section>
 </section>
-<a class="quarto-notebook-link" id="nblink-1" href="wolfgang_GPT-preview.html#cell-0">Source: WOLFGANG-GPT</a></div>
+<a class="quarto-notebook-link" id="nblink-1" href="wolfgang_GPT-preview.html#cell-0">Source: WOLFGANG-GPT</a></section>
 
 
-</section>
 
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">

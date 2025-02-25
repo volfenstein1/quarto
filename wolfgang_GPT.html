@@ -183,7 +183,9 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#self-attention" id="toc-self-attention" class="nav-link active" data-scroll-target="#self-attention">Self-attention</a>
+  <li><a href="#tokenizer" id="toc-tokenizer" class="nav-link active" data-scroll-target="#tokenizer">Tokenizer</a></li>
+  <li><a href="#neural-network-model" id="toc-neural-network-model" class="nav-link" data-scroll-target="#neural-network-model">Neural Network Model</a></li>
+  <li><a href="#self-attention" id="toc-self-attention" class="nav-link" data-scroll-target="#self-attention">Self-attention</a>
   <ul class="collapse">
   <li><a href="#raw-code" id="toc-raw-code" class="nav-link" data-scroll-target="#raw-code">Raw Code</a></li>
   </ul></li>
@@ -213,17 +215,19 @@ window.Quarto = {
 
 
 <p>Wolfgang-GPT is trained on a data set consisting mainly of my mathematics research papers. I used <a href="https://github.com/google-research/arxiv-latex-cleaner">arxiv-latex-cleaner</a> to clean up the tex files a bit; this mostly means the removal of all commented text.</p>
-<div id="cell-3" class="cell">
-<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'WOLFGANG_TRAINING.tex'</span>, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> f:</span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> f.read()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div id="cell-3" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="op">!</span>wget <span class="op">-</span>q https:<span class="op">//</span>github.com<span class="op">/</span>volfenstein1<span class="op">/</span>quarto<span class="op">/</span>raw<span class="op">/</span>refs<span class="op">/</span>heads<span class="op">/</span>main<span class="op">/</span>WOLFGANG_TRAINING.tex</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'WOLFGANG_TRAINING.tex'</span>, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> f:</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> f.read()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-4" class="cell" data-outputid="e606ea32-f4ad-4439-9979-84ed93bb2a7f">
+<p>You can see the training set here: <a href="WOLFGANG_TRAINING.tex">WOLFGANG_TRAINING.tex</a>.</p>
+<div id="cell-5" class="cell" data-outputid="f7810fa4-c095-4e39-ddc8-6c382f502780" data-execution_count="16">
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Length of WOLFGANG_TRAINING dataset: "</span>, <span class="bu">len</span>(text))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>Length of WOLFGANG_TRAINING dataset:  3750026</code></pre>
 </div>
 </div>
-<div id="cell-5" class="cell" data-outputid="659b4129-1ff6-4622-8b61-c2894eefe3fa">
+<div id="cell-6" class="cell" data-outputid="a782b746-4a76-4ef3-9603-5fef5a27c109" data-execution_count="17">
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can look at the first 1200 characters of this dataset; it consists of plain latex code, and is easily readable on its own.</span></span>
 <span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(text[:<span class="dv">1200</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -242,7 +246,7 @@ The Steenrod problem was first presented in \cite{eilenberg1949problems} and ask
 In \cite{thom1954quelques},\footnote{The reader should be advised that the commonly available English translation of this paper introduces a few errors which ar</code></pre>
 </div>
 </div>
-<div id="cell-6" class="cell" data-outputid="6613d232-2a85-4433-c9da-68dbf63e17ac">
+<div id="cell-7" class="cell" data-outputid="e1ca5ae7-392c-4ee2-f40d-301297038eda" data-execution_count="18">
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>chars <span class="op">=</span> <span class="bu">sorted</span>(<span class="bu">list</span>(<span class="bu">set</span>(text)))</span>
 <span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>vocab_size <span class="op">=</span> <span class="bu">len</span>(chars)</span>
 <span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Unique characters: '</span>, <span class="st">''</span>.join(chars))</span>
@@ -253,10 +257,17 @@ In \cite{thom1954quelques},\footnote{The reader should be advised that the commo
 Number of unique characters:  99</code></pre>
 </div>
 </div>
-<p>A very rudimentary tokenizer, in this case the encoder is a mapping: <span class="math display">\[
+<section id="tokenizer" class="level2">
+<h2 class="anchored" data-anchor-id="tokenizer">Tokenizer</h2>
+<p>A tokenizer splits the training into disjoint chunks and embeds the chunks into a vector space <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
+<p>We use a very rudimentary tokenizer, with chunks given by the individual characters: <span class="math display">\[
+\text{The Steenrod problem for...} \to \text{|T|h|e| |S|t|e|e|n|r|o|d| |p|r|o|b|l|e|m| |f|o|r|...}
+\]</span></p>
+<p>Each unique character is encoded as a basis element of <span class="math inline">\(\mathbb{R}^n\)</span> via a one-hot encoding: <span class="math display">\[
 \{ \text{unique characters} \} \to \mathbb{R}^{\#\{\text{unique characters}\}}
-\]</span> and the decoder is the inverse. Each unique character gives a basis element of <span class="math inline">\(\mathbb{R}^n\)</span> via a one-hot encoding. Could obtain more sophistication by tokenizing on syllables and chunks of latex code.</p>
-<div id="cell-8" class="cell" data-outputid="a98bdfd8-dd32-4d7d-8efe-bd4e57f31b2b">
+\]</span> and the decoder is the inverse.</p>
+<p>We could obtain more sophistication by tokenizing on syllables and chunks of latex code, for example, see the tokenizer used by the <a href="https://huggingface.co/witiko/mathberta">MathBERTa</a> model.</p>
+<div id="cell-9" class="cell" data-outputid="0fb65a94-3038-4898-c7b2-ae9f52527836" data-execution_count="19">
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a>string_to_integer <span class="op">=</span> { char:idx <span class="cf">for</span> idx,char <span class="kw">in</span> <span class="bu">enumerate</span>(chars) }</span>
 <span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>integer_to_string <span class="op">=</span> { idx:char <span class="cf">for</span> idx,char <span class="kw">in</span> <span class="bu">enumerate</span>(chars) }</span>
 <span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>encode <span class="op">=</span> <span class="kw">lambda</span> s: [string_to_integer[c] <span class="cf">for</span> c <span class="kw">in</span> s]</span>
@@ -269,8 +280,8 @@ Number of unique characters:  99</code></pre>
 This sentence is a test. Here is some math $(M,\omega)$.</code></pre>
 </div>
 </div>
-<div id="cell-9" class="cell" data-outputid="2bec3197-d00f-428c-fdf0-1f3e62ec85da">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Can encode the entire dataset WOLFGANG_TRAINING and store it as a torch.Tensor</span></span>
+<div id="cell-10" class="cell" data-outputid="f20272d5-51ed-47be-d28d-0a2919976dbc" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Encode the entire dataset WOLFGANG_TRAINING.tex and store it as a pytorch tensor</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> torch.tensor(encode(text), dtype<span class="op">=</span>torch.<span class="bu">long</span>)</span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(data.shape, data.dtype)</span>
@@ -280,20 +291,27 @@ This sentence is a test. Here is some math $(M,\omega)$.</code></pre>
 tensor([54, 74, 71,  ...,  2, 67, 84])</code></pre>
 </div>
 </div>
-<div id="cell-10" class="cell">
+<div id="cell-11" class="cell" data-execution_count="21">
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Split the data into train and validation sets</span></span>
 <span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="fl">0.9</span><span class="op">*</span><span class="bu">len</span>(data))</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>train_data <span class="op">=</span> data[:n]</span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>val_data <span class="op">=</span> data[n:]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-11" class="cell" data-outputid="d329494b-902d-4100-f15d-9fda31b4e88a">
+</section>
+<section id="neural-network-model" class="level2">
+<h2 class="anchored" data-anchor-id="neural-network-model">Neural Network Model</h2>
+<p>Given a sequence of tokens, we can train a neural network model to predict the most likely next token: <span class="math display">\[
+    \text{|s|y|m|p|l|e|c|t|i|} \to \text{|c|}.
+\]</span></p>
+<p>The input consists of a block of tokens up to size <code>block_size</code>, and the target is the next token.</p>
+<div id="cell-13" class="cell" data-outputid="9c90882c-b037-4a16-a749-e4df219118f7" data-execution_count="22">
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>block_size <span class="op">=</span> <span class="dv">8</span></span>
 <span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>train_data[:block_size<span class="op">+</span><span class="dv">1</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="13">
+<div class="cell-output cell-output-display" data-execution_count="22">
 <pre><code>tensor([54, 74, 71,  2, 53, 86, 71, 71, 80])</code></pre>
 </div>
 </div>
-<div id="cell-12" class="cell" data-outputid="3246e57c-d932-486c-82a4-10d87cbf63a7">
+<div id="cell-14" class="cell" data-outputid="2f85de5d-fe43-4c5e-a10c-89fe24ccbf59" data-execution_count="23">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> train_data[:block_size]</span>
 <span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> train_data[<span class="dv">1</span>:block_size<span class="op">+</span><span class="dv">1</span>]</span>
 <span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> t <span class="kw">in</span> <span class="bu">range</span>(block_size):</span>
@@ -311,7 +329,7 @@ When input is tensor([54, 74, 71,  2, 53, 86, 71]) the target is: tensor(71)
 When input is tensor([54, 74, 71,  2, 53, 86, 71, 71]) the target is: tensor(80)</code></pre>
 </div>
 </div>
-<div id="cell-13" class="cell" data-outputid="138e3a68-0299-43d0-de4d-fabf82563c48">
+<div id="cell-15" class="cell" data-outputid="619c7ead-db87-446d-a538-5cc11e56c010" data-execution_count="24">
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">123412</span>)</span>
 <span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>batch_size <span class="op">=</span> <span class="dv">4</span> <span class="co"># how many independent sequences will we process in parallel?</span></span>
 <span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>block_size <span class="op">=</span> <span class="dv">8</span> <span class="co"># what is the maximum context length for predictions?</span></span>
@@ -387,7 +405,7 @@ when input is [80, 73, 2, 79, 67, 82, 14] the target: 1
 when input is [80, 73, 2, 79, 67, 82, 14, 1] the target: 68</code></pre>
 </div>
 </div>
-<div id="cell-14" class="cell" data-outputid="e1722d9a-e9f8-41a6-883d-fb4762a69ccb">
+<div id="cell-16" class="cell" data-outputid="e91d9150-9e24-4745-abd4-3cf91baab32b" data-execution_count="25">
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># For parallizeability, data gets passed to the transformer as batches of inputs.</span></span>
 <span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Example of single batch input:</span></span>
 <span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(xb)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
@@ -398,7 +416,7 @@ when input is [80, 73, 2, 79, 67, 82, 14, 1] the target: 68</code></pre>
         [80, 73,  2, 79, 67, 82, 14,  1]])</code></pre>
 </div>
 </div>
-<div id="cell-15" class="cell" data-outputid="ac29f0cc-baf6-47cd-bd44-86ec8b50b2ae">
+<div id="cell-17" class="cell" data-outputid="07f11e22-a404-4008-e83e-989824cb3767" data-execution_count="26">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">123412</span>)</span>
@@ -468,11 +486,11 @@ tensor(4.7986, grad_fn=&lt;NllLossBackward0&gt;)
 WS')0!bwTpfIH[^+7)SD|p*gK:Sg/&amp;[#?|CbmZ2.5 @ovδ1&lt;Qsuk</code></pre>
 </div>
 </div>
-<div id="cell-16" class="cell">
+<div id="cell-18" class="cell" data-execution_count="27">
 <div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Create a pytorch opuniquetimizer</span></span>
 <span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>optimizer <span class="op">=</span> torch.optim.AdamW(m.parameters(), lr<span class="op">=</span><span class="fl">1e-3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-17" class="cell" data-outputid="c7cbfc20-e245-451e-e8f1-585f73b5cc2e">
+<div id="cell-19" class="cell" data-outputid="cb73d783-244d-43e2-fc1d-5395fb0df388" data-execution_count="28">
 <div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Can minimize the loss directly via the pytorch library</span></span>
 <span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a>batch_size <span class="op">=</span> <span class="dv">64</span></span>
 <span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> steps <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">10000</span>):</span>
@@ -491,7 +509,8 @@ WS')0!bwTpfIH[^+7)SD|p*gK:Sg/&amp;[#?|CbmZ2.5 @ovδ1&lt;Qsuk</code></pre>
 <pre><code>2.787367343902588</code></pre>
 </div>
 </div>
-<div id="cell-18" class="cell" data-outputid="d3ea50a7-b009-49eb-c531-4fae5ae727ab">
+<p>Having trained the model, we can see what it outputs starting from an empty input. At this point, it can pick out some basic patterns between the placements of vowels, consonants, and spaces. We see some outputs that almost resemble words.</p>
+<div id="cell-21" class="cell" data-outputid="a4cd11d0-d6d6-4f4a-ff25-63c4b7b1372e" data-execution_count="29">
 <div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Naive output for the model</span></span>
 <span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(decode(m.generate(idx <span class="op">=</span> torch.zeros((<span class="dv">1</span>, <span class="dv">1</span>), dtype<span class="op">=</span>torch.<span class="bu">long</span>), max_new_tokens<span class="op">=</span><span class="dv">500</span>)[<span class="dv">0</span>].tolist()))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
@@ -505,13 +524,14 @@ $ $\rs oe t{d LQ) &amp;=    L_bet(S^{(n oucr{E$\p WZ}. tumalu'')=Ded Dr $mot ma'
         \sct, "Lan So}</code></pre>
 </div>
 </div>
+</section>
 <section id="self-attention" class="level2">
 <h2 class="anchored" data-anchor-id="self-attention">Self-attention</h2>
 <p>The previous results were unintelligible, obviously. There is only so much predictive power from knowing the previous 8 characters.</p>
 <p>The self-attention is defined by the intially opaque equation: <span class="math display">\[
     \text{Attention} (Q, K, V) = \text{softmax} \left( \frac{QK^T}{\sqrt{d_k}} \right) V.
 \]</span> In what follows, we will decipher the meaning of this equation.</p>
-<div id="cell-20" class="cell" data-outputid="5a7f6ab6-3533-4f44-eab2-eb3c4dce250d">
+<div id="cell-23" class="cell" data-outputid="1e31c4f1-ff3d-486f-bf69-814c5af7429a" data-execution_count="30">
 <div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">42</span>)</span>
 <span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a><span class="co"># torch.tril masks a matrix to produce a lower triangular matrix</span></span>
 <span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="co"># Helpful to enforce characters are influenced only by preceding characters</span></span>
@@ -544,16 +564,16 @@ tensor([[2.0000, 7.0000],
         [4.6667, 5.3333]])</code></pre>
 </div>
 </div>
-<div id="cell-21" class="cell" data-outputid="84301aff-e164-434c-8109-5701be2d1ae3">
+<div id="cell-24" class="cell" data-outputid="9343458e-936a-41fd-ca73-edb2cbafc96b" data-execution_count="31">
 <div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">1337</span>)</span>
 <span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a>B,T,C <span class="op">=</span> <span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">2</span> <span class="co"># batch, time, channels</span></span>
 <span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.randn(B,T,C)</span>
 <span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>x.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="22">
+<div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>torch.Size([4, 8, 2])</code></pre>
 </div>
 </div>
-<div id="cell-22" class="cell">
+<div id="cell-25" class="cell" data-execution_count="32">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We define xbow = x 'bag of words' via the average of previous characters, i.e.,</span></span>
 <span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="co"># x[b,t] = avg{x[b,i]}_{i &lt;= t}</span></span>
 <span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a>xbow <span class="op">=</span> torch.zeros((B,T,C))</span>
@@ -562,7 +582,7 @@ tensor([[2.0000, 7.0000],
 <span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>        xprev <span class="op">=</span> x[b,:t<span class="op">+</span><span class="dv">1</span>] <span class="co"># (t,C)</span></span>
 <span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a>        xbow[b,t] <span class="op">=</span> torch.mean(xprev, <span class="dv">0</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-23" class="cell" data-outputid="feb733e2-08ff-48ac-90c7-5e6d7b3ef41e">
+<div id="cell-26" class="cell" data-outputid="3ae792bb-afcb-426f-c2bf-0ddd7b33a5db" data-execution_count="33">
 <div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># We can achieve the same but more efficiently using matrix multiplication</span></span>
 <span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>wei <span class="op">=</span> torch.tril(torch.ones(T, T))</span>
 <span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>wei <span class="op">=</span> wei <span class="op">/</span> wei.<span class="bu">sum</span>(<span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>)</span>
@@ -579,11 +599,11 @@ tensor([[2.0000, 7.0000],
         [0.1429, 0.1429, 0.1429, 0.1429, 0.1429, 0.1429, 0.1429, 0.0000],
         [0.1250, 0.1250, 0.1250, 0.1250, 0.1250, 0.1250, 0.1250, 0.1250]])</code></pre>
 </div>
-<div class="cell-output cell-output-display" data-execution_count="24">
+<div class="cell-output cell-output-display" data-execution_count="33">
 <pre><code>False</code></pre>
 </div>
 </div>
-<div id="cell-24" class="cell" data-outputid="1379317f-410a-4d13-e563-3f6752d3df3c">
+<div id="cell-27" class="cell" data-outputid="b47fb844-e04e-4cc5-e296-d182e5479725" data-execution_count="34">
 <div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co"># version 3: use Softmax</span></span>
 <span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a>tril <span class="op">=</span> torch.tril(torch.ones(T, T))</span>
 <span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a>wei <span class="op">=</span> torch.zeros((T,T))</span>
@@ -591,11 +611,11 @@ tensor([[2.0000, 7.0000],
 <span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a>wei <span class="op">=</span> nn.functional.softmax(wei, dim<span class="op">=-</span><span class="dv">1</span>)</span>
 <span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>xbow3 <span class="op">=</span> wei <span class="op">@</span> x</span>
 <span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>torch.allclose(xbow, xbow3)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="25">
+<div class="cell-output cell-output-display" data-execution_count="34">
 <pre><code>False</code></pre>
 </div>
 </div>
-<div id="cell-25" class="cell" data-outputid="854bcbe7-eed3-41dd-a4d6-474ab19727c6">
+<div id="cell-28" class="cell" data-outputid="48b36def-0a60-4603-b4bf-96a6c655833a" data-execution_count="35">
 <div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># version 4: self-attention!</span></span>
 <span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a>torch.manual_seed(<span class="dv">1337</span>)</span>
 <span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a>B,T,C <span class="op">=</span> <span class="dv">4</span>,<span class="dv">8</span>,<span class="dv">32</span> <span class="co"># batch, time, channels</span></span>
@@ -620,13 +640,13 @@ tensor([[2.0000, 7.0000],
 <span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a><span class="co">#out = wei @ x</span></span>
 <span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>out.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="26">
+<div class="cell-output cell-output-display" data-execution_count="35">
 <pre><code>torch.Size([4, 8, 16])</code></pre>
 </div>
 </div>
-<div id="cell-26" class="cell" data-outputid="4debb415-ee1d-4189-8f4a-3e7c68c9d01e">
+<div id="cell-29" class="cell" data-outputid="da7e90f7-ae16-47aa-d314-865bfbd05333" data-execution_count="36">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>wei[<span class="dv">0</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="27">
+<div class="cell-output cell-output-display" data-execution_count="36">
 <pre><code>tensor([[1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],
         [0.1574, 0.8426, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],
         [0.2088, 0.1646, 0.6266, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],
@@ -638,42 +658,42 @@ tensor([[2.0000, 7.0000],
        grad_fn=&lt;SelectBackward0&gt;)</code></pre>
 </div>
 </div>
-<div id="cell-27" class="cell">
+<div id="cell-30" class="cell" data-execution_count="37">
 <div class="sourceCode cell-code" id="cb42"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1" aria-hidden="true" tabindex="-1"></a>k <span class="op">=</span> torch.randn(B,T,head_size)</span>
 <span id="cb42-2"><a href="#cb42-2" aria-hidden="true" tabindex="-1"></a>q <span class="op">=</span> torch.randn(B,T,head_size)</span>
 <span id="cb42-3"><a href="#cb42-3" aria-hidden="true" tabindex="-1"></a>wei <span class="op">=</span> q <span class="op">@</span> k.transpose(<span class="op">-</span><span class="dv">2</span>, <span class="op">-</span><span class="dv">1</span>) <span class="op">*</span> head_size<span class="op">**-</span><span class="fl">0.5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div id="cell-28" class="cell" data-outputid="29e1de2b-9d0f-4a98-826f-b48a54464c19">
+<div id="cell-31" class="cell" data-outputid="042b214c-d577-4529-f846-ec5ab88f6365" data-execution_count="38">
 <div class="sourceCode cell-code" id="cb43"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1" aria-hidden="true" tabindex="-1"></a>k.var()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="29">
+<div class="cell-output cell-output-display" data-execution_count="38">
 <pre><code>tensor(1.0449)</code></pre>
 </div>
 </div>
-<div id="cell-29" class="cell" data-outputid="24c3a0a8-5175-49ae-aaeb-92ee1aabbb2c">
+<div id="cell-32" class="cell" data-outputid="2ba2db85-173e-4536-d7a0-ea61e4966f66" data-execution_count="39">
 <div class="sourceCode cell-code" id="cb45"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb45-1"><a href="#cb45-1" aria-hidden="true" tabindex="-1"></a>q.var()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="30">
+<div class="cell-output cell-output-display" data-execution_count="39">
 <pre><code>tensor(1.0700)</code></pre>
 </div>
 </div>
-<div id="cell-30" class="cell" data-outputid="c6c0d8df-27c9-4ccd-9234-40d876865c0d">
+<div id="cell-33" class="cell" data-outputid="b3f5bad6-411a-443a-b2fc-7c1e4991343a" data-execution_count="40">
 <div class="sourceCode cell-code" id="cb47"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1" aria-hidden="true" tabindex="-1"></a>wei.var()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="31">
+<div class="cell-output cell-output-display" data-execution_count="40">
 <pre><code>tensor(1.0918)</code></pre>
 </div>
 </div>
-<div id="cell-31" class="cell" data-outputid="f9e8d141-46b8-4200-fa81-981c0526f71a">
+<div id="cell-34" class="cell" data-outputid="c8dfc01c-ed30-47ba-a0c2-68c298c58fb3" data-execution_count="41">
 <div class="sourceCode cell-code" id="cb49"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1" aria-hidden="true" tabindex="-1"></a>torch.softmax(torch.tensor([<span class="fl">0.1</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.5</span>]), dim<span class="op">=-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="32">
+<div class="cell-output cell-output-display" data-execution_count="41">
 <pre><code>tensor([0.1925, 0.1426, 0.2351, 0.1426, 0.2872])</code></pre>
 </div>
 </div>
-<div id="cell-32" class="cell" data-outputid="5a8ae59c-5ef0-496f-e852-1a8568808770">
+<div id="cell-35" class="cell" data-outputid="16bf1b4a-f18e-4368-ba2a-8279def2657e" data-execution_count="42">
 <div class="sourceCode cell-code" id="cb51"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1" aria-hidden="true" tabindex="-1"></a>torch.softmax(torch.tensor([<span class="fl">0.1</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.3</span>, <span class="op">-</span><span class="fl">0.2</span>, <span class="fl">0.5</span>])<span class="op">*</span><span class="dv">8</span>, dim<span class="op">=-</span><span class="dv">1</span>) <span class="co"># gets too peaky, converges to one-hot</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="33">
+<div class="cell-output cell-output-display" data-execution_count="42">
 <pre><code>tensor([0.0326, 0.0030, 0.1615, 0.0030, 0.8000])</code></pre>
 </div>
 </div>
-<div id="cell-33" class="cell" data-outputid="6af03252-30fc-4ef3-b078-2e544e4abae7">
+<div id="cell-36" class="cell" data-outputid="d4682e5b-88e4-455f-c0c2-ad7fdd9a5117" data-execution_count="43">
 <div class="sourceCode cell-code" id="cb53"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LayerNorm1d: <span class="co"># (used to be BatchNorm1d)</span></span>
 <span id="cb53-2"><a href="#cb53-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb53-3"><a href="#cb53-3" aria-hidden="true" tabindex="-1"></a>  <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, dim, eps<span class="op">=</span><span class="fl">1e-5</span>, momentum<span class="op">=</span><span class="fl">0.1</span>):</span>
@@ -697,26 +717,26 @@ tensor([[2.0000, 7.0000],
 <span id="cb53-21"><a href="#cb53-21" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> torch.randn(<span class="dv">32</span>, <span class="dv">100</span>) <span class="co"># batch size 32 of 100-dimensional vectors</span></span>
 <span id="cb53-22"><a href="#cb53-22" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> module(x)</span>
 <span id="cb53-23"><a href="#cb53-23" aria-hidden="true" tabindex="-1"></a>x.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="34">
+<div class="cell-output cell-output-display" data-execution_count="43">
 <pre><code>torch.Size([32, 100])</code></pre>
 </div>
 </div>
-<div id="cell-34" class="cell" data-outputid="80a70bcb-dcdc-44bc-8d86-8b026e38af4d">
+<div id="cell-37" class="cell" data-outputid="e8fcd31e-80d3-436d-cb47-447f2cf76909" data-execution_count="44">
 <div class="sourceCode cell-code" id="cb55"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1" aria-hidden="true" tabindex="-1"></a>x[:,<span class="dv">0</span>].mean(), x[:,<span class="dv">0</span>].std() <span class="co"># mean,std of one feature across all batch inputs</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="35">
+<div class="cell-output cell-output-display" data-execution_count="44">
 <pre><code>(tensor(0.1469), tensor(0.8803))</code></pre>
 </div>
 </div>
-<div id="cell-35" class="cell" data-outputid="0a230065-90a8-4bd5-b643-6fb50c74374c">
+<div id="cell-38" class="cell" data-outputid="8c5853da-2590-4ce7-f95a-b4d77d370225" data-execution_count="45">
 <div class="sourceCode cell-code" id="cb57"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1" aria-hidden="true" tabindex="-1"></a>x[<span class="dv">0</span>,:].mean(), x[<span class="dv">0</span>,:].std() <span class="co"># mean,std of a single input from the batch, of its features</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="36">
+<div class="cell-output cell-output-display" data-execution_count="45">
 <pre><code>(tensor(-9.5367e-09), tensor(1.0000))</code></pre>
 </div>
 </div>
 <section id="raw-code" class="level3">
 <h3 class="anchored" data-anchor-id="raw-code">Raw Code</h3>
 <p>Code all in one place. Can run this as a single cell if you want!</p>
-<div id="cell-37" class="cell" data-outputid="e96b5269-b515-4055-a6c8-19c30d504591">
+<div id="cell-40" class="cell" data-outputid="d754bdc9-4d2e-43dd-d524-036db2340b6f" data-execution_count="46">
 <div class="sourceCode cell-code" id="cb59"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
 <span id="cb59-2"><a href="#cb59-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch.nn <span class="im">as</span> nn</span>
 <span id="cb59-3"><a href="#cb59-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.nn <span class="im">import</span> functional <span class="im">as</span> F</span>
