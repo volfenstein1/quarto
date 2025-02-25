@@ -55,8 +55,8 @@ So, are chatbots right now deducing the answers using logic and reasoning, arriv
 Or are they regurgitating tweaked answers they have seen before, after ingesting the world's online libraries?
 OpenAI's research LLM, o1-preview, showed a [30% drop in accuracy](https://openreview.net/forum?id=YXnwlZe0yf) on a benchmark based on Putnam competition problems simply by tweaking the given questions.
 
-When evaluating the mathematical capabilities of LLMs, it is helpful to have a bit of an understanding for how GPTs, i.e., _generative pretrained transformers_, actually work.
-
+I wanted to
+When evaluating the mathematical capabilities of LLMs, it is helpful to have a bit of an understanding for how modern LLMs actually work.
 get a feel for this myself, I built [Wolfgang-GPT](gpt.qmd)
 
 <!-- Can say more after completing WOLFGANG-GPT -->

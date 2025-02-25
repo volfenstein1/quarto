@@ -2,6 +2,7 @@ project:
   type: website
   resources: 
     - CV - Wolfgang Schmaltz.pdf
+    - WOLFGANG_TRAINING.tex
 
 website:
   title: 'Wolfgang Schmaltz'
@@ -14,18 +15,20 @@ website:
         file: mathematics.qmd
       - text: Limitations of AI
         file: limitations.qmd
-      - text: Forecasting
+      # - text: Forecasting
+      # - text: Wolfgang-GPT
+        # file: gpt.qmd
       - text: Wolfgang-GPT
-        file: gpt.qmd
+        file: wolfgang_GPT.ipynb
 
-  sidebar:
-      - title: 'Research Mathematics'
-        style: 'docked'
-        contents:
-          - file: mathematics.qmd
-            text: Research Mathematics
-      - title: 'Limitations of AI'
-        style: docked
+  # sidebar:
+  #     - title: 'Research Mathematics'
+  #       style: 'docked'
+  #       contents:
+  #         - file: mathematics.qmd
+  #           text: Research Mathematics
+  #     - title: 'Limitations of AI'
+  #       style: docked
       # - title: 'Deep Learning'
       #   style: 'docked'
       #   contents:

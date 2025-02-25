@@ -28,6 +28,8 @@ Raw data:
 
 - plain text LaTex code from arxiv papers
 
+[WOLFGANG_TRAINING.tex](WOLFGANG_TRAINING.tex)
+
 Cleaning up the data:
 [arxiv Latex cleaner](https://github.com/google-research/arxiv-latex-cleaner)
 
@@ -39,3 +41,9 @@ Tokenizer for latex:
 Pretty nonsensical! But keep in mind, I'm one guy who built this with a laptop from 2014. You can of course get more impressive results with 100 mathematics and computer science PhDs and with billions of dollars of computing resources.
 
 The point was to get a feel for the underlying mechanisms of an LLM.
+
+## The Output after Pretraining and Finetuning
+
+## The Code
+
+{{< embed wolfgang_GPT.ipynb >}}
