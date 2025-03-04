@@ -151,8 +151,6 @@ window.Quarto = {
   <ul>
   <li><a href="#the-conventional-wisdom-ai-mathematicians-are-imminent" id="toc-the-conventional-wisdom-ai-mathematicians-are-imminent" class="nav-link active" data-scroll-target="#the-conventional-wisdom-ai-mathematicians-are-imminent">The conventional wisdom: AI mathematicians are imminent</a></li>
   <li><a href="#the-current-reality-ai-cannot-reliably-solve-math-problems" id="toc-the-current-reality-ai-cannot-reliably-solve-math-problems" class="nav-link" data-scroll-target="#the-current-reality-ai-cannot-reliably-solve-math-problems">The (current) reality: AI cannot reliably solve math problems</a></li>
-  <li><a href="#where-to-look-for-a-future-breakthrough" id="toc-where-to-look-for-a-future-breakthrough" class="nav-link" data-scroll-target="#where-to-look-for-a-future-breakthrough">Where to look for a future breakthrough</a></li>
-  <li><a href="#to-its-credit-math-has-some-elements-well-suited-for-machine-learning" id="toc-to-its-credit-math-has-some-elements-well-suited-for-machine-learning" class="nav-link" data-scroll-target="#to-its-credit-math-has-some-elements-well-suited-for-machine-learning">TO ITS CREDIT, MATH HAS SOME ELEMENTS WELL SUITED FOR MACHINE LEARNING</a></li>
   <li><a href="#microsoft-copilot-factors-the-number-12" id="toc-microsoft-copilot-factors-the-number-12" class="nav-link" data-scroll-target="#microsoft-copilot-factors-the-number-12">Microsoft Copilot factors the number <span class="math inline">\(12\)</span></a></li>
   <li><a href="#anthropics-claude.ai-factors-a-prime-number" id="toc-anthropics-claude.ai-factors-a-prime-number" class="nav-link" data-scroll-target="#anthropics-claude.ai-factors-a-prime-number">Anthropic’s Claude.ai factors a prime number</a></li>
   <li><a href="#google-gemini-and-function-preimages" id="toc-google-gemini-and-function-preimages" class="nav-link" data-scroll-target="#google-gemini-and-function-preimages">Google Gemini and Function Preimages</a></li>
@@ -204,38 +202,36 @@ window.Quarto = {
 <p>Playing around with any of the top of the line chatbots, it is easy to be initially impressed. They can convincingly (and correctly) compute a complicated integral requiring complex analysis, or even write a proof of Weinstein’s neighborhood theorem!</p>
 <p>Playing around a little more, it isn’t hard at all for chatbots to produce gibberish; responses usually contain horrific basic arithmetical errors, hallucinations of connections between unrelated concepts, or unconditional overconfidence in the veracity of the given answer. (See the next sections for some illustrative experiments!)</p>
 <p>So, are chatbots right now deducing the answers using logic and reasoning, arriving at the answer deductive step by deductive step? Or are they regurgitating tweaked answers they have seen before, after ingesting the world’s online libraries? OpenAI’s research LLM, o1-preview, showed a <a href="https://openreview.net/forum?id=YXnwlZe0yf">30% drop in accuracy</a> on a benchmark based on Putnam competition problems simply by tweaking the given questions.</p>
-<p>I wanted to When evaluating the mathematical capabilities of LLMs, it is helpful to have a bit of an understanding for how modern LLMs actually work. get a feel for this myself, I built <a href="./gpt.html">Wolfgang-GPT</a></p>
+<p>Serious skepticism about model performance on benchmarks is also warranted when companies appear to have few scruples regarding secretly gaming the results. For example, on December 20, 2024, OpenAI reported that its new research model o3 scored a 25.2% score on the T1 tier of Epoch AI’s FrontierMath benchmark <a href="https://x.com/polynoamial/status/1870172996650053653">1</a> <a href="https://wandb.ai/byyoung3/ml-news/reports/OpenAI-Introduces-o3-Pushing-the-Boundaries-of-AI-Reasoning--VmlldzoxMDY3OTUxMA">2</a>. Unbeknownst to the many of the mathematicians who contributed to the benchmark, OpenAI has funded Epoch AI, and was given exclusive access to the problems and solutions of 250 problems, with a hold out set of 50 <a href="https://epoch.ai/blog/openai-and-frontiermath">1</a>.</p>
+<!-- ## DEEP LEARNING ON FORMALIZED PROOF SOFTWARE -->
+<!-- To its credit, some elements should be somewhat well-suited for machine learning techniques -->
+<!-- Mathematics is: -->
+<!-- - static -->
+<!-- - extremely quantitative -->
+<!-- - rigorous and well-defined -->
+<!-- WILL NEED SOME FURTHER BREAKTHROUGHS, WAKE ME UP WHEN A COMPUTER SOLVES A FRONTIER MATH PROBLEM -->
+<!-- I wanted to -->
+<!-- When evaluating the mathematical capabilities of LLMs, it is helpful to have a bit of an understanding for how modern LLMs actually work. -->
+<!-- get a feel for this myself, I built [Wolfgang-GPT](gpt.qmd) -->
 <!-- Can say more after completing WOLFGANG-GPT -->
-<p>TOKENIZATION</p>
-<p>STATIC SIMULATION</p>
-<p>THE OUTCOME - SUPERFICIAL ANSWERS</p>
-<p>SIMILAR PROBLEMS</p>
-<p>CHURNING THROUGH SEA OF INFORMATION</p>
-<p>There is a lot of value in this however!</p>
-</section>
-<section id="where-to-look-for-a-future-breakthrough" class="level2">
-<h2 class="anchored" data-anchor-id="where-to-look-for-a-future-breakthrough">Where to look for a future breakthrough</h2>
-<p>first: formal proof assistants, FrontierMath</p>
-<p>Formal proof assistant</p>
-<p>SAT solver Trained on lean</p>
+<!-- TOKENIZATION -->
+<!-- STATIC SIMULATION -->
+<!-- THE OUTCOME - SUPERFICIAL ANSWERS -->
+<!-- SIMILAR PROBLEMS -->
+<!-- There is a lot of value in this however! -->
+<!-- ## Future breakthroughs: Lean -->
+<!-- first: formal proof assistants, FrontierMath -->
+<!-- Formal proof assistant -->
+<!-- SAT solver -->
+<!-- Trained on lean -->
 <!-- ## WHAT DO AI PROGRAMS PRIORITIZE? -->
 <!-- CHAT programs judge their answers on -->
 <!-- loss functions are geared towards superficially confident and superficially convincing answers, rather than "correct" answers, where correctness may be deemed as something like, mathematically accurate, without real gaps, even if sketched, even if hesitant. -->
 <!-- loss function approximates answers which appear at a glance to be convincing, rather than answers which are maybe less polished but more accurate -->
 <!-- I would prefer the opposite! -->
 <!-- Humans, students, etc can be claimed to operate in the opposite direction; a student who answers cautiously with the sketches of a correct answer -->
-</section>
-<section id="to-its-credit-math-has-some-elements-well-suited-for-machine-learning" class="level2">
-<h2 class="anchored" data-anchor-id="to-its-credit-math-has-some-elements-well-suited-for-machine-learning">TO ITS CREDIT, MATH HAS SOME ELEMENTS WELL SUITED FOR MACHINE LEARNING</h2>
-<p><strong>LOOK TO TERRENCE TAO’S PAPER FOR GUIDANCE HERE</strong></p>
-<p>To its credit, some elements should be somewhat well-suited for machine learning techniques</p>
-<p>Mathematics is:</p>
-<ul>
-<li>static</li>
-<li>extremely quantitative</li>
-<li>rigorous and well-defined</li>
-</ul>
-<p>WILL NEED SOME FURTHER BREAKTHROUGHS, WAKE ME UP WHEN A COMPUTER SOLVES A FRONTIER MATH PROBLEM</p>
+<!-- ## TO ITS CREDIT, MATH HAS SOME ELEMENTS WELL SUITED FOR MACHINE LEARNING -->
+<!-- **LOOK TO TERRENCE TAO'S PAPER FOR GUIDANCE HERE** -->
 <!-- **LOOK TO TERRENCE TAO'S PAPER FOR GUIDANCE HERE** -->
 <!-- However, mathematics also requires genuine abstraction and understanding. -->
 <!-- And indeed, without a doubt chatbots appear at first glance to be quite impressive. -->
