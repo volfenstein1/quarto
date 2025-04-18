@@ -133,74 +133,46 @@
     "text": "Self-attention\nThe previous results were unintelligible, obviously. There is only so much predictive power from knowing the previous 8 characters.\nThe self-attention is defined by the intially opaque equation: $ (Q, K, V) = ( ) V. $ In what follows, we will decipher the meaning of this equation.\n\n\na=\ntensor([[1.0000, 0.0000, 0.0000],\n        [0.5000, 0.5000, 0.0000],\n        [0.3333, 0.3333, 0.3333]])\n--\nb=\ntensor([[2., 7.],\n        [6., 4.],\n        [6., 5.]])\n--\nc=\ntensor([[2.0000, 7.0000],\n        [4.0000, 5.5000],\n        [4.6667, 5.3333]])\n\n\n\n\ntorch.Size([4, 8, 2])\n\n\n\n\ntensor([[1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n        [0.5000, 0.5000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n        [0.3333, 0.3333, 0.3333, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n        [0.2500, 0.2500, 0.2500, 0.2500, 0.0000, 0.0000, 0.0000, 0.0000],\n        [0.2000, 0.2000, 0.2000, 0.2000, 0.2000, 0.0000, 0.0000, 0.0000],\n        [0.1667, 0.1667, 0.1667, 0.1667, 0.1667, 0.1667, 0.0000, 0.0000],\n        [0.1429, 0.1429, 0.1429, 0.1429, 0.1429, 0.1429, 0.1429, 0.0000],\n        [0.1250, 0.1250, 0.1250, 0.1250, 0.1250, 0.1250, 0.1250, 0.1250]])\n\n\nFalse\n\n\n\n\nFalse\n\n\n\n\ntorch.Size([4, 8, 16])\n\n\n\n\ntensor([[1.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n        [0.1574, 0.8426, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n        [0.2088, 0.1646, 0.6266, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000],\n        [0.5792, 0.1187, 0.1889, 0.1131, 0.0000, 0.0000, 0.0000, 0.0000],\n        [0.0294, 0.1052, 0.0469, 0.0276, 0.7909, 0.0000, 0.0000, 0.0000],\n        [0.0176, 0.2689, 0.0215, 0.0089, 0.6812, 0.0019, 0.0000, 0.0000],\n        [0.1691, 0.4066, 0.0438, 0.0416, 0.1048, 0.2012, 0.0329, 0.0000],\n        [0.0210, 0.0843, 0.0555, 0.2297, 0.0573, 0.0709, 0.2423, 0.2391]],\n       grad_fn=&lt;SelectBackward0&gt;)\n\n\n\n\ntensor(1.0449)\n\n\n\n\ntensor(1.0700)\n\n\n\n\ntensor(1.0918)\n\n\n\n\ntensor([0.1925, 0.1426, 0.2351, 0.1426, 0.2872])\n\n\n\n\ntensor([0.0326, 0.0030, 0.1615, 0.0030, 0.8000])\n\n\n\n\ntorch.Size([32, 100])\n\n\n\n\n(tensor(0.1469), tensor(0.8803))\n\n\n\n\n(tensor(-9.5367e-09), tensor(1.0000))\n\n\n\nOutput of wolfgang-GPT\nWe can train the model and take a look at it’s output.\n\n\n0.216163 M parameters\nstep 0: train loss 4.8271, val loss 4.8334\nstep 100: train loss 3.0829, val loss 3.1061\nstep 200: train loss 2.8736, val loss 2.9270\nstep 300: train loss 2.7634, val loss 2.8190\nstep 400: train loss 2.6443, val loss 2.7482\nstep 500: train loss 2.5412, val loss 2.6754\nstep 600: train loss 2.4129, val loss 2.5889\nstep 700: train loss 2.2853, val loss 2.5031\nstep 800: train loss 2.1972, val loss 2.4321\nstep 900: train loss 2.1018, val loss 2.3783\nstep 1000: train loss 2.0110, val loss 2.3254\nstep 1100: train loss 1.9628, val loss 2.2730\nstep 1200: train loss 1.9165, val loss 2.2424\nstep 1300: train loss 1.8705, val loss 2.2132\nstep 1400: train loss 1.8289, val loss 2.1685\nstep 1500: train loss 1.7821, val loss 2.1482\nstep 1600: train loss 1.7548, val loss 2.1220\nstep 1700: train loss 1.7397, val loss 2.1116\nstep 1800: train loss 1.7028, val loss 2.0718\nstep 1900: train loss 1.6819, val loss 2.0624\nstep 2000: train loss 1.6528, val loss 2.0338\nstep 2100: train loss 1.6457, val loss 2.0340\nstep 2200: train loss 1.6332, val loss 2.0217\nstep 2300: train loss 1.6139, val loss 2.0074\nstep 2400: train loss 1.5900, val loss 2.0060\nstep 2500: train loss 1.5812, val loss 1.9844\nstep 2600: train loss 1.5582, val loss 1.9894\nstep 2700: train loss 1.5602, val loss 1.9646\nstep 2800: train loss 1.5339, val loss 1.9552\nstep 2900: train loss 1.5371, val loss 1.9606\nstep 3000: train loss 1.5207, val loss 1.9484\nstep 3100: train loss 1.5069, val loss 1.9419\nstep 3200: train loss 1.5063, val loss 1.9331\nstep 3300: train loss 1.4954, val loss 1.9216\nstep 3400: train loss 1.4831, val loss 1.9340\nstep 3500: train loss 1.4764, val loss 1.9227\nstep 3600: train loss 1.4586, val loss 1.9143\nstep 3700: train loss 1.4632, val loss 1.8919\nstep 3800: train loss 1.4521, val loss 1.9127\nstep 3900: train loss 1.4434, val loss 1.8909\nstep 4000: train loss 1.4355, val loss 1.8856\nstep 4100: train loss 1.4277, val loss 1.8673\nstep 4200: train loss 1.4235, val loss 1.8965\nstep 4300: train loss 1.4221, val loss 1.8726\nstep 4400: train loss 1.4249, val loss 1.8771\nstep 4500: train loss 1.4029, val loss 1.8744\nstep 4600: train loss 1.4124, val loss 1.8709\nstep 4700: train loss 1.3969, val loss 1.8486\nstep 4800: train loss 1.4056, val loss 1.8457\nstep 4900: train loss 1.3909, val loss 1.8585\nstep 5000: train loss 1.3914, val loss 1.8445\nstep 5100: train loss 1.3928, val loss 1.8413\nstep 5200: train loss 1.3803, val loss 1.8388\nstep 5300: train loss 1.3799, val loss 1.8704\nstep 5400: train loss 1.3802, val loss 1.8549\nstep 5500: train loss 1.3716, val loss 1.8478\nstep 5600: train loss 1.3795, val loss 1.8505\nstep 5700: train loss 1.3680, val loss 1.8476\nstep 5800: train loss 1.3554, val loss 1.8403\nstep 5900: train loss 1.3514, val loss 1.8214\nstep 6000: train loss 1.3598, val loss 1.8366\nstep 6100: train loss 1.3657, val loss 1.8369\nstep 6200: train loss 1.3599, val loss 1.8375\nstep 6300: train loss 1.3558, val loss 1.8100\nstep 6400: train loss 1.3452, val loss 1.7913\nstep 6500: train loss 1.3359, val loss 1.8332\nstep 6600: train loss 1.3323, val loss 1.8241\nstep 6700: train loss 1.3402, val loss 1.8393\nstep 6800: train loss 1.3321, val loss 1.8248\nstep 6900: train loss 1.3251, val loss 1.8137\nstep 7000: train loss 1.3207, val loss 1.8105\nstep 7100: train loss 1.3095, val loss 1.7979\nstep 7200: train loss 1.3389, val loss 1.8208\nstep 7300: train loss 1.3211, val loss 1.7852\nstep 7400: train loss 1.3193, val loss 1.8113\nstep 7500: train loss 1.3185, val loss 1.8143\nstep 7600: train loss 1.3173, val loss 1.8183\nstep 7700: train loss 1.3191, val loss 1.8131\nstep 7800: train loss 1.3206, val loss 1.7923\nstep 7900: train loss 1.3022, val loss 1.7816\nstep 8000: train loss 1.3022, val loss 1.7949\nstep 8100: train loss 1.2953, val loss 1.8006\nstep 8200: train loss 1.2989, val loss 1.8067\nstep 8300: train loss 1.2898, val loss 1.8000\nstep 8400: train loss 1.2928, val loss 1.8070\nstep 8500: train loss 1.2860, val loss 1.8001\nstep 8600: train loss 1.2986, val loss 1.8043\nstep 8700: train loss 1.2869, val loss 1.8100\nstep 8800: train loss 1.2833, val loss 1.7854\nstep 8900: train loss 1.2935, val loss 1.8020\nstep 9000: train loss 1.2798, val loss 1.8097\nstep 9100: train loss 1.2862, val loss 1.7941\nstep 9200: train loss 1.2801, val loss 1.7839\nstep 9300: train loss 1.2780, val loss 1.8103\nstep 9400: train loss 1.2906, val loss 1.8046\nstep 9500: train loss 1.2822, val loss 1.8033\nstep 9600: train loss 1.2734, val loss 1.7810\nstep 9700: train loss 1.2714, val loss 1.8044\nstep 9800: train loss 1.2748, val loss 1.7960\nstep 9900: train loss 1.2643, val loss 1.8026\nstep 9999: train loss 1.2674, val loss 1.7782\n    \\; \\bigcup_{i'\\in U'}_{\\lambda} (v_y\\times W_{x',0,k}).\n            \\item\n    Assume that $w=\\Theta)\n\\rightarrow (a,v)=\\{0,1\\}$. \n    \n To bumpple, that  this properts closed to  a parameter a correspond $Z$\\bm{W}$, where  there $\\Phi_x$.\n\\qed\n\\end{$(I-s_a,o}, D_j$.\n\n\\sum_{A}\n\n  \\ssc^\\infty\\in W\\setminus \\oplus W\\Q^+=\\wh{e}^2&@&lt;\\arrow{\\Gamma^\\ast}|_{x_{a_1\\wh{\\neq_x^*}_2 (a,v,\\tau(g'),l(o_i)\\to \\abs{\\tau (0)} \\leq \\a@ \\mathscr{C}^{-1}^{\\iota}\\phi^{\\tau_0}} \\times{WZ+HWZ8}(\\sigma)\\rightarrow \\mu (\\tau)\\circ T (-\\bf deffer to $t_X\\rightarrow {\\mathscr{S}$}_t {t_x}(y_{x_p})$.   If those proved that $E\\leq m$ local brive isomorphism, such. $X\\subset W$ with $f&gt;P_a(a,o_a)$\nwhere are istension.  Apparacompact maps  reall $\\zi$ and $\\lambda)'\\to (\\Gamma_a)\\circ\\frac{1}(F, \\alpha^+,\\alpha^+,-)$, defined to the image filted in $C_x$ has a tangent of $I$\\xi$ holows fromov-wing-fiber-compactness prove that $k=\\sigma$.\n\\qed\n\\end{definition}\n\nHere tangent $f'_k$ conclude type,  the map $(U, \\phi^{-1}): \\pi\n\\cU| \\mathscr{C}^{-1}(\\cF)\\to O^\\pm\\in \\cP(\\cW^{}_a; \\rightarrow \\abs{ b}_X :\\Tti-(\\rT_x \\bigl|)  \\cdot, t_H^* \\cap (p_-, A_+)$ and we such use that with are isots that solutions hysuality for the sensions of $\\tau$ of a zero defined only\nof next the point solution provese $\\abs{\\beta(a)}$ also linear operators,\nwhich, ands and the map \\rho$ are $ is b.\nHance we have this sc-smoothly of $X'_{{0,1}}\\oplus W$ of ep-groupoidal $z\\in \\w-hat{s}_{\\iota}'(\\Sigma)$) is sc-smooth, which nece orbifold with the equest closed on $\\delbar_x=\\ast\\ov\\circ s^{t,y$.\n\n\\item[(\\beta) \\begin{le}\\ \\\\ over(y)| \\alpha \\in F^\\ast_{x,y} +h}^+\\ast$ to equ\nsee. the morphism\n$\nw_{\\ast\\colon X} =(\\tau (\\bigl( \\phi & \\wh{V}_\\ast) (\\big )\\circ d_{m+i}(TD,x',\\tau,g)\n    (\\phi, \\psi \\exp_p \\bm{M}(\\phi, \\beta, {\\phi})\\rightarrow [0,1] \\to \\sum_{X_x'$-acts of a stable.   \n  In bhoose a finite-section be cholowse which  associated for whoosen \\ref{rm-stratned(3)-suborbifold}}} we have metrizable\n many, and the indices recalized t"
   },
   {
-    "objectID": "fastai-1.html",
-    "href": "fastai-1.html",
-    "title": "Wolfgang Schmaltz",
+    "objectID": "hello.html",
+    "href": "hello.html",
+    "title": "Quarto Basics",
     "section": "",
-    "text": "::: {#cell-0 .cell _kg_hide-input=‘false’ _kg_hide-output=‘false’ execution=‘{“iopub.execute_input”:“2023-03-09T12:56:53.917785Z”,“iopub.status.busy”:“2023-03-09T12:56:53.916489Z”,“iopub.status.idle”:“2023-03-09T12:57:07.982541Z”,“shell.execute_reply”:“2023-03-09T12:57:07.981391Z”,“shell.execute_reply.started”:“2023-03-09T12:56:53.917689Z”}’ execution_count=1}\n:::\nIn this short notebook, I build a classifier to determine whether an image is a beetle or The Beatles!"
+    "text": "For a demonstration of a line plot on a polar axis, see Figure 1.\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\n\n\n\n\nFigure 1: A line plot on a polar axis"
   },
   {
-    "objectID": "fastai-1.html#step-1-download-images-of-beetles-and-the-beatles",
-    "href": "fastai-1.html#step-1-download-images-of-beetles-and-the-beatles",
-    "title": "Wolfgang Schmaltz",
-    "section": "Step 1: Download images of beetles and The Beatles",
-    "text": "Step 1: Download images of beetles and The Beatles\nUsing the python package ddg_search we begin by searching for images of beetles and The Beatles.\n\nfrom duckduckgo_search import ddg_images\nfrom fastcore.all import *\n\ndef search_images(term, max_images=30):\n    print(f\"Searching for '{term}'\")\n    return L(ddg_images(term, max_results=max_images)).itemgot('image')\n\n\nfrom fastdownload import download_url\nfrom fastai.vision.all import *\n\ndownload_url(search_images('beetles', max_images=1)[0], 'beetle.jpg', show_progress=False)\n#Image.open('beetle.jpg').to_thumb(256,256)\n\nSearching for 'beetles'\n\n\nPath('beetle.jpg')\n\n\n\ndownload_url(search_images('the Beatles', max_images=1)[0], 'the_beatles.jpg', show_progress=False)\n#Image.open('the_beatles.jpg').to_thumb(256,256)\n\nSearching for 'the Beatles'\n\n\nPath('the_beatles.jpg')\n\n\nWe now save searches for beetles and The Beetles into folders.\n\nsearches = 'beetles','the Beatles'\npath = Path('beetle_or_the_Beatles')\nfrom time import sleep\n\nfor o in searches:\n    dest = (path/o)\n    dest.mkdir(exist_ok=True, parents=True)\n    download_images(dest, urls=search_images(f'{o}'))\n    sleep(10)  # Pause between searches to avoid over-loading server\n    resize_images(path/o, max_size=400, dest=path/o)\n\nSearching for 'beetles'\nSearching for 'the Beatles'"
-  },
-  {
-    "objectID": "fastai-1.html#step-2-train-a-model",
-    "href": "fastai-1.html#step-2-train-a-model",
-    "title": "Wolfgang Schmaltz",
-    "section": "Step 2: Train a model",
-    "text": "Step 2: Train a model\nWe remove photos which didn’t download correctly.\n\nfailed = verify_images(get_image_files(path))\nfailed.map(Path.unlink)\nlen(failed)\n\n2\n\n\nWe use a ‘Datablock’ to separate the data into training and validation sets.\n\ndls = DataBlock(\n    blocks=(ImageBlock, CategoryBlock), \n    get_items=get_image_files, \n    splitter=RandomSplitter(valid_pct=0.2, seed=42),\n    get_y=parent_label,\n    item_tfms=[Resize(192, method='squish')]\n).dataloaders(path, bs=32)\n\ndls.show_batch(max_n=6)\n\n\n\n\n\n\n\n\nWe now use ‘resnet18’ to train our model, and the ‘fine_tune()’ method from ‘fastai’ to tune the model.\n\nlearn = vision_learner(dls, resnet18, metrics=error_rate)\nlearn.fine_tune(3)\n\n/opt/conda/lib/python3.7/site-packages/torchvision/models/_utils.py:209: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and will be removed in 0.15, please use 'weights' instead.\n  f\"The parameter '{pretrained_param}' is deprecated since 0.13 and will be removed in 0.15, \"\n/opt/conda/lib/python3.7/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and will be removed in 0.15. The current behavior is equivalent to passing `weights=ResNet18_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet18_Weights.DEFAULT` to get the most up-to-date weights.\n  warnings.warn(msg)\nDownloading: \"https://download.pytorch.org/models/resnet18-f37072fd.pth\" to /root/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth\n\n\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\nerror_rate\ntime\n\n\n\n\n0\n1.623580\n4.855602\n0.545455\n00:03\n\n\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\nerror_rate\ntime\n\n\n\n\n0\n0.892229\n3.018108\n0.545455\n00:04\n\n\n1\n0.693663\n0.710887\n0.272727\n00:04\n\n\n2\n0.487951\n0.266973\n0.090909\n00:04"
-  },
-  {
-    "objectID": "fastai-1.html#step-3-test-the-model",
-    "href": "fastai-1.html#step-3-test-the-model",
-    "title": "Wolfgang Schmaltz",
-    "section": "Step 3: Test the model",
-    "text": "Step 3: Test the model\nWe can now test our model on the images of a beetle and of the Beatles we downloaded in Step 1.\n\nImage.open('beetle.jpg').to_thumb(256,256)\n\n\n\n\n\n\n\n\n\nis_beetle,_,probs = learn.predict('beetle.jpg')\nprint(f\"This is a: {is_beetle}.\")\nprint(f\"Probability it's a beetle: {probs[0]:.4f}\")\n\n\n\n\n\n\n\n\nThis is a: beetles.\nProbability it's a beetle: 1.0000\n\n\n\nImage.open('the_beatles.jpg').to_thumb(256,256)\n\n\n\n\n\n\n\n\n\nis_the_beatles,_,probs = learn.predict('the_beatles.jpg')\nprint(f\"This is a: {is_the_beatles}.\")\nprint(f\"Probability it's the Beatles: {probs[1]:.4f}\")\n\n\n\n\n\n\n\n\nThis is a: the Beatles.\nProbability it's the Beatles: 0.9777"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "Wolfgang Schmaltz",
+    "objectID": "hello.html#polar-axis",
+    "href": "hello.html#polar-axis",
+    "title": "Quarto Basics",
     "section": "",
-    "text": "I wanted to understand the world. So in school I took every science class available to me: your standard biology and chemistry courses, and also classical mechanics, astronomy and astrophysics, and then later, electromagnetism, special and general relativity, and quantum mechanics.\nI came to realize that if you want to understand anything, underneath it all, all there is, is mathematics. So I became a mathematician, and studied and understood things no one else had ever understood before. With time and effort I gained the intuition to think rigorously about “polyfolds”—abstract infinite-dimensional spaces allowing for degenerative “bubbling” phenomena. Using the methods and techniques of polyfold theory, for nearly a decade, I worked on a complete and rigorous proof of the Gromov–Witten axioms. My research was ultimately successful in solving this problem completely and in full generality. Thanks in part to my own work, there are very few interesting and tractable problems that remain in my sphere of mathematical expertise.\nMy interest has turned towards the technologies of our modern age. To me, the best way to keep abreast of new technological developments which have the power and promise to change the world is to fully understand them myself. Although I gladly leave the world of mathematics behind, the fact remains—mathematics is underneath everything!"
+    "text": "For a demonstration of a line plot on a polar axis, see Figure 1.\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\n\n\n\n\nFigure 1: A line plot on a polar axis"
   },
   {
-    "objectID": "index.html#about-me",
-    "href": "index.html#about-me",
-    "title": "Wolfgang Schmaltz",
-    "section": "",
-    "text": "I wanted to understand the world. So in school I took every science class available to me: your standard biology and chemistry courses, and also classical mechanics, astronomy and astrophysics, and then later, electromagnetism, special and general relativity, and quantum mechanics.\nI came to realize that if you want to understand anything, underneath it all, all there is, is mathematics. So I became a mathematician, and studied and understood things no one else had ever understood before. With time and effort I gained the intuition to think rigorously about “polyfolds”—abstract infinite-dimensional spaces allowing for degenerative “bubbling” phenomena. Using the methods and techniques of polyfold theory, for nearly a decade, I worked on a complete and rigorous proof of the Gromov–Witten axioms. My research was ultimately successful in solving this problem completely and in full generality. Thanks in part to my own work, there are very few interesting and tractable problems that remain in my sphere of mathematical expertise.\nMy interest has turned towards the technologies of our modern age. To me, the best way to keep abreast of new technological developments which have the power and promise to change the world is to fully understand them myself. Although I gladly leave the world of mathematics behind, the fact remains—mathematics is underneath everything!"
+    "objectID": "climbing.html#the-5-classic-7as",
+    "href": "climbing.html#the-5-classic-7as",
+    "title": "Climbing",
+    "section": "The 5 Classic 7As",
+    "text": "The 5 Classic 7As"
   },
   {
-    "objectID": "index.html#education",
-    "href": "index.html#education",
-    "title": "Wolfgang Schmaltz",
-    "section": "Education",
-    "text": "Education\nPhD in Mathematics\nUniversity of California, Berkeley; Berkeley, CA\n16 August 2012 - 11 May 2018\nB.S. in Mathematics\nUniversity of Chicago; Chicago, IL\n24 September 2007 - 11 June 2011"
+    "objectID": "climbing.html#the-long-legs-of-gullich",
+    "href": "climbing.html#the-long-legs-of-gullich",
+    "title": "Climbing",
+    "section": "The Long Legs of Gullich",
+    "text": "The Long Legs of Gullich"
   },
   {
-    "objectID": "index.html#postdoctoral-appointments",
-    "href": "index.html#postdoctoral-appointments",
-    "title": "Wolfgang Schmaltz",
-    "section": "Postdoctoral Appointments",
-    "text": "Postdoctoral Appointments\nFaculty of Mathematics\nRuhr-Universität Bochum; Bochum, Germany\n1 March 2020 - 31 December 2024\nMathematics Institute\nJustus-Liebig University; Gießen, Germany\n1 January 2018 - 29 February 2020"
+    "objectID": "climbing.html#italy---ragno-di-mare",
+    "href": "climbing.html#italy---ragno-di-mare",
+    "title": "Climbing",
+    "section": "Italy - Ragno di Mare",
+    "text": "Italy - Ragno di Mare"
   },
   {
-    "objectID": "index.html#papers",
-    "href": "index.html#papers",
-    "title": "Wolfgang Schmaltz",
-    "section": "Papers",
-    "text": "Papers\nPseudocycle Gromov–Witten invariants are a strict subset of polyfold Gromov–Witten invariants\nNon-fillability of overtwisted contact manifolds via polyfolds (joint with S. Suhr, K. Zehmisch)\nThe Gromov–Witten axioms for symplectic manifolds via polyfold theory\nNaturality of polyfold invariants and pulling back abstract perturbations\nThe Steenrod problem for orbifolds and polyfold invariants as intersection numbers"
-  },
-  {
-    "objectID": "index.html#invited-talks",
-    "href": "index.html#invited-talks",
-    "title": "Wolfgang Schmaltz",
-    "section": "Invited Talks",
-    "text": "Invited Talks\nOrbifold Intersection Theory and Polyfold Gromov–Witten Invariants\n28 November 2023; Heidelberg Geometry Seminar; Heidelberg, Germany\nPseudocycle Gromov–Witten Invariants \\(\\subsetneq\\) Polyfold Gromov–Witten Invariants\n11 February 2021; Arbeitsgemeinschaft; Bochum, Germany\nThe Steenrod problem for orbifolds and polyfold Gromov–Witten invariants\n10 December 2020; Oberseminar Dynamische Systeme; Bochum, Germany\nGromov–Witten Axioms for Symplectic Manifolds via Polyfold Theory\n15 April 2019; Berlin-Hamburg-Seminar; Berlin, Germany\nGromov–Witten Axioms for Symplectic Manifolds via Polyfold Theory\n24 October 2018; SISSA; Trieste, Italy\nGromov–Witten Axioms for Symplectic Manifolds via Polyfold Theory\n30 August 2018; Symplectic Field Theory IX: Polyfolds for SFT; Augsburg, Germany\nGromov–Witten Axioms for Symplectic Manifolds via Polyfold Theory\n5 July 2018; Justus-Liebig University; Gießen, Germany\nNaturality of Polyfold Invariants\n2 May 2018; Mathematical Sciences Research Institute; Berkeley, California\nThe Polyfold Gromov–Witten Invariants & Gromov–Witten Axioms for Symplectic Manifolds via Polyfold Theory\n25 April 2018; Berkeley Topology Seminar; Berkeley, California"
+    "objectID": "climbing.html#the-wilder-kaiser",
+    "href": "climbing.html#the-wilder-kaiser",
+    "title": "Climbing",
+    "section": "The Wilder Kaiser",
+    "text": "The Wilder Kaiser"
   },
   {
     "objectID": "deep_learning.html",
@@ -238,46 +210,95 @@
     "text": "Play with Stable Diffusion"
   },
   {
-    "objectID": "climbing.html#the-5-classic-7as",
-    "href": "climbing.html#the-5-classic-7as",
-    "title": "Climbing",
-    "section": "The 5 Classic 7As",
-    "text": "The 5 Classic 7As"
-  },
-  {
-    "objectID": "climbing.html#the-long-legs-of-gullich",
-    "href": "climbing.html#the-long-legs-of-gullich",
-    "title": "Climbing",
-    "section": "The Long Legs of Gullich",
-    "text": "The Long Legs of Gullich"
-  },
-  {
-    "objectID": "climbing.html#italy---ragno-di-mare",
-    "href": "climbing.html#italy---ragno-di-mare",
-    "title": "Climbing",
-    "section": "Italy - Ragno di Mare",
-    "text": "Italy - Ragno di Mare"
-  },
-  {
-    "objectID": "climbing.html#the-wilder-kaiser",
-    "href": "climbing.html#the-wilder-kaiser",
-    "title": "Climbing",
-    "section": "The Wilder Kaiser",
-    "text": "The Wilder Kaiser"
-  },
-  {
-    "objectID": "hello.html",
-    "href": "hello.html",
-    "title": "Quarto Basics",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "Wolfgang Schmaltz",
     "section": "",
-    "text": "For a demonstration of a line plot on a polar axis, see Figure 1.\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\n\n\n\n\nFigure 1: A line plot on a polar axis"
+    "text": "“What I cannot create, I do not understand.”1\n\nI am an academic mathematician seeking new challenges.\n\nI am the world expert in the (extremely niche) intersection between polyfold theory and Gromov–Witten theory. Polyfolds are abstract infinite-dimensional spaces which allow for more general smooth translation actions as well as incorporating degenerative “bubbling” phenomena directly into their structures. Polyfold theory has made is possible to rigorously define smooth regularizations of Gromov–Witten moduli spaces. I worked for years on a proof of the Gromov–Witten axioms, a series of algebraic relations for the Gromov–Witten invariants of a symplectic manifold first conjectured in 1992. My research was ultimately successful in solving this problem completely and in full generality. Thanks in part to my own work, there are few interesting and tractable problems that remain in my sphere of mathematical expertise."
   },
   {
-    "objectID": "hello.html#polar-axis",
-    "href": "hello.html#polar-axis",
-    "title": "Quarto Basics",
+    "objectID": "index.html#about-me",
+    "href": "index.html#about-me",
+    "title": "Wolfgang Schmaltz",
     "section": "",
-    "text": "For a demonstration of a line plot on a polar axis, see Figure 1.\n\n\nCode\nimport numpy as np\nimport matplotlib.pyplot as plt\n\nr = np.arange(0, 2, 0.01)\ntheta = 2 * np.pi * r\nfig, ax = plt.subplots(\n  subplot_kw = {'projection': 'polar'} \n)\nax.plot(theta, r)\nax.set_rticks([0.5, 1, 1.5, 2])\nax.grid(True)\nplt.show()\n\n\n\n\n\n\n\n\nFigure 1: A line plot on a polar axis"
+    "text": "“What I cannot create, I do not understand.”1\n\nI am an academic mathematician seeking new challenges.\n\nI am the world expert in the (extremely niche) intersection between polyfold theory and Gromov–Witten theory. Polyfolds are abstract infinite-dimensional spaces which allow for more general smooth translation actions as well as incorporating degenerative “bubbling” phenomena directly into their structures. Polyfold theory has made is possible to rigorously define smooth regularizations of Gromov–Witten moduli spaces. I worked for years on a proof of the Gromov–Witten axioms, a series of algebraic relations for the Gromov–Witten invariants of a symplectic manifold first conjectured in 1992. My research was ultimately successful in solving this problem completely and in full generality. Thanks in part to my own work, there are few interesting and tractable problems that remain in my sphere of mathematical expertise."
+  },
+  {
+    "objectID": "index.html#education",
+    "href": "index.html#education",
+    "title": "Wolfgang Schmaltz",
+    "section": "Education",
+    "text": "Education\nPhD in Mathematics\nUniversity of California, Berkeley; Berkeley, CA\n16 August 2012 - 11 May 2018\nB.S. in Mathematics\nUniversity of Chicago; Chicago, IL\n24 September 2007 - 11 June 2011"
+  },
+  {
+    "objectID": "index.html#postdoctoral-appointments",
+    "href": "index.html#postdoctoral-appointments",
+    "title": "Wolfgang Schmaltz",
+    "section": "Postdoctoral Appointments",
+    "text": "Postdoctoral Appointments\nFaculty of Mathematics\nRuhr-Universität Bochum; Bochum, Germany\n1 March 2020 - 31 December 2024\nMathematics Institute\nJustus-Liebig University; Gießen, Germany\n1 January 2018 - 29 February 2020"
+  },
+  {
+    "objectID": "index.html#papers",
+    "href": "index.html#papers",
+    "title": "Wolfgang Schmaltz",
+    "section": "Papers",
+    "text": "Papers\nPseudocycle Gromov–Witten invariants are a strict subset of polyfold Gromov–Witten invariants\nNon-fillability of overtwisted contact manifolds via polyfolds (joint with S. Suhr, K. Zehmisch)\nThe Gromov–Witten axioms for symplectic manifolds via polyfold theory\nNaturality of polyfold invariants and pulling back abstract perturbations\nThe Steenrod problem for orbifolds and polyfold invariants as intersection numbers"
+  },
+  {
+    "objectID": "index.html#invited-talks",
+    "href": "index.html#invited-talks",
+    "title": "Wolfgang Schmaltz",
+    "section": "Invited Talks",
+    "text": "Invited Talks\nOrbifold Intersection Theory and Polyfold Gromov–Witten Invariants\n28 November 2023; Heidelberg Geometry Seminar; Heidelberg, Germany\nPseudocycle Gromov–Witten Invariants \\(\\subsetneq\\) Polyfold Gromov–Witten Invariants\n11 February 2021; Arbeitsgemeinschaft; Bochum, Germany\nThe Steenrod problem for orbifolds and polyfold Gromov–Witten invariants\n10 December 2020; Oberseminar Dynamische Systeme; Bochum, Germany\nGromov–Witten Axioms for Symplectic Manifolds via Polyfold Theory\n15 April 2019; Berlin-Hamburg-Seminar; Berlin, Germany\nGromov–Witten Axioms for Symplectic Manifolds via Polyfold Theory\n24 October 2018; SISSA; Trieste, Italy\nGromov–Witten Axioms for Symplectic Manifolds via Polyfold Theory\n30 August 2018; Symplectic Field Theory IX: Polyfolds for SFT; Augsburg, Germany\nGromov–Witten Axioms for Symplectic Manifolds via Polyfold Theory\n5 July 2018; Justus-Liebig University; Gießen, Germany\nNaturality of Polyfold Invariants\n2 May 2018; Mathematical Sciences Research Institute; Berkeley, California\nThe Polyfold Gromov–Witten Invariants & Gromov–Witten Axioms for Symplectic Manifolds via Polyfold Theory\n25 April 2018; Berkeley Topology Seminar; Berkeley, California"
+  },
+  {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "Wolfgang Schmaltz",
+    "section": "Footnotes",
+    "text": "Footnotes\n\n\nfrom Richard Feynman’s blackboard at the time of his death, February 1988↩︎"
+  },
+  {
+    "objectID": "fastai-1.html",
+    "href": "fastai-1.html",
+    "title": "Wolfgang Schmaltz",
+    "section": "",
+    "text": "::: {#cell-0 .cell _kg_hide-input=‘false’ _kg_hide-output=‘false’ execution=‘{“iopub.execute_input”:“2023-03-09T12:56:53.917785Z”,“iopub.status.busy”:“2023-03-09T12:56:53.916489Z”,“iopub.status.idle”:“2023-03-09T12:57:07.982541Z”,“shell.execute_reply”:“2023-03-09T12:57:07.981391Z”,“shell.execute_reply.started”:“2023-03-09T12:56:53.917689Z”}’ execution_count=1}\n:::\nIn this short notebook, I build a classifier to determine whether an image is a beetle or The Beatles!"
+  },
+  {
+    "objectID": "fastai-1.html#step-1-download-images-of-beetles-and-the-beatles",
+    "href": "fastai-1.html#step-1-download-images-of-beetles-and-the-beatles",
+    "title": "Wolfgang Schmaltz",
+    "section": "Step 1: Download images of beetles and The Beatles",
+    "text": "Step 1: Download images of beetles and The Beatles\nUsing the python package ddg_search we begin by searching for images of beetles and The Beatles.\n\nfrom duckduckgo_search import ddg_images\nfrom fastcore.all import *\n\ndef search_images(term, max_images=30):\n    print(f\"Searching for '{term}'\")\n    return L(ddg_images(term, max_results=max_images)).itemgot('image')\n\n\nfrom fastdownload import download_url\nfrom fastai.vision.all import *\n\ndownload_url(search_images('beetles', max_images=1)[0], 'beetle.jpg', show_progress=False)\n#Image.open('beetle.jpg').to_thumb(256,256)\n\nSearching for 'beetles'\n\n\nPath('beetle.jpg')\n\n\n\ndownload_url(search_images('the Beatles', max_images=1)[0], 'the_beatles.jpg', show_progress=False)\n#Image.open('the_beatles.jpg').to_thumb(256,256)\n\nSearching for 'the Beatles'\n\n\nPath('the_beatles.jpg')\n\n\nWe now save searches for beetles and The Beetles into folders.\n\nsearches = 'beetles','the Beatles'\npath = Path('beetle_or_the_Beatles')\nfrom time import sleep\n\nfor o in searches:\n    dest = (path/o)\n    dest.mkdir(exist_ok=True, parents=True)\n    download_images(dest, urls=search_images(f'{o}'))\n    sleep(10)  # Pause between searches to avoid over-loading server\n    resize_images(path/o, max_size=400, dest=path/o)\n\nSearching for 'beetles'\nSearching for 'the Beatles'"
+  },
+  {
+    "objectID": "fastai-1.html#step-2-train-a-model",
+    "href": "fastai-1.html#step-2-train-a-model",
+    "title": "Wolfgang Schmaltz",
+    "section": "Step 2: Train a model",
+    "text": "Step 2: Train a model\nWe remove photos which didn’t download correctly.\n\nfailed = verify_images(get_image_files(path))\nfailed.map(Path.unlink)\nlen(failed)\n\n2\n\n\nWe use a ‘Datablock’ to separate the data into training and validation sets.\n\ndls = DataBlock(\n    blocks=(ImageBlock, CategoryBlock), \n    get_items=get_image_files, \n    splitter=RandomSplitter(valid_pct=0.2, seed=42),\n    get_y=parent_label,\n    item_tfms=[Resize(192, method='squish')]\n).dataloaders(path, bs=32)\n\ndls.show_batch(max_n=6)\n\n\n\n\n\n\n\n\nWe now use ‘resnet18’ to train our model, and the ‘fine_tune()’ method from ‘fastai’ to tune the model.\n\nlearn = vision_learner(dls, resnet18, metrics=error_rate)\nlearn.fine_tune(3)\n\n/opt/conda/lib/python3.7/site-packages/torchvision/models/_utils.py:209: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and will be removed in 0.15, please use 'weights' instead.\n  f\"The parameter '{pretrained_param}' is deprecated since 0.13 and will be removed in 0.15, \"\n/opt/conda/lib/python3.7/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and will be removed in 0.15. The current behavior is equivalent to passing `weights=ResNet18_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet18_Weights.DEFAULT` to get the most up-to-date weights.\n  warnings.warn(msg)\nDownloading: \"https://download.pytorch.org/models/resnet18-f37072fd.pth\" to /root/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth\n\n\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\nerror_rate\ntime\n\n\n\n\n0\n1.623580\n4.855602\n0.545455\n00:03\n\n\n\n\n\n\n\n\n\n\n\n\nepoch\ntrain_loss\nvalid_loss\nerror_rate\ntime\n\n\n\n\n0\n0.892229\n3.018108\n0.545455\n00:04\n\n\n1\n0.693663\n0.710887\n0.272727\n00:04\n\n\n2\n0.487951\n0.266973\n0.090909\n00:04"
+  },
+  {
+    "objectID": "fastai-1.html#step-3-test-the-model",
+    "href": "fastai-1.html#step-3-test-the-model",
+    "title": "Wolfgang Schmaltz",
+    "section": "Step 3: Test the model",
+    "text": "Step 3: Test the model\nWe can now test our model on the images of a beetle and of the Beatles we downloaded in Step 1.\n\nImage.open('beetle.jpg').to_thumb(256,256)\n\n\n\n\n\n\n\n\n\nis_beetle,_,probs = learn.predict('beetle.jpg')\nprint(f\"This is a: {is_beetle}.\")\nprint(f\"Probability it's a beetle: {probs[0]:.4f}\")\n\n\n\n\n\n\n\n\nThis is a: beetles.\nProbability it's a beetle: 1.0000\n\n\n\nImage.open('the_beatles.jpg').to_thumb(256,256)\n\n\n\n\n\n\n\n\n\nis_the_beatles,_,probs = learn.predict('the_beatles.jpg')\nprint(f\"This is a: {is_the_beatles}.\")\nprint(f\"Probability it's the Beatles: {probs[1]:.4f}\")\n\n\n\n\n\n\n\n\nThis is a: the Beatles.\nProbability it's the Beatles: 0.9777"
+  },
+  {
+    "objectID": "scale_retracts.html",
+    "href": "scale_retracts.html",
+    "title": "The Linear Programming of Scale Retracts",
+    "section": "",
+    "text": "%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% % Standard Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%mathbb \n%greek \n%GREEK \n%cal \n%tilde \n%bar % \n%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% % Math Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%\n%compactified moduli space \n% % % % %SYMPLECTIC GEOMETRY % % % % % \n% % % % %Hat Delbar % % % % % \n% % % % %COLORS % % % % %\n% % % % %GROMOV-WITTEN LANGUAGE % % % % % \n% % % % %THOM LANGUAGE % % % % % \n% % % % %POLYFOLD LANGUAGE % % % % %"
+  },
+  {
+    "objectID": "scale_retracts.html#references",
+    "href": "scale_retracts.html#references",
+    "title": "The Linear Programming of Scale Retracts",
+    "section": "References",
+    "text": "References"
   },
   {
     "objectID": "fastai-3.html",
