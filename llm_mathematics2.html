@@ -1,0 +1,1502 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.7.32">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>LLMs from the Mathematical Viewpoint – Wolfgang Schmaltz</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+html { -webkit-text-size-adjust: 100%; }
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./icon.png" rel="icon" type="image/png">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-f70c19036c299c27839ec73052701135.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Wolfgang Schmaltz</span>
+    </a>
+  </div>
+            <div id="quarto-search" class="" title="Search"></div>
+          <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse" aria-controls="navbarCollapse" role="menu" aria-expanded="false" aria-label="Toggle navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+  <span class="navbar-toggler-icon"></span>
+</button>
+          <div class="collapse navbar-collapse" id="navbarCollapse">
+            <ul class="navbar-nav navbar-nav-scroll ms-auto">
+  <li class="nav-item">
+    <a class="nav-link" href="./index.html"> 
+<span class="menu-text">Profile</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./mathematics.html"> 
+<span class="menu-text">Research Mathematics</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./llm_mathematics.html"> 
+<span class="menu-text">LLMs from the Mathematical Viewpoint</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./stories.html"> 
+<span class="menu-text">QLoRA Instruction Fine-Tuning to Generate Stories</span></a>
+  </li>  
+</ul>
+          </div> <!-- /navcollapse -->
+            <div class="quarto-navbar-tools">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <ul class="collapse">
+  <li><a href="#predicting-the-next-token" id="toc-predicting-the-next-token" class="nav-link" data-scroll-target="#predicting-the-next-token">Predicting the next token</a></li>
+  </ul></li>
+  <li><a href="#tokenizing-text" id="toc-tokenizing-text" class="nav-link" data-scroll-target="#tokenizing-text">Tokenizing text</a>
+  <ul class="collapse">
+  <li><a href="#source-text" id="toc-source-text" class="nav-link" data-scroll-target="#source-text">Source text</a></li>
+  <li><a href="#tokens" id="toc-tokens" class="nav-link" data-scroll-target="#tokens">Tokens</a></li>
+  <li><a href="#tokenizers" id="toc-tokenizers" class="nav-link" data-scroll-target="#tokenizers">Tokenizers</a></li>
+  <li><a href="#encoding" id="toc-encoding" class="nav-link" data-scroll-target="#encoding">Encoding</a></li>
+  <li><a href="#subword-tokenizer-byte-pair-encoding" id="toc-subword-tokenizer-byte-pair-encoding" class="nav-link" data-scroll-target="#subword-tokenizer-byte-pair-encoding">Subword tokenizer: byte-pair encoding</a></li>
+  <li><a href="#tokenizers-in-python" id="toc-tokenizers-in-python" class="nav-link" data-scroll-target="#tokenizers-in-python">Tokenizers in python</a></li>
+  <li><a href="#token-embeddings" id="toc-token-embeddings" class="nav-link" data-scroll-target="#token-embeddings">Token embeddings</a></li>
+  </ul></li>
+  <li><a href="#attention" id="toc-attention" class="nav-link" data-scroll-target="#attention">Attention</a>
+  <ul class="collapse">
+  <li><a href="#positional-encoding-matrix" id="toc-positional-encoding-matrix" class="nav-link" data-scroll-target="#positional-encoding-matrix">Positional encoding matrix</a></li>
+  <li><a href="#query-key-and-value-matrices" id="toc-query-key-and-value-matrices" class="nav-link" data-scroll-target="#query-key-and-value-matrices">Query, Key, and Value Matrices</a></li>
+  <li><a href="#alignment-matrix" id="toc-alignment-matrix" class="nav-link" data-scroll-target="#alignment-matrix">Alignment Matrix</a></li>
+  <li><a href="#the-factor-sqrtd_k" id="toc-the-factor-sqrtd_k" class="nav-link" data-scroll-target="#the-factor-sqrtd_k">The Factor <span class="math inline">\(\sqrt{d_k}\)</span></a></li>
+  <li><a href="#causal-mask" id="toc-causal-mask" class="nav-link" data-scroll-target="#causal-mask">Causal Mask</a></li>
+  <li><a href="#softmax" id="toc-softmax" class="nav-link" data-scroll-target="#softmax">Softmax</a></li>
+  <li><a href="#context-vectors" id="toc-context-vectors" class="nav-link" data-scroll-target="#context-vectors">Context Vectors</a></li>
+  </ul></li>
+  <li><a href="#the-transformer-block" id="toc-the-transformer-block" class="nav-link" data-scroll-target="#the-transformer-block">The transformer block</a>
+  <ul class="collapse">
+  <li><a href="#layer-normalization" id="toc-layer-normalization" class="nav-link" data-scroll-target="#layer-normalization">Layer normalization</a></li>
+  <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions">Activation functions</a></li>
+  <li><a href="#feed-forward-layer" id="toc-feed-forward-layer" class="nav-link" data-scroll-target="#feed-forward-layer">Feed-forward layer</a></li>
+  <li><a href="#transformer-block" id="toc-transformer-block" class="nav-link" data-scroll-target="#transformer-block">Transformer block</a></li>
+  <li><a href="#final-language-model" id="toc-final-language-model" class="nav-link" data-scroll-target="#final-language-model">Final Language Model</a></li>
+  <li><a href="#inference" id="toc-inference" class="nav-link" data-scroll-target="#inference">Inference</a></li>
+  </ul></li>
+  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training">Training</a>
+  <ul class="collapse">
+  <li><a href="#data-loading" id="toc-data-loading" class="nav-link" data-scroll-target="#data-loading">Data loading</a></li>
+  <li><a href="#cross-entropy-loss" id="toc-cross-entropy-loss" class="nav-link" data-scroll-target="#cross-entropy-loss">Cross-entropy loss</a></li>
+  <li><a href="#training-loop" id="toc-training-loop" class="nav-link" data-scroll-target="#training-loop">Training Loop</a></li>
+  </ul></li>
+  <li><a href="#lora-fine-tuning" id="toc-lora-fine-tuning" class="nav-link" data-scroll-target="#lora-fine-tuning">LoRA fine-tuning</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">LLMs from the Mathematical Viewpoint</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<div class="hidden">
+<p>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% % Standard Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</p>
+<p>%mathbb </p>
+<p>%greek </p>
+<p>%GREEK </p>
+<p>%cal </p>
+<p>%tilde </p>
+<p>%bar % </p>
+<p>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% % Math Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</p>
+% % % % %COLORS % % % % %
+</div>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>By now, there are many useful books, online guides, and videos for understanding the construction of Large Language Models from first principles <span class="citation" data-cites="3blue1brown">(<a href="#ref-d2l" role="doc-biblioref"><strong>d2l?</strong></a>)</span>. What separates this project, is that this is designed as a <em>mathematics first</em> presentation of the architecture of GPT styled LLM. If you are a mathematician or are simply more comfortable with the language and structure of mathematical writing, this page will hopefully be an easy to digest presentation of the mathematical foundations of LLMs. You should be able to read and understand this material in an afternoon.</p>
+<p>In addition to describing tokenizers, attention mechanisms, and transformer blocks in terms of mathematical formulas, I have included basic implementations of the constructions in PyTorch in order to also give a quick start for understanding the bridge between the abstract mathematical formulations and implementations in code. Because our focus is primarily on the mathematical constructions, we leave out some important elements of the computer engineering perspective which are important for implementation and optimization; namely, batching of data, differences between device architecture of CPU vs GPU, as well as parameter quantization.</p>
+<p>This page was adapted from a project at Ruhr-Universität Bochum. Thanks go to the symplectic group at the Faculty of Mathematics!</p>
+<section id="predicting-the-next-token" class="level2">
+<h2 class="anchored" data-anchor-id="predicting-the-next-token">Predicting the next token</h2>
+<p>We can superficially consider a (generative) <span class="math inline">\(\text{LLM}\)</span> as a function which takes as input a fixed length sequence of text and outputs a probability distribution for the next text unit. By sampling from this distribution, and appending to the original text sequence, we can iteratively predict the subsequent text unit:</p>
+<!-- # OTHER PROJECT - NOTE TO SELF - PROMPTING THROUGH A GUI -->
+<p><span class="math display">\[
+\underline{\text{The Steenrod problem for}} \mapsto
+    \begin{cases}
+        \text{closed} &amp; 29\% \\
+        \text{spaces} &amp; 24\% \\
+        \text{modules} &amp; 22\% \\
+        \text{spectra} &amp; 19\%
+    \end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\implies
+\text{The }\underline{\text{Steenrod problem for } \fbox{closed}} \mapsto
+    \begin{cases}
+        \text{orientable} &amp; 37\% \\
+        \text{smooth} &amp; 23\% \\
+        \text{topological} &amp; 19\% \\
+        \text{homology} &amp; 9\%
+    \end{cases}
+\]</span></p>
+<p><span class="math display">\[
+\implies
+\text{The Steenrod }\underline{\text{problem for closed } \fbox{orientable}} \mapsto
+    \begin{cases}
+        \text{manifolds} &amp; 77\% \\
+        \text{orbifolds} &amp; 14\% \\
+        \text{surfaces} &amp; 4\% \\
+        \text{varieties} &amp; &lt;1\%
+    \end{cases}
+\]</span></p>
+<div id="9bdd6a4b" class="cell" data-execution_count="1">
+<details class="code-fold">
+<summary>Python imports</summary>
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch <span class="im">import</span> nn</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="tokenizing-text" class="level1">
+<h1>Tokenizing text</h1>
+<section id="source-text" class="level2">
+<h2 class="anchored" data-anchor-id="source-text">Source text</h2>
+<p>We begin by selecting a source text, which gives a fixed source for training our eventual LLM, in addition to providing a source for defining the vocabulary for our tokenizer. To keep things topical, we will use a collection of mathematics texts in symplectic geometry:</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 100%">
+</colgroup>
+<thead>
+<tr class="header">
+<th><strong>mathematics.tex</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>The Steenrod problem for closed orientable manifolds was solved completely by Thom.</td>
+</tr>
+<tr class="even">
+<td>Following this approach, we solve the Steenrod problem for closed orientable orbifolds, proving that the rational homology groups of a closed orientable orbifold have a basis consisting of classes represented by suborbifolds whose normal bundles have fiberwise trivial isotropy action.</td>
+</tr>
+<tr class="odd">
+<td>Polyfold theory, as developed by Hofer, Wysocki, and Zehnder, has yielded a well-defined Gromov–Witten invariant via the regularization of moduli spaces.</td>
+</tr>
+<tr class="even">
+<td>As an application, we demonstrate that the polyfold Gromov–Witten invariants, originally defined via branched integrals, may equivalently be defined as intersection numbers against a basis of representing suborbifolds.</td>
+</tr>
+<tr class="odd">
+<td>Introduction</td>
+</tr>
+<tr class="even">
+<td>The Steenrod problem</td>
+</tr>
+<tr class="odd">
+<td>The Steenrod problem was first presented in <span class="citation" data-cites="eilenberg1949problems">(<a href="#ref-eilenberg1949problems" role="doc-biblioref">Eilenberg 1949</a>)</span> and asked the following question:</td>
+</tr>
+<tr class="even">
+<td><em>Can any homology class of a finite polyhedron be represented as an image of the fundamental class of some manifold?</em></td>
+</tr>
+<tr class="odd">
+<td>In <span class="citation" data-cites="thom1954quelques">(<a href="#ref-thom1954quelques" role="doc-biblioref">Thom 1954</a>)</span>,…</td>
+</tr>
+</tbody>
+</table>
+<div id="2804efb6" class="cell" data-execution_count="2">
+<details class="code-fold">
+<summary>Opening the source text <code>mathematics.tex</code></summary>
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'mathematics.tex'</span>, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a>    text <span class="op">=</span> <span class="bu">file</span>.read()</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a>text <span class="op">=</span> text[:<span class="dv">3000</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="tokens" class="level2">
+<h2 class="anchored" data-anchor-id="tokens">Tokens</h2>
+<p>A <strong>token</strong> is an arbitrarily defined unit of text.</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 4%">
+<col style="width: 21%">
+<col style="width: 74%">
+</colgroup>
+<thead>
+<tr class="header">
+<th>Level</th>
+<th>Description</th>
+<th>Illustration</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>word</td>
+<td>Each word is a token.</td>
+<td><span class="math inline">\(\fbox{The} \fbox{Steenrod} \fbox{problem} \fbox{for} \fbox{closed} \fbox{orbifolds}\)</span>…</td>
+</tr>
+<tr class="even">
+<td>subword</td>
+<td>Each word is divided into a subword, e.g., BPE.</td>
+<td><span class="math inline">\(\fbox{The}\fbox{ Ste}\fbox{en}\fbox{rod}\fbox{ problem}\fbox{ for}\fbox{ closed}\fbox{ orb}\fbox{if}\fbox{olds}\)</span>…</td>
+</tr>
+<tr class="odd">
+<td>character</td>
+<td>Each character is a token.</td>
+<td><span class="math inline">\(\fbox{T}\fbox{h}\fbox{e}\fbox{ }\fbox{S}\fbox{t}\fbox{e}\fbox{e}\fbox{n}\fbox{r}\fbox{o}\fbox{d}\fbox{ }\fbox{p}\fbox{r}\fbox{o}\fbox{b}\fbox{l}\fbox{e}\fbox{m}\)</span>…</td>
+</tr>
+</tbody>
+</table>
+<p>A <strong>vocabulary</strong> <span class="math inline">\(V\)</span> is a set of tokens. We often augment a vocabulary with additional <strong>special tokens</strong>, e.g.,</p>
+<table class="caption-top table">
+<colgroup>
+<col style="width: 16%">
+<col style="width: 83%">
+</colgroup>
+<tbody>
+<tr class="odd">
+<td><span class="math inline">\([\text{BOS}]\)</span></td>
+<td>Marks the beginning of text.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\([\text{EOS}]\)</span></td>
+<td>Marks the end of text.</td>
+</tr>
+<tr class="odd">
+<td><span class="math inline">\([\text{PAD}]\)</span></td>
+<td>A padding token used to fill a sequence to the required context length.</td>
+</tr>
+<tr class="even">
+<td><span class="math inline">\([\text{UNK}]\)</span></td>
+<td>Represents parts of the input text not present in the vocabulary.</td>
+</tr>
+</tbody>
+</table>
+</section>
+<section id="tokenizers" class="level2">
+<h2 class="anchored" data-anchor-id="tokenizers">Tokenizers</h2>
+<p>Let <span class="math inline">\(\text{TEXTS}\)</span> be defined as the the set of finite texts and let <span class="math inline">\(\text{Seq}(V)\)</span> be defined as the set of finite sequences <span class="math inline">\((t_1, t_2,...,t_N)\)</span> where <span class="math inline">\(t_i \in V.\)</span> A <strong>tokenizer</strong> <span class="math inline">\(T\)</span> is a map</p>
+<p><span class="math display">\[\begin{align}
+T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
+\text{text} &amp;\mapsto \text{tokenized text}.
+\end{align}\]</span></p>
+<p>In other words, the tokenizer <span class="math inline">\(T\)</span> encodes a text into a sequence of tokens. The (partial) inverse, <span class="math inline">\(T^{-1}\)</span>, decodes a sequence of tokens into a text. Note that the presence of characters or subwords not present in the vocabulary, as well as the possibility of special tokens, complicates the question of whether <span class="math inline">\(T\)</span> is injective/bijective/neither as well as the definition of the (partial) inverse <span class="math inline">\(T^{-1}\)</span>.</p>
+<p>For example, a word-level tokenizer can be viewed as follows:</p>
+<p><span class="math display">\[
+    T(\text{The Steenrod problem...}) = (\fbox{The},\fbox{Steenrod},\fbox{problem}...)
+\]</span></p>
+</section>
+<section id="encoding" class="level2">
+<h2 class="anchored" data-anchor-id="encoding">Encoding</h2>
+<p>We next want to represent tokens numerically as vectors. The <strong>One Hot Encoding</strong> is a bijection between the tokens in a vocabulary <span class="math inline">\(V\)</span> with the standard basis elements <span class="math inline">\(\{e_i\}\)</span> in the space <span class="math inline">\(\mathbb{R}^{|V|}\)</span>, i.e.,</p>
+<p><span class="math display">\[
+\begin{align}
+    \text{OHE}: V &amp;\to \mathbb{R}^{|V|} \\
+                t_i &amp;\mapsto e_i.
+\end{align}
+\]</span></p>
+<p>This time, the inverse is unambiguously well-defined and is called a <strong>decoder</strong>.</p>
+<p>By composing the tokenizer and the encoder, a finite text is represented as a sequence of indices representing the basis elements of <span class="math inline">\(\mathbb{R}^{|V|}\)</span>:</p>
+<p><span class="math display">\[
+    \text{OHE}\circ T ( \text{The Steenrod problem...}) = (341, 12459, 948,...)
+\]</span></p>
+</section>
+<section id="subword-tokenizer-byte-pair-encoding" class="level2">
+<h2 class="anchored" data-anchor-id="subword-tokenizer-byte-pair-encoding">Subword tokenizer: byte-pair encoding</h2>
+<p>The <strong>byte-pair encoding</strong> is an algorithm which takes a source text and builds a vocabulary iteratively by combining the most common pairs of neighboring tokens (the modern version of the ‘byte-pair’). A text is correspondingly tokenized and encoded by this vocabulary by merging pairs of tokens iteratively.</p>
+<p>Explicitly, the vocabulary is constructed via the following algorithm:</p>
+<ul>
+<li>Initiate the vocabulary from the source text by taking the set of all characters appearing in the text; <span class="math display">\[\text{vocabulary} := \{\text{character } | \text{ character} \in \text{TEXT}\}.\]</span></li>
+<li>On each iteration, identify the most frequent pair of neighboring tokens. Add this pair as a new token in the vocabulary.</li>
+<li>Repeat until the desired size of the vocabulary is reached.</li>
+</ul>
+<p>A text is then tokenized and encoded via the following algorithm:</p>
+<ul>
+<li>First, tokenize the text into a sequence of characters.</li>
+<li>Iteratively, find the most frequent pair of adjacent tokens in the sequence that corresponds to a merged token in the learned vocabulary.</li>
+<li>Replace this pair with the corresponding merged token.</li>
+<li>Repeat until no more merges can be performed.</li>
+</ul>
+</section>
+<section id="tokenizers-in-python" class="level2">
+<h2 class="anchored" data-anchor-id="tokenizers-in-python">Tokenizers in python</h2>
+<p>Character</p>
+<div id="a8308a05" class="cell" data-execution_count="3">
+<details class="code-fold">
+<summary>Character level tokenizer</summary>
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CharacterTokenizer:</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Maps token_str to token_id (e.g., {"a": 19, "b": 23})</span></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.vocab <span class="op">=</span> {}</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Maps token_id to token_str (e.g., {19: "a", 23: "b"})</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.inverse_vocab <span class="op">=</span> {}</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Included special tokens</span></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.specials <span class="op">=</span> {<span class="st">"&lt;|BOS|&gt;"</span>, <span class="st">"&lt;|EOS|&gt;"</span>, <span class="st">"&lt;|UNK|&gt;"</span>, <span class="st">"&lt;|PAD|&gt;"</span>}</span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> initialize_vocab(<span class="va">self</span>, source_text, allowed_specials<span class="op">=</span><span class="bu">set</span>()):</span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Initializes the vocabulary consisting of characters appearing in source_text."""</span></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>        characters <span class="op">=</span> <span class="bu">set</span>(source_text)</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.vocab <span class="op">=</span> {char: idx <span class="cf">for</span> idx, char <span class="kw">in</span> <span class="bu">enumerate</span>(characters <span class="op">|</span> <span class="va">self</span>.specials)}</span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.inverse_vocab <span class="op">=</span> {idx: char <span class="cf">for</span> char, idx <span class="kw">in</span> <span class="va">self</span>.vocab.items()}</span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> encode(<span class="va">self</span>, text):</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a>        processed <span class="op">=</span> (</span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a>            [<span class="st">"&lt;|BOS|&gt;"</span>]</span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>            <span class="op">+</span> [char <span class="cf">if</span> char <span class="kw">in</span> <span class="va">self</span>.vocab <span class="cf">else</span> <span class="st">"&lt;|UNK|&gt;"</span> <span class="cf">for</span> char <span class="kw">in</span> text]</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a>            <span class="op">+</span> [<span class="st">"&lt;|EOS|&gt;"</span>]</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a>        ids <span class="op">=</span> [<span class="va">self</span>.vocab[token] <span class="cf">for</span> token <span class="kw">in</span> processed]</span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ids</span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> decode(<span class="va">self</span>, ids):</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">""</span>.join(</span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a>            [</span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.inverse_vocab[<span class="bu">id</span>]</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> <span class="bu">id</span> <span class="kw">in</span> ids</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="va">self</span>.inverse_vocab[<span class="bu">id</span>] <span class="kw">not</span> <span class="kw">in</span> <span class="va">self</span>.specials</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>Word</p>
+<div id="d5de5e31" class="cell" data-execution_count="4">
+<details class="code-fold">
+<summary>Word level tokenizer</summary>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> WordTokenizer:</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Maps token_str to token_id (e.g., {"symplectic": 125})</span></span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.vocab <span class="op">=</span> {}</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Maps token_id to token_str (e.g., {125: "symplectic"})</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.inverse_vocab <span class="op">=</span> {}</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Included special tokens</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.specials <span class="op">=</span> {<span class="st">"&lt;|BOS|&gt;"</span>, <span class="st">"&lt;|EOS|&gt;"</span>, <span class="st">"&lt;|UNK|&gt;"</span>, <span class="st">"&lt;|PAD|&gt;"</span>}</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> initialize_vocab(<span class="va">self</span>, source_text, allowed_specials<span class="op">=</span><span class="bu">set</span>()):</span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Initializes the vocabulary consisting of words appearing in source_text."""</span></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>        words <span class="op">=</span> <span class="bu">set</span>(source_text.split(<span class="st">" "</span>))</span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.vocab <span class="op">=</span> {word: idx <span class="cf">for</span> idx, word <span class="kw">in</span> <span class="bu">enumerate</span>(words <span class="op">|</span> <span class="va">self</span>.specials)}</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.inverse_vocab <span class="op">=</span> {idx: word <span class="cf">for</span> word, idx <span class="kw">in</span> <span class="va">self</span>.vocab.items()}</span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> encode(<span class="va">self</span>, text):</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a>        words_in_text <span class="op">=</span> text.split(<span class="st">" "</span>)</span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a>        processed <span class="op">=</span> (</span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>            [<span class="st">"&lt;|BOS|&gt;"</span>]</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a>            <span class="op">+</span> [word <span class="cf">if</span> word <span class="kw">in</span> <span class="va">self</span>.vocab <span class="cf">else</span> <span class="st">"&lt;|UNK|&gt;"</span> <span class="cf">for</span> word <span class="kw">in</span> words_in_text]</span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a>            <span class="op">+</span> [<span class="st">"&lt;|EOS|&gt;"</span>]</span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>        ids <span class="op">=</span> [<span class="va">self</span>.vocab[token] <span class="cf">for</span> token <span class="kw">in</span> processed]</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> ids</span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> decode(<span class="va">self</span>, ids):</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">" "</span>.join(</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a>            [</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.inverse_vocab[<span class="bu">id</span>]</span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> <span class="bu">id</span> <span class="kw">in</span> ids</span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="va">self</span>.inverse_vocab[<span class="bu">id</span>] <span class="kw">not</span> <span class="kw">in</span> <span class="va">self</span>.specials</span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+<p>BPE</p>
+<div id="7518e6da" class="cell" data-execution_count="5">
+<details class="code-fold">
+<summary>Byte-pair encoding tokenizer</summary>
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BPETokenizer:</span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Maps token_str to token_id (e.g., {"symplectic": 11246})</span></span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.vocab <span class="op">=</span> {}</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Maps token_id to token_str (e.g., {11246: "symplectic"})</span></span>
+<span id="cb5-6"><a href="#cb5-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.inverse_vocab <span class="op">=</span> {}</span>
+<span id="cb5-7"><a href="#cb5-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Included special tokens</span></span>
+<span id="cb5-8"><a href="#cb5-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.specials <span class="op">=</span> {<span class="st">"&lt;|BOS|&gt;"</span>, <span class="st">"&lt;|EOS|&gt;"</span>, <span class="st">"&lt;|UNK|&gt;"</span>, <span class="st">"&lt;|PAD|&gt;"</span>}</span>
+<span id="cb5-9"><a href="#cb5-9" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Dictionary of BPE merges: {(token_id1, token_id2): merged_token_id}</span></span>
+<span id="cb5-10"><a href="#cb5-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.bpe_merges <span class="op">=</span> {}</span>
+<span id="cb5-11"><a href="#cb5-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-12"><a href="#cb5-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> initialize_vocab(<span class="va">self</span>, source_text, vocab_size):</span>
+<span id="cb5-13"><a href="#cb5-13" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Initializes the vocabulary for BPE from source_text of size vocab_size."""</span></span>
+<span id="cb5-14"><a href="#cb5-14" aria-hidden="true" tabindex="-1"></a>        <span class="im">from</span> collections <span class="im">import</span> Counter</span>
+<span id="cb5-15"><a href="#cb5-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-16"><a href="#cb5-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Initialize vocab with unique characters appearing in the source_text</span></span>
+<span id="cb5-17"><a href="#cb5-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-18"><a href="#cb5-18" aria-hidden="true" tabindex="-1"></a>        <span class="co"># The first 256 ASCII characters</span></span>
+<span id="cb5-19"><a href="#cb5-19" aria-hidden="true" tabindex="-1"></a>        initial_chars <span class="op">=</span> {<span class="bu">chr</span>(i) <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">256</span>)}</span>
+<span id="cb5-20"><a href="#cb5-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Additional characters appearing in the source_text</span></span>
+<span id="cb5-21"><a href="#cb5-21" aria-hidden="true" tabindex="-1"></a>        source_chars <span class="op">=</span> {char <span class="cf">for</span> char <span class="kw">in</span> <span class="bu">set</span>(source_text) <span class="cf">if</span> char <span class="kw">not</span> <span class="kw">in</span> initial_chars}</span>
+<span id="cb5-22"><a href="#cb5-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-23"><a href="#cb5-23" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.vocab <span class="op">=</span> {</span>
+<span id="cb5-24"><a href="#cb5-24" aria-hidden="true" tabindex="-1"></a>            char: idx <span class="cf">for</span> idx, char <span class="kw">in</span> <span class="bu">enumerate</span>(initial_chars <span class="op">|</span> source_chars)</span>
+<span id="cb5-25"><a href="#cb5-25" aria-hidden="true" tabindex="-1"></a>        }</span>
+<span id="cb5-26"><a href="#cb5-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-27"><a href="#cb5-27" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Add special tokens</span></span>
+<span id="cb5-28"><a href="#cb5-28" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> special <span class="kw">in</span> <span class="va">self</span>.specials:</span>
+<span id="cb5-29"><a href="#cb5-29" aria-hidden="true" tabindex="-1"></a>            new_id <span class="op">=</span> <span class="bu">len</span>(<span class="va">self</span>.vocab)</span>
+<span id="cb5-30"><a href="#cb5-30" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.vocab[special] <span class="op">=</span> new_id</span>
+<span id="cb5-31"><a href="#cb5-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-32"><a href="#cb5-32" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.inverse_vocab <span class="op">=</span> {idx: char <span class="cf">for</span> char, idx <span class="kw">in</span> <span class="va">self</span>.vocab.items()}</span>
+<span id="cb5-33"><a href="#cb5-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-34"><a href="#cb5-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-35"><a href="#cb5-35" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Tokenize the source_text into token IDs</span></span>
+<span id="cb5-36"><a href="#cb5-36" aria-hidden="true" tabindex="-1"></a>        token_ids <span class="op">=</span> [<span class="va">self</span>.vocab[char] <span class="cf">for</span> char <span class="kw">in</span> source_text]</span>
+<span id="cb5-37"><a href="#cb5-37" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-38"><a href="#cb5-38" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Iteratively find and replace with a new_id the most frequent pairs of token ids appearing in token_ids.</span></span>
+<span id="cb5-39"><a href="#cb5-39" aria-hidden="true" tabindex="-1"></a>        num_merges <span class="op">=</span> vocab_size <span class="op">-</span> <span class="bu">len</span>(<span class="va">self</span>.vocab)</span>
+<span id="cb5-40"><a href="#cb5-40" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(num_merges):</span>
+<span id="cb5-41"><a href="#cb5-41" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Identify the most frequent pair</span></span>
+<span id="cb5-42"><a href="#cb5-42" aria-hidden="true" tabindex="-1"></a>            pairs <span class="op">=</span> Counter(<span class="bu">zip</span>(token_ids, token_ids[<span class="dv">1</span>:]))</span>
+<span id="cb5-43"><a href="#cb5-43" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="kw">not</span> pairs:</span>
+<span id="cb5-44"><a href="#cb5-44" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span></span>
+<span id="cb5-45"><a href="#cb5-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-46"><a href="#cb5-46" aria-hidden="true" tabindex="-1"></a>            pair_ids <span class="op">=</span> <span class="bu">max</span>(pairs, key<span class="op">=</span>pairs.get)</span>
+<span id="cb5-47"><a href="#cb5-47" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-48"><a href="#cb5-48" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Replace [pair_ids[0], pair_ids[1]] with new_id</span></span>
+<span id="cb5-49"><a href="#cb5-49" aria-hidden="true" tabindex="-1"></a>            new_id <span class="op">=</span> <span class="bu">len</span>(<span class="va">self</span>.vocab)</span>
+<span id="cb5-50"><a href="#cb5-50" aria-hidden="true" tabindex="-1"></a>            token_ids_merge <span class="op">=</span> []</span>
+<span id="cb5-51"><a href="#cb5-51" aria-hidden="true" tabindex="-1"></a>            j <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-52"><a href="#cb5-52" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> j <span class="op">&lt;</span> <span class="bu">len</span>(token_ids):</span>
+<span id="cb5-53"><a href="#cb5-53" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> j <span class="op">&lt;</span> <span class="bu">len</span>(token_ids) <span class="op">-</span> <span class="dv">1</span> <span class="kw">and</span> (token_ids[j], token_ids[j<span class="op">+</span><span class="dv">1</span>]) <span class="op">==</span> pair_ids:</span>
+<span id="cb5-54"><a href="#cb5-54" aria-hidden="true" tabindex="-1"></a>                    token_ids_merge.append(new_id)</span>
+<span id="cb5-55"><a href="#cb5-55" aria-hidden="true" tabindex="-1"></a>                    j <span class="op">+=</span> <span class="dv">2</span></span>
+<span id="cb5-56"><a href="#cb5-56" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb5-57"><a href="#cb5-57" aria-hidden="true" tabindex="-1"></a>                    token_ids_merge.append(token_ids[j])</span>
+<span id="cb5-58"><a href="#cb5-58" aria-hidden="true" tabindex="-1"></a>                    j <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb5-59"><a href="#cb5-59" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-60"><a href="#cb5-60" aria-hidden="true" tabindex="-1"></a>            token_ids <span class="op">=</span> token_ids_merge</span>
+<span id="cb5-61"><a href="#cb5-61" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Record the pair_ids and the new_id</span></span>
+<span id="cb5-62"><a href="#cb5-62" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.bpe_merges[pair_ids] <span class="op">=</span> new_id</span>
+<span id="cb5-63"><a href="#cb5-63" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Add the merged pair to the vocab</span></span>
+<span id="cb5-64"><a href="#cb5-64" aria-hidden="true" tabindex="-1"></a>            merged_token <span class="op">=</span> (</span>
+<span id="cb5-65"><a href="#cb5-65" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.inverse_vocab[pair_ids[<span class="dv">0</span>]] <span class="op">+</span> <span class="va">self</span>.inverse_vocab[pair_ids[<span class="dv">1</span>]]</span>
+<span id="cb5-66"><a href="#cb5-66" aria-hidden="true" tabindex="-1"></a>            )</span>
+<span id="cb5-67"><a href="#cb5-67" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.vocab[merged_token] <span class="op">=</span> new_id</span>
+<span id="cb5-68"><a href="#cb5-68" aria-hidden="true" tabindex="-1"></a>            <span class="va">self</span>.inverse_vocab[new_id] <span class="op">=</span> merged_token</span>
+<span id="cb5-69"><a href="#cb5-69" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-70"><a href="#cb5-70" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> encode(<span class="va">self</span>, text):</span>
+<span id="cb5-71"><a href="#cb5-71" aria-hidden="true" tabindex="-1"></a>        <span class="co">"""Encode the input text into a list of token ids."""</span></span>
+<span id="cb5-72"><a href="#cb5-72" aria-hidden="true" tabindex="-1"></a>        <span class="im">import</span> re</span>
+<span id="cb5-73"><a href="#cb5-73" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-74"><a href="#cb5-74" aria-hidden="true" tabindex="-1"></a>        token_ids <span class="op">=</span> []</span>
+<span id="cb5-75"><a href="#cb5-75" aria-hidden="true" tabindex="-1"></a>        token_ids.append(<span class="va">self</span>.vocab[<span class="st">"&lt;|BOS|&gt;"</span>])</span>
+<span id="cb5-76"><a href="#cb5-76" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-77"><a href="#cb5-77" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Initial tokenization by character</span></span>
+<span id="cb5-78"><a href="#cb5-78" aria-hidden="true" tabindex="-1"></a>        tokens <span class="op">=</span> [<span class="va">self</span>.vocab.get(char, <span class="va">self</span>.vocab[<span class="st">"&lt;|UNK|&gt;"</span>]) <span class="cf">for</span> char <span class="kw">in</span> text]</span>
+<span id="cb5-79"><a href="#cb5-79" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-80"><a href="#cb5-80" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Apply BPE merges</span></span>
+<span id="cb5-81"><a href="#cb5-81" aria-hidden="true" tabindex="-1"></a>        <span class="cf">while</span> <span class="va">True</span>:</span>
+<span id="cb5-82"><a href="#cb5-82" aria-hidden="true" tabindex="-1"></a>            pairs <span class="op">=</span> <span class="bu">list</span>(<span class="bu">zip</span>(tokens, tokens[<span class="dv">1</span>:]))</span>
+<span id="cb5-83"><a href="#cb5-83" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Find pairs that are in our merge list</span></span>
+<span id="cb5-84"><a href="#cb5-84" aria-hidden="true" tabindex="-1"></a>            merge_candidates <span class="op">=</span> {pair: <span class="va">self</span>.bpe_merges[pair] <span class="cf">for</span> pair <span class="kw">in</span> pairs <span class="cf">if</span> pair <span class="kw">in</span> <span class="va">self</span>.bpe_merges}</span>
+<span id="cb5-85"><a href="#cb5-85" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-86"><a href="#cb5-86" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> <span class="kw">not</span> merge_candidates:</span>
+<span id="cb5-87"><a href="#cb5-87" aria-hidden="true" tabindex="-1"></a>                <span class="cf">break</span> <span class="co"># No more merges to apply</span></span>
+<span id="cb5-88"><a href="#cb5-88" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-89"><a href="#cb5-89" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Find the merge with the lowest index (earliest learned)</span></span>
+<span id="cb5-90"><a href="#cb5-90" aria-hidden="true" tabindex="-1"></a>            best_pair <span class="op">=</span> <span class="bu">min</span>(merge_candidates, key<span class="op">=</span>merge_candidates.get)</span>
+<span id="cb5-91"><a href="#cb5-91" aria-hidden="true" tabindex="-1"></a>            new_id <span class="op">=</span> <span class="va">self</span>.bpe_merges[best_pair]</span>
+<span id="cb5-92"><a href="#cb5-92" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-93"><a href="#cb5-93" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Apply the merge</span></span>
+<span id="cb5-94"><a href="#cb5-94" aria-hidden="true" tabindex="-1"></a>            new_tokens <span class="op">=</span> []</span>
+<span id="cb5-95"><a href="#cb5-95" aria-hidden="true" tabindex="-1"></a>            i <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb5-96"><a href="#cb5-96" aria-hidden="true" tabindex="-1"></a>            <span class="cf">while</span> i <span class="op">&lt;</span> <span class="bu">len</span>(tokens):</span>
+<span id="cb5-97"><a href="#cb5-97" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> i <span class="op">&lt;</span> <span class="bu">len</span>(tokens) <span class="op">-</span> <span class="dv">1</span> <span class="kw">and</span> (tokens[i], tokens[i <span class="op">+</span> <span class="dv">1</span>]) <span class="op">==</span> best_pair:</span>
+<span id="cb5-98"><a href="#cb5-98" aria-hidden="true" tabindex="-1"></a>                    new_tokens.append(new_id)</span>
+<span id="cb5-99"><a href="#cb5-99" aria-hidden="true" tabindex="-1"></a>                    i <span class="op">+=</span> <span class="dv">2</span></span>
+<span id="cb5-100"><a href="#cb5-100" aria-hidden="true" tabindex="-1"></a>                <span class="cf">else</span>:</span>
+<span id="cb5-101"><a href="#cb5-101" aria-hidden="true" tabindex="-1"></a>                    new_tokens.append(tokens[i])</span>
+<span id="cb5-102"><a href="#cb5-102" aria-hidden="true" tabindex="-1"></a>                    i <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb5-103"><a href="#cb5-103" aria-hidden="true" tabindex="-1"></a>            tokens <span class="op">=</span> new_tokens</span>
+<span id="cb5-104"><a href="#cb5-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-105"><a href="#cb5-105" aria-hidden="true" tabindex="-1"></a>        token_ids.extend(tokens)</span>
+<span id="cb5-106"><a href="#cb5-106" aria-hidden="true" tabindex="-1"></a>        token_ids.append(<span class="va">self</span>.vocab[<span class="st">"&lt;|EOS|&gt;"</span>])</span>
+<span id="cb5-107"><a href="#cb5-107" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> token_ids</span>
+<span id="cb5-108"><a href="#cb5-108" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-109"><a href="#cb5-109" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> decode(<span class="va">self</span>, ids):</span>
+<span id="cb5-110"><a href="#cb5-110" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="st">""</span>.join(</span>
+<span id="cb5-111"><a href="#cb5-111" aria-hidden="true" tabindex="-1"></a>            [</span>
+<span id="cb5-112"><a href="#cb5-112" aria-hidden="true" tabindex="-1"></a>                <span class="va">self</span>.inverse_vocab[<span class="bu">id</span>]</span>
+<span id="cb5-113"><a href="#cb5-113" aria-hidden="true" tabindex="-1"></a>                <span class="cf">for</span> <span class="bu">id</span> <span class="kw">in</span> ids</span>
+<span id="cb5-114"><a href="#cb5-114" aria-hidden="true" tabindex="-1"></a>                <span class="cf">if</span> <span class="va">self</span>.inverse_vocab[<span class="bu">id</span>] <span class="kw">not</span> <span class="kw">in</span> <span class="va">self</span>.specials</span>
+<span id="cb5-115"><a href="#cb5-115" aria-hidden="true" tabindex="-1"></a>            ]</span>
+<span id="cb5-116"><a href="#cb5-116" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="token-embeddings" class="level2">
+<h2 class="anchored" data-anchor-id="token-embeddings">Token embeddings</h2>
+<p>We may compose this bijection with a map <span class="math inline">\(A :\mathbb{R}^{|V|} \to \mathbb{R}^{d_\text{model}}\)</span> to obtain continuous vector representations of the tokens in the vocabulary:</p>
+<p><span class="math display">\[
+    \text{Embedding} := A \circ \text{OHE}: V \to \mathbb{R}^{d_\text{model}}.
+\]</span></p>
+<p>This composition is the basis of the <em>Word2vec</em> family of embeddings. The map <span class="math inline">\(A\)</span> is often a linear map, or, if we wished, a neural network itself; in the process of training the GPT, we can adjust the weights to learn better token embeddings. In PyTorch, this is implemented as <code>torch.nn.Embedding</code>, which acts as a lookup table mapping token indices to dense vectors.</p>
+<div id="3ec70fe6" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="in">```{python}</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co">#| code-summary: "Token embedding example"</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> BPETokenizer()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a>tokenizer.initialize_vocab(text, <span class="dv">300</span>)</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>sentence <span class="op">=</span> <span class="st">"A symplectic manifold"</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>encoded_sentence <span class="op">=</span> tokenizer.encode(sentence)</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> torch.tensor(encoded_sentence)</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># d_model = 5</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>emb_layer <span class="op">=</span> torch.nn.Embedding(tokenizer.vocab.<span class="fu">__len__</span>(), <span class="dv">5</span>)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"Embedded sentence shape:"</span>, emb_layer(X).shape)</span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Embedded sentence shape: torch.Size([17, 5])</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="attention" class="level1">
+<h1>Attention</h1>
+<p>The goal of the attention mechanism is to produce a new representation for each token in a sequence that incorporates information from other tokens. For a given token, tokens that are more relevant should have a stronger influence on its new representation. We implement <strong>causally masked self-attention</strong>, which is the standard for decoder-only transformers like GPT.</p>
+<p>Given an input sequence of tokens <span class="math inline">\((t_1,...,t_N)\)</span>, we associate to it a sequence of embedded <span class="math inline">\(d\)</span>-dimensional vectors <span class="math inline">\((x_1,...,x_N)\)</span>, which we may consider as a matrix <span class="math inline">\(X \in \mathbb{R}^{N\times d}\)</span>.</p>
+<p>The formula for scaled dot-product attention is:</p>
+<p><span class="math display">\[
+    \text{attention}(Q,K,V) := \text{softmax}
+        \left( \frac{QK^T}{\sqrt{d_k} } + M \right) V
+\]</span></p>
+<p>where <span class="math inline">\(Q, K, V\)</span> are the Query, Key, and Value matrices, <span class="math inline">\(d_k\)</span> is the dimension of the key vectors, and <span class="math inline">\(M\)</span> is a mask.</p>
+<section id="positional-encoding-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="positional-encoding-matrix">Positional encoding matrix</h2>
+<p>Since the attention mechanism itself does not have an intrinsic notion of sequence order, we must supply this information externally. This is achieved by adding a <strong>positional encoding matrix</strong> <span class="math inline">\(P \in \mathbb{R}^{N\times d}\)</span> to the input embedding matrix. The entries <span class="math inline">\(p_{ij}\)</span> are given by:</p>
+<p><span class="math display">\[
+  p_{i,2j} := \sin \left( \frac{i}{10000^\tfrac{2j}{d}}\right),  \qquad
+  p_{i,2j + 1} := \cos \left( \frac{i}{10000^\tfrac{2j}{d}}\right).
+\]</span></p>
+<p>where <span class="math inline">\(i\)</span> is the position in the sequence and <span class="math inline">\(j\)</span> is the dimension in the embedding.</p>
+<div id="08784088" class="cell" data-execution_count="7">
+<details class="code-fold">
+<summary>Positional encoding</summary>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PositionalEncoding(nn.Module):</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, context_length, d_model):</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>        P <span class="op">=</span> torch.zeros(context_length, d_model)</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a>        position <span class="op">=</span> torch.arange(<span class="dv">0</span>, context_length, dtype<span class="op">=</span>torch.<span class="bu">float</span>).unsqueeze(<span class="dv">1</span>)</span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a>        div_term <span class="op">=</span> torch.exp(torch.arange(<span class="dv">0</span>, d_model, <span class="dv">2</span>).<span class="bu">float</span>() <span class="op">*</span> (<span class="op">-</span>math.log(<span class="fl">10000.0</span>) <span class="op">/</span> d_model))</span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>        P[:, <span class="dv">0</span>::<span class="dv">2</span>] <span class="op">=</span> torch.sin(position <span class="op">*</span> div_term)</span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>        P[:, <span class="dv">1</span>::<span class="dv">2</span>] <span class="op">=</span> torch.cos(position <span class="op">*</span> div_term)</span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.register_buffer(<span class="st">'P'</span>, P)</span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, X):</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a>        <span class="co"># X has shape (sequence_length, d_model)</span></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a>        X <span class="op">=</span> X <span class="op">+</span> <span class="va">self</span>.P[:X.size(<span class="dv">0</span>)]</span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> X</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="query-key-and-value-matrices" class="level2">
+<h2 class="anchored" data-anchor-id="query-key-and-value-matrices">Query, Key, and Value Matrices</h2>
+<p>The Query, Key, and Value matrices are obtained by applying linear transformations to the input matrix <span class="math inline">\(X\)</span> (which includes positional encodings). Let <span class="math inline">\(W_Q, W_K, W_V \in \text{Mat}_{d \times d_k}(\mathbb{R})\)</span> be learnable weight matrices. Then:</p>
+<ul>
+<li><span class="math inline">\(Q := X W_Q\)</span> (Queries)</li>
+<li><span class="math inline">\(K := X W_K\)</span> (Keys)</li>
+<li><span class="math inline">\(V := X W_V\)</span> (Values)</li>
+</ul>
+<p>Here, <span class="math inline">\(d_k\)</span> is the dimension of the key/query vectors, typically set to <span class="math inline">\(d_k=d\)</span>.</p>
+</section>
+<section id="alignment-matrix" class="level2">
+<h2 class="anchored" data-anchor-id="alignment-matrix">Alignment Matrix</h2>
+<p>The matrix of <strong>attention scores</strong>, <span class="math inline">\(S = QK^T\)</span>, represents the alignment between tokens. The entry <span class="math inline">\(S_{ij}\)</span> is the dot product of the query vector for token <span class="math inline">\(i\)</span> and the key vector for token <span class="math inline">\(j\)</span>. A high value indicates strong alignment.</p>
+</section>
+<section id="the-factor-sqrtd_k" class="level2">
+<h2 class="anchored" data-anchor-id="the-factor-sqrtd_k">The Factor <span class="math inline">\(\sqrt{d_k}\)</span></h2>
+<p>The multiplicative factor <span class="math inline">\(\frac{1}{\sqrt{d_k}}\)</span> is a scaling factor. If we assume the components of the vectors in <span class="math inline">\(Q\)</span> and <span class="math inline">\(K\)</span> are independent random variables with mean 0 and variance 1, then the dot product <span class="math inline">\(q_i \cdot k_j\)</span> will have mean 0 and variance <span class="math inline">\(d_k\)</span>. Scaling by <span class="math inline">\(\frac{1}{\sqrt{d_k}}\)</span> ensures the variance remains 1. This prevents the softmax function from saturating (i.e., producing gradients that are too small for effective learning).</p>
+</section>
+<section id="causal-mask" class="level2">
+<h2 class="anchored" data-anchor-id="causal-mask">Causal Mask</h2>
+<p>For a generative model, the prediction for token <span class="math inline">\(t_i\)</span> should only depend on the preceding tokens <span class="math inline">\(t_1, ..., t_{i-1}\)</span>. The <strong>causal mask</strong> <span class="math inline">\(M\)</span> enforces this. It is a matrix where <span class="math inline">\(M_{ij} = 0\)</span> if <span class="math inline">\(j \leq i\)</span> and <span class="math inline">\(M_{ij} = -\infty\)</span> if <span class="math inline">\(j &gt; i\)</span>. Adding this mask to the attention scores ensures that <span class="math inline">\(\text{softmax}(S+M)_{ij} = 0\)</span> for all <span class="math inline">\(j&gt;i\)</span>, effectively zeroing out the influence of future tokens.</p>
+</section>
+<section id="softmax" class="level2">
+<h2 class="anchored" data-anchor-id="softmax">Softmax</h2>
+<p>The <strong>softmax function</strong> is applied row-wise to the masked, scaled attention scores to produce the <strong>attention weights</strong> matrix, <span class="math inline">\(W_{attn} = \text{softmax}(\frac{QK^T}{\sqrt{d_k}} + M)\)</span>. Each row <span class="math inline">\(i\)</span> of <span class="math inline">\(W_{attn}\)</span> is a probability distribution representing the attention that token <span class="math inline">\(i\)</span> pays to all other (preceding) tokens.</p>
+</section>
+<section id="context-vectors" class="level2">
+<h2 class="anchored" data-anchor-id="context-vectors">Context Vectors</h2>
+<p>Finally, the output of the attention mechanism is the matrix of <strong>context vectors</strong>, <span class="math inline">\(Z = W_{attn}V\)</span>. Each row <span class="math inline">\(z_i\)</span> is a weighted sum of the value vectors, where the weights are given by the <span class="math inline">\(i\)</span>-th row of the attention weights matrix. Thus, <span class="math inline">\(z_i\)</span> is a new representation of token <span class="math inline">\(i\)</span> that is enriched with contextual information from the sequence.</p>
+<div id="fc16d0a5" class="cell" data-execution_count="8">
+<details class="code-fold">
+<summary>Causally masked attention</summary>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CausallyMaskedAttention(nn.Module):</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, d_in, d_out, context_length, qkv_bias<span class="op">=</span><span class="va">False</span>):</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.d_out <span class="op">=</span> d_out</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.W_query <span class="op">=</span> nn.Linear(d_in, d_out, bias<span class="op">=</span>qkv_bias)</span>
+<span id="cb9-6"><a href="#cb9-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.W_key <span class="op">=</span> nn.Linear(d_in, d_out, bias<span class="op">=</span>qkv_bias)</span>
+<span id="cb9-7"><a href="#cb9-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.W_value <span class="op">=</span> nn.Linear(d_in, d_out, bias<span class="op">=</span>qkv_bias)</span>
+<span id="cb9-8"><a href="#cb9-8" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Register mask as a buffer to avoid it being considered a model parameter</span></span>
+<span id="cb9-9"><a href="#cb9-9" aria-hidden="true" tabindex="-1"></a>        mask <span class="op">=</span> torch.triu(torch.ones(context_length, context_length), diagonal<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb9-10"><a href="#cb9-10" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.register_buffer(<span class="st">'mask'</span>, mask.<span class="bu">bool</span>())</span>
+<span id="cb9-11"><a href="#cb9-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-12"><a href="#cb9-12" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb9-13"><a href="#cb9-13" aria-hidden="true" tabindex="-1"></a>        <span class="co"># x has shape (batch_size, num_tokens, d_in)</span></span>
+<span id="cb9-14"><a href="#cb9-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># for simplicity, we omit the batch dimension in this explanation</span></span>
+<span id="cb9-15"><a href="#cb9-15" aria-hidden="true" tabindex="-1"></a>        num_tokens <span class="op">=</span> x.shape[<span class="dv">0</span>]</span>
+<span id="cb9-16"><a href="#cb9-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-17"><a href="#cb9-17" aria-hidden="true" tabindex="-1"></a>        keys <span class="op">=</span> <span class="va">self</span>.W_key(x)      <span class="co"># (num_tokens, d_out)</span></span>
+<span id="cb9-18"><a href="#cb9-18" aria-hidden="true" tabindex="-1"></a>        queries <span class="op">=</span> <span class="va">self</span>.W_query(x) <span class="co"># (num_tokens, d_out)</span></span>
+<span id="cb9-19"><a href="#cb9-19" aria-hidden="true" tabindex="-1"></a>        values <span class="op">=</span> <span class="va">self</span>.W_value(x)  <span class="co"># (num_tokens, d_out)</span></span>
+<span id="cb9-20"><a href="#cb9-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-21"><a href="#cb9-21" aria-hidden="true" tabindex="-1"></a>        attn_scores <span class="op">=</span> queries <span class="op">@</span> keys.T <span class="co"># (num_tokens, num_tokens)</span></span>
+<span id="cb9-22"><a href="#cb9-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-23"><a href="#cb9-23" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Apply causal mask</span></span>
+<span id="cb9-24"><a href="#cb9-24" aria-hidden="true" tabindex="-1"></a>        attn_scores.masked_fill_(<span class="va">self</span>.mask[:num_tokens, :num_tokens], <span class="op">-</span>torch.inf)</span>
+<span id="cb9-25"><a href="#cb9-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-26"><a href="#cb9-26" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Scale and apply softmax</span></span>
+<span id="cb9-27"><a href="#cb9-27" aria-hidden="true" tabindex="-1"></a>        attn_weights <span class="op">=</span> torch.softmax(attn_scores <span class="op">/</span> math.sqrt(<span class="va">self</span>.d_out), dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb9-28"><a href="#cb9-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-29"><a href="#cb9-29" aria-hidden="true" tabindex="-1"></a>        context_vectors <span class="op">=</span> attn_weights <span class="op">@</span> values <span class="co"># (num_tokens, d_out)</span></span>
+<span id="cb9-30"><a href="#cb9-30" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> context_vectors</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="the-transformer-block" class="level1">
+<h1>The transformer block</h1>
+<p>A transformer is built by stacking multiple <strong>transformer blocks</strong>. Each block processes a sequence of vectors and outputs a sequence of vectors of the same dimension, allowing for easy composition.</p>
+<pre class="mermaid"><code>flowchart TD
+    subgraph Transformer Block
+        direction LR
+        subgraph Multi-Head Attention
+            direction TB
+            A(Input) --&gt; LN1(LayerNorm)
+            LN1 --&gt; ATT(Causal Attention)
+            A --&gt; ADD1(Add)
+            ATT --&gt; ADD1
+        end
+
+        subgraph Feed-Forward
+            direction TB
+            ADD1 --&gt; LN2(LayerNorm)
+            LN2 --&gt; FF(Feed-Forward Net)
+            ADD1 --&gt; ADD2(Add)
+            FF --&gt; ADD2(Output)
+        end
+
+        Multi-Head Attention --&gt; Feed-Forward
+    end</code></pre>
+<section id="layer-normalization" class="level2">
+<h2 class="anchored" data-anchor-id="layer-normalization">Layer normalization</h2>
+<p><strong>Layer normalization</strong> is a technique to normalize the inputs across the features for each data sample. For a vector <span class="math inline">\(x \in \mathbb{R}^n\)</span>, it is defined as:</p>
+<p><span class="math display">\[
+    \text{LayerNorm}(x)_i := \gamma_i \left( \frac{x_i - \mu}{\sigma}\right) + \beta_i
+\]</span></p>
+<p>where <span class="math inline">\(\mu = \frac{1}{n}\sum x_i\)</span> and <span class="math inline">\(\sigma^2 = \frac{1}{n}\sum (x_i - \mu)^2\)</span>. The parameters <span class="math inline">\(\gamma \in \mathbb{R}^n\)</span> (scale) and <span class="math inline">\(\beta \in \mathbb{R}^n\)</span> (shift) are learnable parameters, initialized to 1 and 0 respectively. This normalization is applied before the main sub-layers (attention and feed-forward) to stabilize training.</p>
+<div id="4f043cf2" class="cell" data-execution_count="9">
+<details class="code-fold">
+<summary>Layer normalization</summary>
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LayerNorm(nn.Module):</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, emb_dim, eps<span class="op">=</span><span class="fl">1e-5</span>):</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.eps <span class="op">=</span> eps</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.gamma <span class="op">=</span> nn.Parameter(torch.ones(emb_dim))</span>
+<span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.beta <span class="op">=</span> nn.Parameter(torch.zeros(emb_dim))</span>
+<span id="cb11-7"><a href="#cb11-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-8"><a href="#cb11-8" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb11-9"><a href="#cb11-9" aria-hidden="true" tabindex="-1"></a>        mean <span class="op">=</span> x.mean(dim<span class="op">=-</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb11-10"><a href="#cb11-10" aria-hidden="true" tabindex="-1"></a>        var <span class="op">=</span> x.var(dim<span class="op">=-</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>, unbiased<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb11-11"><a href="#cb11-11" aria-hidden="true" tabindex="-1"></a>        norm_x <span class="op">=</span> (x <span class="op">-</span> mean) <span class="op">/</span> torch.sqrt(var <span class="op">+</span> <span class="va">self</span>.eps)</span>
+<span id="cb11-12"><a href="#cb11-12" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.gamma <span class="op">*</span> norm_x <span class="op">+</span> <span class="va">self</span>.beta</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="activation-functions" class="level2">
+<h2 class="anchored" data-anchor-id="activation-functions">Activation functions</h2>
+<p>An <strong>activation function</strong> introduces non-linearity into the model, allowing it to learn more complex patterns. A popular choice in transformers is the <strong>GELU</strong> (Gaussian Error Linear Unit) function:</p>
+<p><span class="math display">\[
+    \text{GELU}(x) := x P(X\leq x), \qquad X \sim {\mathcal N}(0,1),
+\]</span></p>
+<p>where <span class="math inline">\(P(X \leq x)\)</span> is the cumulative distribution function of the standard normal distribution. It can be approximated by: <span class="math inline">\(\text{GELU}(x) \approx 0.5x( 1 + \text{tanh}[\sqrt{\tfrac{2}{\pi}}(x + 0.044715 x^3)] ).\)</span></p>
+<div id="a81d89bd" class="cell" data-execution_count="10">
+<details class="code-fold">
+<summary>GELU activation function</summary>
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> GELU(nn.Module):</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>):</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="fl">0.5</span> <span class="op">*</span> x <span class="op">*</span> (<span class="dv">1</span> <span class="op">+</span> torch.tanh(</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>            math.sqrt(<span class="fl">2.0</span> <span class="op">/</span> math.pi) <span class="op">*</span> (x <span class="op">+</span> <span class="fl">0.044715</span> <span class="op">*</span> torch.<span class="bu">pow</span>(x, <span class="dv">3</span>))</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>        ))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="feed-forward-layer" class="level2">
+<h2 class="anchored" data-anchor-id="feed-forward-layer">Feed-forward layer</h2>
+<p>The feed-forward layer is a simple two-layer fully connected neural network applied independently to each position. It consists of a linear transformation to a higher-dimensional space (typically <span class="math inline">\(4d\)</span>), an activation function, and a linear transformation back to the original dimension <span class="math inline">\(d\)</span>.</p>
+<p><span class="math display">\[
+    \text{FFN}(x) = \text{GELU}(xW_1 + b_1)W_2 + b_2
+\]</span></p>
+<div id="6fcf32e1" class="cell" data-execution_count="11">
+<details class="code-fold">
+<summary>Feed-forward layer</summary>
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> FeedForward(nn.Module):</span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, emb_dim):</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.layers <span class="op">=</span> nn.Sequential(</span>
+<span id="cb13-5"><a href="#cb13-5" aria-hidden="true" tabindex="-1"></a>            nn.Linear(emb_dim, <span class="dv">4</span> <span class="op">*</span> emb_dim),</span>
+<span id="cb13-6"><a href="#cb13-6" aria-hidden="true" tabindex="-1"></a>            GELU(),</span>
+<span id="cb13-7"><a href="#cb13-7" aria-hidden="true" tabindex="-1"></a>            nn.Linear(<span class="dv">4</span> <span class="op">*</span> emb_dim, emb_dim),</span>
+<span id="cb13-8"><a href="#cb13-8" aria-hidden="true" tabindex="-1"></a>        )</span>
+<span id="cb13-9"><a href="#cb13-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb13-10"><a href="#cb13-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb13-11"><a href="#cb13-11" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> <span class="va">self</span>.layers(x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="transformer-block" class="level2">
+<h2 class="anchored" data-anchor-id="transformer-block">Transformer block</h2>
+<p>The full transformer block combines these components. The input <code>x</code> first passes through a layer normalization, then the causal attention mechanism. The output of the attention is added to the original input <code>x</code> (a <strong>residual connection</strong>). This sum is then passed through another layer normalization and the feed-forward network, followed by another residual connection.</p>
+<div id="276ae0ef" class="cell" data-execution_count="12">
+<details class="code-fold">
+<summary>Full Transformer Block</summary>
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TransformerBlock(nn.Module):</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, d_model, context_length):</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.att <span class="op">=</span> CausallyMaskedAttention(d_model, d_model, context_length)</span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.ff <span class="op">=</span> FeedForward(d_model)</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.layer_norm1 <span class="op">=</span> LayerNorm(d_model)</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.layer_norm2 <span class="op">=</span> LayerNorm(d_model)</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, x):</span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Shortcut connection for attention block</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>        shortcut <span class="op">=</span> x</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.layer_norm1(x)</span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.att(x)</span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x <span class="op">+</span> shortcut  <span class="co"># Add the original input back</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Shortcut connection for feed-forward block</span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a>        shortcut <span class="op">=</span> x</span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.layer_norm2(x)</span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.ff(x)</span>
+<span id="cb14-20"><a href="#cb14-20" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x <span class="op">+</span> shortcut  <span class="co"># Add the original input back</span></span>
+<span id="cb14-21"><a href="#cb14-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-22"><a href="#cb14-22" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> x</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="final-language-model" class="level2">
+<h2 class="anchored" data-anchor-id="final-language-model">Final Language Model</h2>
+<p>A full GPT-style model consists of:</p>
+<ol type="1">
+<li>An embedding layer for input tokens.</li>
+<li>A positional encoding layer.</li>
+<li>A stack of several transformer blocks.</li>
+<li>A final layer normalization.</li>
+<li>A final linear layer (the “un-embedding” layer) that maps the output vectors to logits over the vocabulary.</li>
+</ol>
+<div id="000f8ea0" class="cell" data-execution_count="13">
+<details class="code-fold">
+<summary>Full Language Model</summary>
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LanguageModel(nn.Module):</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> <span class="fu">__init__</span>(<span class="va">self</span>, vocab_size, d_model, context_length, num_blocks):</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>        <span class="bu">super</span>().<span class="fu">__init__</span>()</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.token_embedding <span class="op">=</span> nn.Embedding(vocab_size, d_model)</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.pos_encoding <span class="op">=</span> PositionalEncoding(context_length, d_model)</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.blocks <span class="op">=</span> nn.Sequential(<span class="op">*</span>[TransformerBlock(d_model, context_length) <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(num_blocks)])</span>
+<span id="cb15-7"><a href="#cb15-7" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.final_norm <span class="op">=</span> LayerNorm(d_model)</span>
+<span id="cb15-8"><a href="#cb15-8" aria-hidden="true" tabindex="-1"></a>        <span class="va">self</span>.output_head <span class="op">=</span> nn.Linear(d_model, vocab_size, bias<span class="op">=</span><span class="va">False</span>)</span>
+<span id="cb15-9"><a href="#cb15-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb15-10"><a href="#cb15-10" aria-hidden="true" tabindex="-1"></a>    <span class="kw">def</span> forward(<span class="va">self</span>, idx):</span>
+<span id="cb15-11"><a href="#cb15-11" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.token_embedding(idx)</span>
+<span id="cb15-12"><a href="#cb15-12" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.pos_encoding(x)</span>
+<span id="cb15-13"><a href="#cb15-13" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.blocks(x)</span>
+<span id="cb15-14"><a href="#cb15-14" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> <span class="va">self</span>.final_norm(x)</span>
+<span id="cb15-15"><a href="#cb15-15" aria-hidden="true" tabindex="-1"></a>        logits <span class="op">=</span> <span class="va">self</span>.output_head(x)</span>
+<span id="cb15-16"><a href="#cb15-16" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> logits</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="inference" class="level2">
+<h2 class="anchored" data-anchor-id="inference">Inference</h2>
+<p>To generate text, we provide an initial sequence of tokens (the prompt), pass it through the model, and obtain logits for the next token. We can then sample from the probability distribution obtained by applying softmax to these logits (e.g., taking the <code>argmax</code> for greedy sampling) to select the next token. This new token is appended to the sequence, and the process repeats.</p>
+<div id="d21b33e5" class="cell" data-execution_count="14">
+<details class="code-fold">
+<summary>Text Generation</summary>
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate(model, ids, max_new_tokens, context_size):</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>    <span class="co"># ids is a tensor of shape (1, num_tokens)</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(max_new_tokens):</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Crop current context if it exceeds the supported context size</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>        ids_context <span class="op">=</span> ids[:, <span class="op">-</span>context_size:]</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the predictions</span></span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">with</span> torch.no_grad():</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>            logits <span class="op">=</span> model(ids_context) <span class="co"># (1, num_tokens, vocab_size)</span></span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Focus only on the last time step</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>        logits <span class="op">=</span> logits[:, <span class="op">-</span><span class="dv">1</span>, :] <span class="co"># (1, vocab_size)</span></span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Apply softmax to get probabilities</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>        probs <span class="op">=</span> torch.softmax(logits, dim<span class="op">=-</span><span class="dv">1</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Get the idx of the vocab entry with the highest probability</span></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a>        id_next <span class="op">=</span> torch.argmax(probs, dim<span class="op">=-</span><span class="dv">1</span>, keepdim<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-20"><a href="#cb16-20" aria-hidden="true" tabindex="-1"></a>        <span class="co"># Append sampled index to the running sequence</span></span>
+<span id="cb16-21"><a href="#cb16-21" aria-hidden="true" tabindex="-1"></a>        ids <span class="op">=</span> torch.cat((ids, id_next), dim<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb16-22"><a href="#cb16-22" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> ids</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="training" class="level1">
+<h1>Training</h1>
+<section id="data-loading" class="level2">
+<h2 class="anchored" data-anchor-id="data-loading">Data loading</h2>
+<p>To train the model, we need to feed it chunks of the source text. We create a data loader that provides pairs of <span class="math inline">\((x, y)\)</span>, where <span class="math inline">\(x\)</span> is a sequence of tokens (the context) and <span class="math inline">\(y\)</span> is the next token in the sequence (the target).</p>
+<div id="8661a6ef" class="cell" data-execution_count="15">
+<details class="code-fold">
+<summary>Data Loader</summary>
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> create_dataloader(text, tokenizer, context_length, batch_size):</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a>    token_ids <span class="op">=</span> tokenizer.encode(text)</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a>    X, Y <span class="op">=</span> [], []</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(token_ids) <span class="op">-</span> context_length):</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>        X.append(token_ids[i:i<span class="op">+</span>context_length])</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>        Y.append(token_ids[i<span class="op">+</span>context_length])</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>    X <span class="op">=</span> torch.tensor(X)</span>
+<span id="cb17-9"><a href="#cb17-9" aria-hidden="true" tabindex="-1"></a>    Y <span class="op">=</span> torch.tensor(Y)</span>
+<span id="cb17-10"><a href="#cb17-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-11"><a href="#cb17-11" aria-hidden="true" tabindex="-1"></a>    dataset <span class="op">=</span> torch.utils.data.TensorDataset(X, Y)</span>
+<span id="cb17-12"><a href="#cb17-12" aria-hidden="true" tabindex="-1"></a>    dataloader <span class="op">=</span> torch.utils.data.DataLoader(dataset, batch_size<span class="op">=</span>batch_size, shuffle<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb17-13"><a href="#cb17-13" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> dataloader</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+<section id="cross-entropy-loss" class="level2">
+<h2 class="anchored" data-anchor-id="cross-entropy-loss">Cross-entropy loss</h2>
+<p>The standard loss function for training a language model is the <strong>cross-entropy loss</strong>. Given the model’s output logits and the true next token, the loss measures how “surprised” the model was by the correct answer. For a single instance, if the model outputs a probability distribution <span class="math inline">\(p\)</span> over the vocabulary and the true next token has index <span class="math inline">\(k\)</span>, the loss is:</p>
+<p><span class="math display">\[
+    L = -\log(p_k)
+\]</span></p>
+<p>This is equivalent to the cross-entropy <span class="math inline">\(H(q, p) = -\sum_i q_i \log(p_i)\)</span>, where <span class="math inline">\(q\)</span> is the true distribution (a one-hot vector with a 1 at index <span class="math inline">\(k\)</span>). Minimizing this loss encourages the model to assign a high probability to the correct next token.</p>
+</section>
+<section id="training-loop" class="level2">
+<h2 class="anchored" data-anchor-id="training-loop">Training Loop</h2>
+<p>The training process involves iterating through the data, calculating the loss, and updating the model’s parameters using an optimizer like Adam.</p>
+<div id="8f0b1da7" class="cell" data-execution_count="16">
+<details class="code-fold">
+<summary>Training Loop</summary>
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># This is a conceptual example and is not meant to be run directly.</span></span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> train_model(model, dataloader, optimizer, num_epochs):</span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a>    loss_fn <span class="op">=</span> nn.CrossEntropyLoss()</span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> epoch <span class="kw">in</span> <span class="bu">range</span>(num_epochs):</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> inputs, targets <span class="kw">in</span> dataloader:</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Forward pass</span></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a>            logits <span class="op">=</span> model(inputs) <span class="co"># (batch_size, context_length, vocab_size)</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Reshape for loss function</span></span>
+<span id="cb18-10"><a href="#cb18-10" aria-hidden="true" tabindex="-1"></a>            <span class="co"># We only care about predicting the next token for each context</span></span>
+<span id="cb18-11"><a href="#cb18-11" aria-hidden="true" tabindex="-1"></a>            logits <span class="op">=</span> logits.view(<span class="op">-</span><span class="dv">1</span>, logits.size(<span class="op">-</span><span class="dv">1</span>)) <span class="co"># (batch*context, vocab)</span></span>
+<span id="cb18-12"><a href="#cb18-12" aria-hidden="true" tabindex="-1"></a>            targets <span class="op">=</span> targets.view(<span class="op">-</span><span class="dv">1</span>) <span class="co"># (batch*context)</span></span>
+<span id="cb18-13"><a href="#cb18-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-14"><a href="#cb18-14" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Calculate loss</span></span>
+<span id="cb18-15"><a href="#cb18-15" aria-hidden="true" tabindex="-1"></a>            loss <span class="op">=</span> loss_fn(logits, targets)</span>
+<span id="cb18-16"><a href="#cb18-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-17"><a href="#cb18-17" aria-hidden="true" tabindex="-1"></a>            <span class="co"># Backward pass and optimization</span></span>
+<span id="cb18-18"><a href="#cb18-18" aria-hidden="true" tabindex="-1"></a>            optimizer.zero_grad()</span>
+<span id="cb18-19"><a href="#cb18-19" aria-hidden="true" tabindex="-1"></a>            loss.backward()</span>
+<span id="cb18-20"><a href="#cb18-20" aria-hidden="true" tabindex="-1"></a>            optimizer.step()</span>
+<span id="cb18-21"><a href="#cb18-21" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"Epoch </span><span class="sc">{</span>epoch<span class="op">+</span><span class="dv">1</span><span class="sc">}</span><span class="ss">, Loss: </span><span class="sc">{</span>loss<span class="sc">.</span>item()<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</details>
+</div>
+</section>
+</section>
+<section id="lora-fine-tuning" class="level1">
+<h1>LoRA fine-tuning</h1>
+<p><strong>Low-Rank Adaptation (LoRA)</strong> is a parameter-efficient fine-tuning (PEFT) technique. Full fine-tuning of a large pre-trained model is computationally expensive as it requires updating all of the model’s weights. LoRA proposes to freeze the pre-trained weights and instead inject smaller, trainable “rank decomposition” matrices into the layers of the model.</p>
+<p>Mathematically, for a pre-trained weight matrix <span class="math inline">\(W_0 \in \mathbb{R}^{d \times k}\)</span>, the update during fine-tuning is constrained. Instead of learning a full-rank update <span class="math inline">\(\Delta W\)</span>, LoRA learns a low-rank representation of it. The modified forward pass becomes:</p>
+<p><span class="math display">\[
+h = W_0 x + \Delta W x = W_0 x + B A x
+\]</span></p>
+<p>where <span class="math inline">\(W_0\)</span> is frozen, <span class="math inline">\(B \in \mathbb{R}^{d \times r}\)</span>, <span class="math inline">\(A \in \mathbb{R}^{r \times k}\)</span>, and the rank <span class="math inline">\(r \ll \min(d, k)\)</span>. The only trainable parameters are <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. This significantly reduces the number of trainable parameters, making fine-tuning much more efficient.</p>
+</section>
+<section id="references" class="level1">
+
+
+
+
+</section>
+
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-eilenberg1949problems" class="csl-entry" role="listitem">
+Eilenberg, Samuel. 1949. <span>“On the Problems of Topology.”</span> <em>Ann. Of Math. (2)</em> 50: 247–60. <a href="https://doi.org/10.2307/1969448">https://doi.org/10.2307/1969448</a>.
+</div>
+<div id="ref-thom1954quelques" class="csl-entry" role="listitem">
+Thom, René. 1954. <span>“Quelques Propriétés Globales Des Variétés Diffé Rentiables.”</span> <em>Comment. Math. Helv.</em> 28: 17–86. <a href="https://doi.org/10.1007/BF02566923">https://doi.org/10.1007/BF02566923</a>.
+</div>
+</div></section></div></main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/volfenstein1\.github\.io\/quarto\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

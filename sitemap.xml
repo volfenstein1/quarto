@@ -1,31 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://volfenstein1.github.io/quarto/fastai-3.5.html</loc>
-    <lastmod>2024-10-10T21:04:20.365Z</lastmod>
+    <loc>https://volfenstein1.github.io/quarto/mathematics.html</loc>
+    <lastmod>2025-06-24T10:45:56.223Z</lastmod>
   </url>
   <url>
-    <loc>https://volfenstein1.github.io/quarto/fastai-2.html</loc>
-    <lastmod>2024-10-10T21:04:20.361Z</lastmod>
+    <loc>https://volfenstein1.github.io/quarto/QLoRA_Fine_Tuning_to_Generate_Stories.html</loc>
+    <lastmod>2025-07-02T11:38:19.639Z</lastmod>
   </url>
   <url>
-    <loc>https://volfenstein1.github.io/quarto/wolfgang_GPT.html</loc>
-    <lastmod>2025-03-04T12:50:11.468Z</lastmod>
+    <loc>https://volfenstein1.github.io/quarto/Old/wolfgang_GPT.html</loc>
+    <lastmod>2025-06-19T18:42:43.947Z</lastmod>
   </url>
   <url>
-    <loc>https://volfenstein1.github.io/quarto/gpt.html</loc>
-    <lastmod>2025-02-25T09:59:00.823Z</lastmod>
-  </url>
-  <url>
-    <loc>https://volfenstein1.github.io/quarto/hello.html</loc>
-    <lastmod>2024-10-10T21:04:20.365Z</lastmod>
-  </url>
-  <url>
-    <loc>https://volfenstein1.github.io/quarto/climbing.html</loc>
-    <lastmod>2024-10-10T21:04:20.338Z</lastmod>
-  </url>
-  <url>
-    <loc>https://volfenstein1.github.io/quarto/deep_learning.html</loc>
+    <loc>https://volfenstein1.github.io/quarto/Old/climbing.html</loc>
     <lastmod>2024-10-10T21:04:20.338Z</lastmod>
   </url>
   <url>
@@ -33,23 +21,27 @@
     <lastmod>2025-04-18T09:53:11.753Z</lastmod>
   </url>
   <url>
-    <loc>https://volfenstein1.github.io/quarto/fastai-1.html</loc>
-    <lastmod>2024-10-10T21:04:20.341Z</lastmod>
+    <loc>https://volfenstein1.github.io/quarto/llm_mathematics.html</loc>
+    <lastmod>2025-07-02T10:30:19.160Z</lastmod>
+  </url>
+  <url>
+    <loc>https://volfenstein1.github.io/quarto/stories.html</loc>
+    <lastmod>2025-07-02T13:05:49.682Z</lastmod>
   </url>
   <url>
     <loc>https://volfenstein1.github.io/quarto/scale_retracts.html</loc>
-    <lastmod>2025-04-16T19:39:34.590Z</lastmod>
+    <lastmod>2025-05-11T10:54:49.813Z</lastmod>
   </url>
   <url>
-    <loc>https://volfenstein1.github.io/quarto/fastai-3.html</loc>
-    <lastmod>2024-10-10T21:04:20.365Z</lastmod>
+    <loc>https://volfenstein1.github.io/quarto/Old/gpt.html</loc>
+    <lastmod>2025-02-25T09:59:00.823Z</lastmod>
   </url>
   <url>
-    <loc>https://volfenstein1.github.io/quarto/limitations.html</loc>
+    <loc>https://volfenstein1.github.io/quarto/Old/limitations.html</loc>
     <lastmod>2025-03-04T08:52:15.849Z</lastmod>
   </url>
   <url>
-    <loc>https://volfenstein1.github.io/quarto/mathematics.html</loc>
-    <lastmod>2024-12-16T11:36:06.980Z</lastmod>
+    <loc>https://volfenstein1.github.io/quarto/llm_mathematics2.html</loc>
+    <lastmod>2025-06-26T23:03:43.122Z</lastmod>
   </url>
 </urlset>
