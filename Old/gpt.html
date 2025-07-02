@@ -37,10 +37,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f70c19036c299c27839ec73052701135.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-226d3177c4d23a48b4ebcfdc421b28d5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -101,7 +105,178 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -137,6 +312,7 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -150,23 +326,23 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#wolfgang-gpt" id="toc-wolfgang-gpt" class="nav-link active" data-scroll-target="#wolfgang-gpt">Wolfgang-GPT</a>
+  <li><a href="#wolfgang-gpt" id="toc-wolfgang-gpt" class="nav-link active" data-scroll-target="#wolfgang-gpt"><span class="header-section-number">1</span> Wolfgang-GPT</a>
   <ul class="collapse">
-  <li><a href="#history-of-llms" id="toc-history-of-llms" class="nav-link" data-scroll-target="#history-of-llms">History of LLMs</a></li>
-  <li><a href="#the-ascent-of-transformers" id="toc-the-ascent-of-transformers" class="nav-link" data-scroll-target="#the-ascent-of-transformers">The ascent of transformers</a></li>
-  <li><a href="#llm-overview" id="toc-llm-overview" class="nav-link" data-scroll-target="#llm-overview">LLM overview</a></li>
-  <li><a href="#preparing-the-training-data" id="toc-preparing-the-training-data" class="nav-link" data-scroll-target="#preparing-the-training-data">Preparing the training data</a></li>
-  <li><a href="#the-output" id="toc-the-output" class="nav-link" data-scroll-target="#the-output">The Output</a></li>
-  <li><a href="#the-output-after-pretraining-and-finetuning" id="toc-the-output-after-pretraining-and-finetuning" class="nav-link" data-scroll-target="#the-output-after-pretraining-and-finetuning">The Output after Pretraining and Finetuning</a></li>
-  <li><a href="#the-code" id="toc-the-code" class="nav-link" data-scroll-target="#the-code">The Code</a></li>
+  <li><a href="#history-of-llms" id="toc-history-of-llms" class="nav-link" data-scroll-target="#history-of-llms"><span class="header-section-number">1.1</span> History of LLMs</a></li>
+  <li><a href="#the-ascent-of-transformers" id="toc-the-ascent-of-transformers" class="nav-link" data-scroll-target="#the-ascent-of-transformers"><span class="header-section-number">1.2</span> The ascent of transformers</a></li>
+  <li><a href="#llm-overview" id="toc-llm-overview" class="nav-link" data-scroll-target="#llm-overview"><span class="header-section-number">1.3</span> LLM overview</a></li>
+  <li><a href="#preparing-the-training-data" id="toc-preparing-the-training-data" class="nav-link" data-scroll-target="#preparing-the-training-data"><span class="header-section-number">1.4</span> Preparing the training data</a></li>
+  <li><a href="#the-output" id="toc-the-output" class="nav-link" data-scroll-target="#the-output"><span class="header-section-number">1.5</span> The Output</a></li>
+  <li><a href="#the-output-after-pretraining-and-finetuning" id="toc-the-output-after-pretraining-and-finetuning" class="nav-link" data-scroll-target="#the-output-after-pretraining-and-finetuning"><span class="header-section-number">1.6</span> The Output after Pretraining and Finetuning</a></li>
+  <li><a href="#the-code" id="toc-the-code" class="nav-link" data-scroll-target="#the-code"><span class="header-section-number">1.7</span> The Code</a></li>
   </ul></li>
-  <li><a href="#wolfgang-gpt-1" id="toc-wolfgang-gpt-1" class="nav-link" data-scroll-target="#wolfgang-gpt-1">WOLFGANG-GPT</a>
+  <li><a href="#wolfgang-gpt-1" id="toc-wolfgang-gpt-1" class="nav-link" data-scroll-target="#wolfgang-gpt-1"><span class="header-section-number">2</span> WOLFGANG-GPT</a>
   <ul class="collapse">
-  <li><a href="#tokenizer" id="toc-tokenizer" class="nav-link" data-scroll-target="#tokenizer">Tokenizer</a></li>
-  <li><a href="#simplistic-neural-network-model" id="toc-simplistic-neural-network-model" class="nav-link" data-scroll-target="#simplistic-neural-network-model">Simplistic Neural Network Model</a></li>
-  <li><a href="#self-attention" id="toc-self-attention" class="nav-link" data-scroll-target="#self-attention">Self-attention</a>
+  <li><a href="#tokenizer" id="toc-tokenizer" class="nav-link" data-scroll-target="#tokenizer"><span class="header-section-number">2.1</span> Tokenizer</a></li>
+  <li><a href="#simplistic-neural-network-model" id="toc-simplistic-neural-network-model" class="nav-link" data-scroll-target="#simplistic-neural-network-model"><span class="header-section-number">2.2</span> Simplistic Neural Network Model</a></li>
+  <li><a href="#self-attention" id="toc-self-attention" class="nav-link" data-scroll-target="#self-attention"><span class="header-section-number">2.3</span> Self-attention</a>
   <ul class="collapse">
-  <li><a href="#output-of-wolfgang-gpt" id="toc-output-of-wolfgang-gpt" class="nav-link" data-scroll-target="#output-of-wolfgang-gpt">Output of wolfgang-GPT</a></li>
+  <li><a href="#output-of-wolfgang-gpt" id="toc-output-of-wolfgang-gpt" class="nav-link" data-scroll-target="#output-of-wolfgang-gpt"><span class="header-section-number">2.3.1</span> Output of wolfgang-GPT</a></li>
   </ul></li>
   </ul></li>
   </ul>
@@ -174,6 +350,7 @@ window.Quarto = {
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -194,15 +371,15 @@ window.Quarto = {
 </header>
 
 
-<section id="wolfgang-gpt" class="level1">
-<h1>Wolfgang-GPT</h1>
+<section id="wolfgang-gpt" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Wolfgang-GPT</h1>
 <p>Why?</p>
 <p>Once you build something, it demystifies it a bit. You become a bit more aware of how it works, why it works, and it’s shortcomings. It stops feeling like magic, but maybe you are able to do a bit more with it.</p>
-<section id="history-of-llms" class="level2">
-<h2 class="anchored" data-anchor-id="history-of-llms">History of LLMs</h2>
+<section id="history-of-llms" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="history-of-llms"><span class="header-section-number">1.1</span> History of LLMs</h2>
 </section>
-<section id="the-ascent-of-transformers" class="level2">
-<h2 class="anchored" data-anchor-id="the-ascent-of-transformers">The ascent of transformers</h2>
+<section id="the-ascent-of-transformers" class="level2" data-number="1.2">
+<h2 data-number="1.2" class="anchored" data-anchor-id="the-ascent-of-transformers"><span class="header-section-number">1.2</span> The ascent of transformers</h2>
 <p><a href="https://arxiv.org/abs/1706.03762">Attention Is All You Need</a></p>
 <div class="quarto-figure quarto-figure-center">
 <figure class="figure">
@@ -211,11 +388,11 @@ window.Quarto = {
 </figure>
 </div>
 </section>
-<section id="llm-overview" class="level2">
-<h2 class="anchored" data-anchor-id="llm-overview">LLM overview</h2>
+<section id="llm-overview" class="level2" data-number="1.3">
+<h2 data-number="1.3" class="anchored" data-anchor-id="llm-overview"><span class="header-section-number">1.3</span> LLM overview</h2>
 </section>
-<section id="preparing-the-training-data" class="level2">
-<h2 class="anchored" data-anchor-id="preparing-the-training-data">Preparing the training data</h2>
+<section id="preparing-the-training-data" class="level2" data-number="1.4">
+<h2 data-number="1.4" class="anchored" data-anchor-id="preparing-the-training-data"><span class="header-section-number">1.4</span> Preparing the training data</h2>
 <p>Raw data:</p>
 <ul>
 <li>plain text LaTex code from arxiv papers</li>
@@ -224,20 +401,20 @@ window.Quarto = {
 <p>Cleaning up the data: <a href="https://github.com/google-research/arxiv-latex-cleaner">arxiv Latex cleaner</a></p>
 <p>Tokenizer for latex: <a href="https://huggingface.co/witiko/mathberta">mathberta</a></p>
 </section>
-<section id="the-output" class="level2">
-<h2 class="anchored" data-anchor-id="the-output">The Output</h2>
+<section id="the-output" class="level2" data-number="1.5">
+<h2 data-number="1.5" class="anchored" data-anchor-id="the-output"><span class="header-section-number">1.5</span> The Output</h2>
 <p>Pretty nonsensical! But keep in mind, I’m one guy who built this with a laptop from 2014. You can of course get more impressive results with 100 mathematics and computer science PhDs and with billions of dollars of computing resources.</p>
 <p>The point was to get a feel for the underlying mechanisms of an LLM.</p>
 </section>
-<section id="the-output-after-pretraining-and-finetuning" class="level2">
-<h2 class="anchored" data-anchor-id="the-output-after-pretraining-and-finetuning">The Output after Pretraining and Finetuning</h2>
+<section id="the-output-after-pretraining-and-finetuning" class="level2" data-number="1.6">
+<h2 data-number="1.6" class="anchored" data-anchor-id="the-output-after-pretraining-and-finetuning"><span class="header-section-number">1.6</span> The Output after Pretraining and Finetuning</h2>
 </section>
-<section id="the-code" class="level2">
-<h2 class="anchored" data-anchor-id="the-code">The Code</h2>
+<section id="the-code" class="level2" data-number="1.7">
+<h2 data-number="1.7" class="anchored" data-anchor-id="the-code"><span class="header-section-number">1.7</span> The Code</h2>
 </section>
 </section>
-<section id="wolfgang-gpt-1" class="level1 quarto-embed-nb-cell">
-<h1>WOLFGANG-GPT</h1>
+<section id="wolfgang-gpt-1" class="level1 quarto-embed-nb-cell" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> WOLFGANG-GPT</h1>
 <p>The best way to keep abreast of new technological developments is to understand them. This notebook is the result of trying to understand the technologies of LLMs, using the following resources: <a href="https://karpathy.ai/zero-to-hero.html">Andrej Karpathy</a>, <a href="https://www.3blue1brown.com/lessons/gpt">3blue1brown</a>, and <a href="https://github.com/rasbt/LLMs-from-scratch?tab=readme-ov-file">Sebastian Raschka</a>.</p>
 <p>Wolfgang-GPT is trained on a data set consisting mainly of my mathematics research papers. I used <a href="https://github.com/google-research/arxiv-latex-cleaner">arxiv-latex-cleaner</a> to clean up the tex files a bit; this mostly means the removal of all commented text.</p>
 <p>You can see the training set here: <a href="WOLFGANG_TRAINING.tex">WOLFGANG_TRAINING.tex</a>.</p>
@@ -270,8 +447,8 @@ In \cite{thom1954quelques},\footnote{The reader should be advised that the commo
 Number of unique characters:  99</code></pre>
 </div>
 </div>
-<section id="tokenizer" class="level2">
-<h2 class="anchored" data-anchor-id="tokenizer">Tokenizer</h2>
+<section id="tokenizer" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="tokenizer"><span class="header-section-number">2.1</span> Tokenizer</h2>
 <p>A tokenizer splits the training into disjoint chunks and embeds the chunks into a vector space <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
 <p>We use a very rudimentary tokenizer, with chunks given by the individual characters: $ $</p>
 <p>Each unique character is encoded as a basis element of <span class="math inline">\(\mathbb{R}^n\)</span>, <span class="math inline">\(n:=\#\{\text{unique characters}\}\)</span>. via a one-hot encoding, i.e., $ { } ^{#{}} $ and the decoder is the inverse.</p>
@@ -289,8 +466,8 @@ tensor([54, 74, 71,  ...,  2, 67, 84])</code></pre>
 </div>
 </div>
 </section>
-<section id="simplistic-neural-network-model" class="level2">
-<h2 class="anchored" data-anchor-id="simplistic-neural-network-model">Simplistic Neural Network Model</h2>
+<section id="simplistic-neural-network-model" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="simplistic-neural-network-model"><span class="header-section-number">2.2</span> Simplistic Neural Network Model</h2>
 Given a sequence of tokens, we would like to train a neural network model to predict the most likely next token: $
 <span class="math display">\[\begin{cases}
         \text{|c|} &amp; 98\% \text{ probability} \\
@@ -415,8 +592,8 @@ s cowtuly,henolthac il^k}\molponc  arra,0,1$z_isi$\ocorind caltembm
 </div>
 </div>
 </section>
-<section id="self-attention" class="level2">
-<h2 class="anchored" data-anchor-id="self-attention">Self-attention</h2>
+<section id="self-attention" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="self-attention"><span class="header-section-number">2.3</span> Self-attention</h2>
 <p>The previous results were unintelligible, obviously. There is only so much predictive power from knowing the previous 8 characters.</p>
 <p>The self-attention is defined by the intially opaque equation: $ (Q, K, V) = ( ) V. $ In what follows, we will decipher the meaning of this equation.</p>
 <div id="cell-22" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="cf45987a-c79b-4f21-9ba1-60250505b5e5" data-execution_count="29">
@@ -520,8 +697,8 @@ tensor([[2.0000, 7.0000],
 <pre><code>(tensor(-9.5367e-09), tensor(1.0000))</code></pre>
 </div>
 </div>
-<section id="output-of-wolfgang-gpt" class="level3">
-<h3 class="anchored" data-anchor-id="output-of-wolfgang-gpt">Output of wolfgang-GPT</h3>
+<section id="output-of-wolfgang-gpt" class="level3" data-number="2.3.1">
+<h3 data-number="2.3.1" class="anchored" data-anchor-id="output-of-wolfgang-gpt"><span class="header-section-number">2.3.1</span> Output of wolfgang-GPT</h3>
 <p>We can train the model and take a look at it’s output.</p>
 <div id="cell-39" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="9afbff96-b00f-459a-8c28-de67298b36bb" data-execution_count="45">
 <div class="cell-output cell-output-stdout">
@@ -667,6 +844,19 @@ w_{\ast\colon X} =(\tau (\bigl( \phi &amp; \wh{V}_\ast) (\big )\circ d_{m+i}(TD,
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {

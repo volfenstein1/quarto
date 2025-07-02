@@ -92,10 +92,14 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f70c19036c299c27839ec73052701135.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-226d3177c4d23a48b4ebcfdc421b28d5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -160,7 +164,178 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -196,6 +371,7 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -209,57 +385,58 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction">Introduction</a>
+  <li><a href="#introduction" id="toc-introduction" class="nav-link active" data-scroll-target="#introduction"><span class="header-section-number">1</span> Introduction</a>
   <ul class="collapse">
-  <li><a href="#predicting-the-next-token" id="toc-predicting-the-next-token" class="nav-link" data-scroll-target="#predicting-the-next-token">Predicting the next token</a></li>
+  <li><a href="#predicting-the-next-token" id="toc-predicting-the-next-token" class="nav-link" data-scroll-target="#predicting-the-next-token"><span class="header-section-number">1.1</span> Predicting the next token</a></li>
   </ul></li>
-  <li><a href="#tokenizing-text" id="toc-tokenizing-text" class="nav-link" data-scroll-target="#tokenizing-text">Tokenizing text</a>
+  <li><a href="#tokenizing-text" id="toc-tokenizing-text" class="nav-link" data-scroll-target="#tokenizing-text"><span class="header-section-number">2</span> Tokenizing text</a>
   <ul class="collapse">
-  <li><a href="#source-text" id="toc-source-text" class="nav-link" data-scroll-target="#source-text">Source text</a></li>
-  <li><a href="#tokens" id="toc-tokens" class="nav-link" data-scroll-target="#tokens">Tokens</a></li>
-  <li><a href="#tokenizers" id="toc-tokenizers" class="nav-link" data-scroll-target="#tokenizers">Tokenizers</a></li>
-  <li><a href="#encoding" id="toc-encoding" class="nav-link" data-scroll-target="#encoding">Encoding</a></li>
-  <li><a href="#subword-tokenizer-byte-pair-encoding" id="toc-subword-tokenizer-byte-pair-encoding" class="nav-link" data-scroll-target="#subword-tokenizer-byte-pair-encoding">Subword tokenizer: byte-pair encoding</a></li>
-  <li><a href="#token-embeddings" id="toc-token-embeddings" class="nav-link" data-scroll-target="#token-embeddings">Token embeddings</a></li>
-  <li><a href="#positional-encoding-matrix" id="toc-positional-encoding-matrix" class="nav-link" data-scroll-target="#positional-encoding-matrix">Positional encoding matrix</a></li>
+  <li><a href="#source-text" id="toc-source-text" class="nav-link" data-scroll-target="#source-text"><span class="header-section-number">2.1</span> Source text</a></li>
+  <li><a href="#tokens" id="toc-tokens" class="nav-link" data-scroll-target="#tokens"><span class="header-section-number">2.2</span> Tokens</a></li>
+  <li><a href="#tokenizers" id="toc-tokenizers" class="nav-link" data-scroll-target="#tokenizers"><span class="header-section-number">2.3</span> Tokenizers</a></li>
+  <li><a href="#encoding" id="toc-encoding" class="nav-link" data-scroll-target="#encoding"><span class="header-section-number">2.4</span> Encoding</a></li>
+  <li><a href="#subword-tokenizer-byte-pair-encoding" id="toc-subword-tokenizer-byte-pair-encoding" class="nav-link" data-scroll-target="#subword-tokenizer-byte-pair-encoding"><span class="header-section-number">2.5</span> Subword tokenizer: byte-pair encoding</a></li>
+  <li><a href="#token-embeddings" id="toc-token-embeddings" class="nav-link" data-scroll-target="#token-embeddings"><span class="header-section-number">2.6</span> Token embeddings</a></li>
+  <li><a href="#positional-encoding-matrix" id="toc-positional-encoding-matrix" class="nav-link" data-scroll-target="#positional-encoding-matrix"><span class="header-section-number">2.7</span> Positional encoding matrix</a></li>
   </ul></li>
-  <li><a href="#causally-masked-attention" id="toc-causally-masked-attention" class="nav-link" data-scroll-target="#causally-masked-attention">Causally masked attention</a>
+  <li><a href="#causally-masked-attention" id="toc-causally-masked-attention" class="nav-link" data-scroll-target="#causally-masked-attention"><span class="header-section-number">3</span> Causally masked attention</a>
   <ul class="collapse">
-  <li><a href="#query-key-and-value-matrices" id="toc-query-key-and-value-matrices" class="nav-link" data-scroll-target="#query-key-and-value-matrices">Query, Key, and Value matrices</a></li>
-  <li><a href="#the-factor-tfrac1sqrtd_k" id="toc-the-factor-tfrac1sqrtd_k" class="nav-link" data-scroll-target="#the-factor-tfrac1sqrtd_k">The factor <span class="math inline">\(\tfrac{1}{\sqrt{d_k}}\)</span></a></li>
-  <li><a href="#causal-mask" id="toc-causal-mask" class="nav-link" data-scroll-target="#causal-mask">Causal mask</a></li>
-  <li><a href="#softmax" id="toc-softmax" class="nav-link" data-scroll-target="#softmax">Softmax</a></li>
-  <li><a href="#attention-weight-matrix" id="toc-attention-weight-matrix" class="nav-link" data-scroll-target="#attention-weight-matrix">Attention weight matrix</a></li>
-  <li><a href="#context-vectors" id="toc-context-vectors" class="nav-link" data-scroll-target="#context-vectors">Context vectors</a></li>
+  <li><a href="#query-key-and-value-matrices" id="toc-query-key-and-value-matrices" class="nav-link" data-scroll-target="#query-key-and-value-matrices"><span class="header-section-number">3.1</span> Query, Key, and Value matrices</a></li>
+  <li><a href="#the-factor-tfrac1sqrtd_k" id="toc-the-factor-tfrac1sqrtd_k" class="nav-link" data-scroll-target="#the-factor-tfrac1sqrtd_k"><span class="header-section-number">3.2</span> The factor <span class="math inline">\(\tfrac{1}{\sqrt{d_k}}\)</span></a></li>
+  <li><a href="#causal-mask" id="toc-causal-mask" class="nav-link" data-scroll-target="#causal-mask"><span class="header-section-number">3.3</span> Causal mask</a></li>
+  <li><a href="#softmax" id="toc-softmax" class="nav-link" data-scroll-target="#softmax"><span class="header-section-number">3.4</span> Softmax</a></li>
+  <li><a href="#attention-weight-matrix" id="toc-attention-weight-matrix" class="nav-link" data-scroll-target="#attention-weight-matrix"><span class="header-section-number">3.5</span> Attention weight matrix</a></li>
+  <li><a href="#context-vectors" id="toc-context-vectors" class="nav-link" data-scroll-target="#context-vectors"><span class="header-section-number">3.6</span> Context vectors</a></li>
   </ul></li>
-  <li><a href="#the-transformer-block" id="toc-the-transformer-block" class="nav-link" data-scroll-target="#the-transformer-block">The transformer block</a>
+  <li><a href="#the-transformer-block" id="toc-the-transformer-block" class="nav-link" data-scroll-target="#the-transformer-block"><span class="header-section-number">4</span> The transformer block</a>
   <ul class="collapse">
-  <li><a href="#layer-normalization" id="toc-layer-normalization" class="nav-link" data-scroll-target="#layer-normalization">Layer normalization</a></li>
-  <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions">Activation functions</a></li>
-  <li><a href="#residual-connections" id="toc-residual-connections" class="nav-link" data-scroll-target="#residual-connections">Residual connections</a></li>
-  <li><a href="#feed-forward-layer" id="toc-feed-forward-layer" class="nav-link" data-scroll-target="#feed-forward-layer">Feed-forward layer</a></li>
-  <li><a href="#transformer-block" id="toc-transformer-block" class="nav-link" data-scroll-target="#transformer-block">Transformer block</a></li>
+  <li><a href="#layer-normalization" id="toc-layer-normalization" class="nav-link" data-scroll-target="#layer-normalization"><span class="header-section-number">4.1</span> Layer normalization</a></li>
+  <li><a href="#activation-functions" id="toc-activation-functions" class="nav-link" data-scroll-target="#activation-functions"><span class="header-section-number">4.2</span> Activation functions</a></li>
+  <li><a href="#residual-connections" id="toc-residual-connections" class="nav-link" data-scroll-target="#residual-connections"><span class="header-section-number">4.3</span> Residual connections</a></li>
+  <li><a href="#feed-forward-layer" id="toc-feed-forward-layer" class="nav-link" data-scroll-target="#feed-forward-layer"><span class="header-section-number">4.4</span> Feed-forward layer</a></li>
+  <li><a href="#transformer-block" id="toc-transformer-block" class="nav-link" data-scroll-target="#transformer-block"><span class="header-section-number">4.5</span> Transformer block</a></li>
   </ul></li>
-  <li><a href="#large-language-model" id="toc-large-language-model" class="nav-link" data-scroll-target="#large-language-model">Large language model</a>
+  <li><a href="#large-language-model" id="toc-large-language-model" class="nav-link" data-scroll-target="#large-language-model"><span class="header-section-number">5</span> Large language model</a>
   <ul class="collapse">
-  <li><a href="#inference" id="toc-inference" class="nav-link" data-scroll-target="#inference">Inference</a>
+  <li><a href="#inference" id="toc-inference" class="nav-link" data-scroll-target="#inference"><span class="header-section-number">5.1</span> Inference</a>
   <ul class="collapse">
-  <li><a href="#greedy-inference" id="toc-greedy-inference" class="nav-link" data-scroll-target="#greedy-inference">Greedy inference</a></li>
-  <li><a href="#sampling-inference" id="toc-sampling-inference" class="nav-link" data-scroll-target="#sampling-inference">Sampling inference</a></li>
-  <li><a href="#temperature-sampling-inference" id="toc-temperature-sampling-inference" class="nav-link" data-scroll-target="#temperature-sampling-inference">Temperature sampling inference</a></li>
+  <li><a href="#greedy-inference" id="toc-greedy-inference" class="nav-link" data-scroll-target="#greedy-inference"><span class="header-section-number">5.1.1</span> Greedy inference</a></li>
+  <li><a href="#sampling-inference" id="toc-sampling-inference" class="nav-link" data-scroll-target="#sampling-inference"><span class="header-section-number">5.1.2</span> Sampling inference</a></li>
+  <li><a href="#temperature-sampling-inference" id="toc-temperature-sampling-inference" class="nav-link" data-scroll-target="#temperature-sampling-inference"><span class="header-section-number">5.1.3</span> Temperature sampling inference</a></li>
   </ul></li>
   </ul></li>
-  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training">Training</a>
+  <li><a href="#training" id="toc-training" class="nav-link" data-scroll-target="#training"><span class="header-section-number">6</span> Training</a>
   <ul class="collapse">
-  <li><a href="#inputs-targets-and-predictions" id="toc-inputs-targets-and-predictions" class="nav-link" data-scroll-target="#inputs-targets-and-predictions">Inputs, targets, and predictions</a></li>
-  <li><a href="#cross-entropy-loss" id="toc-cross-entropy-loss" class="nav-link" data-scroll-target="#cross-entropy-loss">Cross-entropy loss</a></li>
+  <li><a href="#inputs-targets-and-predictions" id="toc-inputs-targets-and-predictions" class="nav-link" data-scroll-target="#inputs-targets-and-predictions"><span class="header-section-number">6.1</span> Inputs, targets, and predictions</a></li>
+  <li><a href="#cross-entropy-loss" id="toc-cross-entropy-loss" class="nav-link" data-scroll-target="#cross-entropy-loss"><span class="header-section-number">6.2</span> Cross-entropy loss</a></li>
   </ul></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">7</span> References</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -291,13 +468,13 @@ window.Quarto = {
 <p>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% % Math Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</p>
 % % % % %COLORS % % % % %
 </div>
-<section id="introduction" class="level1">
-<h1>Introduction</h1>
+<section id="introduction" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
 <p>By now, there are many useful books, online guides, and videos for understanding the construction of Large Language Models from first principles [citations References: 3blue1brown, Sebastian, SuperStudyGuide, wikipedia, d2l] What separates this project, is that this is designed as a <em>mathematics first</em> presentation of the architecture of GPT styled LLM. If you are a mathematician or are simply more comfortable with the language and structure of mathematical writing, this page will hopefully be an easy to digest presentation of the mathematical foundations of LLMs. You should be able to read and understand this material in an afternoon.</p>
 <p>In addition to describing tokenizers, attention mechanisms, and transformer blocks in terms of mathematical formulas, I have included basic implementations of the constructions in PyTorch in order to also give a quick start for understanding the bridge between the abstract mathematical formulations and implementations in code. Because our focus is primarily on the mathematical constructions, we leave out some important elements of the computer engineering perspective which are important for implementation and optimization; namely, batching of data, differences between device architecture of CPU vs GPU, as well as parameter quantization.</p>
 <p>This page was adapted from a project at Ruhr-Universität Bochum. Thanks go to the symplectic group at the Faculty of Mathematics!</p>
-<section id="predicting-the-next-token" class="level2">
-<h2 class="anchored" data-anchor-id="predicting-the-next-token">Predicting the next token</h2>
+<section id="predicting-the-next-token" class="level2" data-number="1.1">
+<h2 data-number="1.1" class="anchored" data-anchor-id="predicting-the-next-token"><span class="header-section-number">1.1</span> Predicting the next token</h2>
 <p>We can superficially consider a (generative) <span class="math inline">\(\text{LLM}\)</span> as a function which takes as input a fixed length sequence of text and outputs a probability distribution for the next text unit. By sampling from this distribution, and appending to the original text sequence, we can iteratively predict the subsequent text unit:</p>
 <!-- # OTHER PROJECT - NOTE TO SELF - PROMPTING THROUGH A GUI -->
 <p><span class="math display">\[
@@ -331,10 +508,10 @@ window.Quarto = {
 \]</span></p>
 </section>
 </section>
-<section id="tokenizing-text" class="level1">
-<h1>Tokenizing text</h1>
-<section id="source-text" class="level2">
-<h2 class="anchored" data-anchor-id="source-text">Source text</h2>
+<section id="tokenizing-text" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Tokenizing text</h1>
+<section id="source-text" class="level2" data-number="2.1">
+<h2 data-number="2.1" class="anchored" data-anchor-id="source-text"><span class="header-section-number">2.1</span> Source text</h2>
 <p>We begin by selecting a source text, which gives a fixed source for training our eventual LLM, in addition to providing a source for defining the vocabulary for our tokenizer. To keep things topical, we will use a collection of mathematics texts in symplectic geometry:</p>
 <table class="caption-top table">
 <colgroup>
@@ -386,7 +563,7 @@ window.Quarto = {
 </tr>
 </tbody>
 </table>
-<div id="61e62e1b" class="cell" data-execution_count="1">
+<div id="36d60a96" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Python imports</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
@@ -394,7 +571,7 @@ window.Quarto = {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="4444cc38" class="cell" data-execution_count="2">
+<div id="bee7780c" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Opening the source text <code>mathematics.tex</code></summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'mathematics.tex'</span>, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
@@ -403,8 +580,8 @@ window.Quarto = {
 </details>
 </div>
 </section>
-<section id="tokens" class="level2">
-<h2 class="anchored" data-anchor-id="tokens">Tokens</h2>
+<section id="tokens" class="level2" data-number="2.2">
+<h2 data-number="2.2" class="anchored" data-anchor-id="tokens"><span class="header-section-number">2.2</span> Tokens</h2>
 <p>A <strong>token</strong> is an arbitrarily defined unit of text.</p>
 <table class="caption-top table">
 <colgroup>
@@ -463,8 +640,8 @@ window.Quarto = {
 </tbody>
 </table>
 </section>
-<section id="tokenizers" class="level2">
-<h2 class="anchored" data-anchor-id="tokenizers">Tokenizers</h2>
+<section id="tokenizers" class="level2" data-number="2.3">
+<h2 data-number="2.3" class="anchored" data-anchor-id="tokenizers"><span class="header-section-number">2.3</span> Tokenizers</h2>
 <p>Let <span class="math inline">\(\text{TEXTS}\)</span> be defined as the set of finite texts and let <span class="math inline">\(\text{Seq}(V)\)</span> be defined as the set of finite sequences <span class="math inline">\((t_1, t_2,...,t_N)\)</span> where <span class="math inline">\(t_i \in V.\)</span> A <strong>tokenizer</strong> <span class="math inline">\(T\)</span> is a map</p>
 <p><span class="math display">\[\begin{align}
 T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
@@ -476,15 +653,15 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
     T(\text{The Steenrod problem...}) = (\fbox{The},\fbox{Steenrod},\fbox{problem}...)
 \]</span></p>
 </section>
-<section id="encoding" class="level2">
-<h2 class="anchored" data-anchor-id="encoding">Encoding</h2>
+<section id="encoding" class="level2" data-number="2.4">
+<h2 data-number="2.4" class="anchored" data-anchor-id="encoding"><span class="header-section-number">2.4</span> Encoding</h2>
 <p>We next want to represent tokens numerically as vectors. We begin by fixing an index on the vocabulary, i.e., a bijection <span class="math inline">\(V \to \{1,...,|V|\}\)</span>, and thus we freely identify tokens and token indices.</p>
 <p>Using this identification, a tokenizer defines an <strong>encoder</strong> of a finite text into a sequence of indices:</p>
 <p><span class="math display">\[
     T ( \text{The Steenrod problem...}) = (341, 12459, 948,...),
 \]</span></p>
 <p>as well as a <strong>decoder</strong> from a sequence of indices back to a finite text.</p>
-<div id="558712f0" class="cell" data-execution_count="3">
+<div id="eee6209f" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Character level tokenizer</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CharacterTokenizer:</span>
@@ -526,7 +703,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="c11974cd" class="cell" data-execution_count="4">
+<div id="948bc37c" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Word level tokenizer</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> WordTokenizer:</span>
@@ -570,8 +747,8 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </details>
 </div>
 </section>
-<section id="subword-tokenizer-byte-pair-encoding" class="level2">
-<h2 class="anchored" data-anchor-id="subword-tokenizer-byte-pair-encoding">Subword tokenizer: byte-pair encoding</h2>
+<section id="subword-tokenizer-byte-pair-encoding" class="level2" data-number="2.5">
+<h2 data-number="2.5" class="anchored" data-anchor-id="subword-tokenizer-byte-pair-encoding"><span class="header-section-number">2.5</span> Subword tokenizer: byte-pair encoding</h2>
 <p>The <strong>byte-pair encoding</strong> is an algorithm which takes a source text and builds a vocabulary iteratively by combining the most common pairs of neighboring tokens (the modern version of the ‘byte-pair’). A text is correspondingly tokenized and encoded by this vocabulary by merging pairs of tokens iteratively.</p>
 <p>Explicitly, the vocabulary is constructed via the following algorithm:</p>
 <ul>
@@ -586,7 +763,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <li>Repeat until no more merges can be performed.</li>
 <li>Encode the tokens with the corresponding token ids.</li>
 </ul>
-<div id="dedd889d" class="cell" data-execution_count="5">
+<div id="def1b325" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Byte-pair encoding tokenizer</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BPETokenizer:</span>
@@ -717,8 +894,8 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </details>
 </div>
 </section>
-<section id="token-embeddings" class="level2">
-<h2 class="anchored" data-anchor-id="token-embeddings">Token embeddings</h2>
+<section id="token-embeddings" class="level2" data-number="2.6">
+<h2 data-number="2.6" class="anchored" data-anchor-id="token-embeddings"><span class="header-section-number">2.6</span> Token embeddings</h2>
 <p>A <strong>token embedding</strong> is an abstract representation of a token as a vector in some <span class="math inline">\(\mathbb{R}^d\)</span>.</p>
 <p>The <strong>One Hot mapping</strong> is a bijection between the tokens indices in a vocabulary <span class="math inline">\(V\)</span> with the standard basis elements <span class="math inline">\(\{e_i\}\)</span> in the space <span class="math inline">\(\mathbb{R}^{|V|}\)</span>, i.e.,</p>
 <p><span class="math display">\[
@@ -733,7 +910,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 \]</span></p>
 <p>This composition is the basis of the <em>Word2vec</em> family of embeddings.</p>
 <p>The map <span class="math inline">\(A\)</span> is often a linear map, or, if we wished, a neural network itself; in the process of training the GPT, we can adjust the weights to learn better token embeddings.</p>
-<div id="a122867a" class="cell" data-execution_count="6">
+<div id="ea42b89d" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Token embedding example</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> BPETokenizer()</span>
@@ -750,8 +927,8 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </details>
 </div>
 </section>
-<section id="positional-encoding-matrix" class="level2">
-<h2 class="anchored" data-anchor-id="positional-encoding-matrix">Positional encoding matrix</h2>
+<section id="positional-encoding-matrix" class="level2" data-number="2.7">
+<h2 data-number="2.7" class="anchored" data-anchor-id="positional-encoding-matrix"><span class="header-section-number">2.7</span> Positional encoding matrix</h2>
 <p>Fix an input sequence length <span class="math inline">\(N\)</span>. Given an input sequence of tokens, we may apply the embedding map to get an input sequence of embedded tokens:</p>
 <p><span class="math display">\[
     \text{Embedding} : V^N  \to \mathbb{R}^{N\times d_\text{emb}}.
@@ -763,7 +940,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
   p_{i,2j + 1} := \cos \left( \frac{i}{10000^\tfrac{2j}{d}}\right).
 \]</span></p>
 <p>Given an input sequence <span class="math inline">\(X\in \mathbb{R}^{N\times d_\text{emb}}\)</span>, we perturb by adding the positional encoding matrix, i.e., <span class="math inline">\(X + \text{PE}\)</span>.</p>
-<div id="da5f7082" class="cell" data-execution_count="7">
+<div id="43cbcbf1" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Positional encoding</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PositionalEncoding(nn.Module):</span>
@@ -789,8 +966,8 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </div>
 </section>
 </section>
-<section id="causally-masked-attention" class="level1">
-<h1>Causally masked attention</h1>
+<section id="causally-masked-attention" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Causally masked attention</h1>
 <p>At the outset, we fix dimensions <span class="math inline">\(d_\text{in}\)</span>, <span class="math inline">\(d_k\)</span>, and <span class="math inline">\(d_\text{out}\)</span>, as well as an input sequence length <span class="math inline">\(N\)</span>. Let <span class="math inline">\((x_1,...,x_N),\)</span> <span class="math inline">\(x_i \in \mathbb{R}^{d_\text{in}}\)</span> be an <strong>input sequence</strong> of embedded vectors, which may consider as an <strong>input matrix</strong> <span class="math inline">\(X \in \mathbb{R}^{N\times d_\text{in}}\)</span>. We implement <strong>causally masked self-attention</strong>, which is the standard for the GPT architecture, and is defined as a map:</p>
 <p><span class="math display">\[
     \text{attention}(Q,K,V) : \mathbb{R}^{N\times d_\text{in}} \to \mathbb{R}^{N\times d_\text{out}}
@@ -801,8 +978,8 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
         \left( \frac{QK^T}{\sqrt{d_k} } + M \right) V.
 \]</span></p>
 <p>In this section, we describe precisely how this is defined.</p>
-<section id="query-key-and-value-matrices" class="level2">
-<h2 class="anchored" data-anchor-id="query-key-and-value-matrices">Query, Key, and Value matrices</h2>
+<section id="query-key-and-value-matrices" class="level2" data-number="3.1">
+<h2 data-number="3.1" class="anchored" data-anchor-id="query-key-and-value-matrices"><span class="header-section-number">3.1</span> Query, Key, and Value matrices</h2>
 <p>The Query, Key, and Value matrices are obtained by applying linear transformations to the input matrix <span class="math inline">\(X\in \mathbb{R}^{N\times d_\text{in}}\)</span>. Let <span class="math inline">\(W_Q, W_K \in \text{Mat}_{d_\text{in} \times d_k}(\mathbb{R}), W_V \in \text{Mat}_{d_\text{in} \times d_\text{out}}(\mathbb{R})\)</span> be learnable weight matrices. Then we may define:</p>
 <ul>
 <li><strong>Query matrix</strong>: <span class="math inline">\(Q := X W_Q \in \text{Mat}_{N \times d_k}(\mathbb{R})\)</span>,</li>
@@ -810,22 +987,22 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <li><strong>Value matrix</strong>: <span class="math inline">\(V := X W_V \in \text{Mat}_{N \times d_\text{out}}(\mathbb{R})\)</span>.</li>
 </ul>
 </section>
-<section id="the-factor-tfrac1sqrtd_k" class="level2">
-<h2 class="anchored" data-anchor-id="the-factor-tfrac1sqrtd_k">The factor <span class="math inline">\(\tfrac{1}{\sqrt{d_k}}\)</span></h2>
+<section id="the-factor-tfrac1sqrtd_k" class="level2" data-number="3.2">
+<h2 data-number="3.2" class="anchored" data-anchor-id="the-factor-tfrac1sqrtd_k"><span class="header-section-number">3.2</span> The factor <span class="math inline">\(\tfrac{1}{\sqrt{d_k}}\)</span></h2>
 <p>The multiplicative factor <span class="math inline">\(\frac{1}{\sqrt{d_k}}\)</span> is justified as follows. If we assume the entries of <span class="math inline">\(Q\)</span> and of <span class="math inline">\(K\)</span> are independent random variables with mean <span class="math inline">\(0\)</span> and variance <span class="math inline">\(1\)</span>, then the dot product of the rows, <span class="math inline">\(q_i\cdot k_j\)</span> will have mean <span class="math inline">\(0\)</span> and variance <span class="math inline">\(d_k\)</span>. We therefore introduce the factor <span class="math inline">\(\frac{1}{\sqrt{d_k}}\)</span>, as it follows that every row vector of the rescaled matrix <span class="math inline">\(\frac{QK^T}{\sqrt{d}}\)</span> will have mean <span class="math inline">\(0\)</span> and variance <span class="math inline">\(1\)</span>.</p>
 </section>
-<section id="causal-mask" class="level2">
-<h2 class="anchored" data-anchor-id="causal-mask">Causal mask</h2>
+<section id="causal-mask" class="level2" data-number="3.3">
+<h2 data-number="3.3" class="anchored" data-anchor-id="causal-mask"><span class="header-section-number">3.3</span> Causal mask</h2>
 <p>The <strong>causal mask</strong> <span class="math inline">\(M \in \text{Mat}_{N \times N}(\mathbb{R})\)</span> is a <em>strictly</em> upper triangular matrix, with <span class="math inline">\(0\)</span>s on the diagonal and below, and with <span class="math inline">\(-\infty\)</span> for every entry above the diagonal. Adding this mask to the attention scores and applying the softmax results in a score of zero for any future tokens relative to a fixed token. As a result, any future tokens have no causal influence on prior tokens, as measured by the attention scores.</p>
 </section>
-<section id="softmax" class="level2">
-<h2 class="anchored" data-anchor-id="softmax">Softmax</h2>
+<section id="softmax" class="level2" data-number="3.4">
+<h2 data-number="3.4" class="anchored" data-anchor-id="softmax"><span class="header-section-number">3.4</span> Softmax</h2>
 <p>The <strong>softmax function</strong> takes as input a tuple of <span class="math inline">\(K&gt;1\)</span> real numbers and normalizes the tuple into a probability distribution. Formally, it is the function</p>
 <p><span class="math display">\[
     \sigma : \mathbb{R}^K \to (0,1)^K; \qquad \sigma(v_1,...,v_K)_i := \frac{e^{v_i}}{\sum_{j=1}^K e^{v_j}}.
 \]</span></p>
 <p>In our implementation of attention, the softmax applied to a matrix is defined by applying the above softmax function independently to every row.</p>
-<div id="519bd5c8" class="cell" data-execution_count="8">
+<div id="1116458f" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Softmax function</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> softmax(x):</span>
@@ -833,8 +1010,8 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </details>
 </div>
 </section>
-<section id="attention-weight-matrix" class="level2">
-<h2 class="anchored" data-anchor-id="attention-weight-matrix">Attention weight matrix</h2>
+<section id="attention-weight-matrix" class="level2" data-number="3.5">
+<h2 data-number="3.5" class="anchored" data-anchor-id="attention-weight-matrix"><span class="header-section-number">3.5</span> Attention weight matrix</h2>
 <p>The <strong>attention weight matrix</strong> is the matrix <span class="math inline">\(W_\text{attn}:=\text{softmax}\left(\tfrac{QK^T}{\sqrt{d_k}} + M \right) \in \text{Mat}_{N\times N}(\mathbb{R})\)</span>. Each row <span class="math inline">\(i\)</span> of <span class="math inline">\(W_\text{attn}\)</span> is a probability distribution representing the ‘attention’ that the input vector <span class="math inline">\(i\)</span> pays to all other (preceding) input vectors.</p>
 <p>In a simple case where the input vectors are word-length tokens, we might have an attention weight matrix as follow:</p>
 <table class="caption-top table">
@@ -879,10 +1056,10 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </tbody>
 </table>
 </section>
-<section id="context-vectors" class="level2">
-<h2 class="anchored" data-anchor-id="context-vectors">Context vectors</h2>
+<section id="context-vectors" class="level2" data-number="3.6">
+<h2 data-number="3.6" class="anchored" data-anchor-id="context-vectors"><span class="header-section-number">3.6</span> Context vectors</h2>
 <p>The output of the attention mechanism is the matrix <span class="math inline">\(Z := W_\text{attn} V\)</span>. We consider each column of the value matrix <span class="math inline">\(V\)</span> as representing a value vector. Then the <span class="math inline">\(i\)</span>th-row of <span class="math inline">\(Z\)</span> is the weighted sum of the value vectors in <span class="math inline">\(V\)</span>, where the weights are given by the probability distribution of the <span class="math inline">\(i\)</span>th-row of <span class="math inline">\(W_\text{attn}\)</span>. Each row of <span class="math inline">\(Z\)</span> represents a <strong>context vector</strong>, with information enriched by its neighboring vectors.</p>
-<div id="a2e5b3b0" class="cell" data-execution_count="9">
+<div id="58c8d494" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Causally masked attention</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CausallyMaskedAttention(nn.Module):</span>
@@ -917,8 +1094,8 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </div>
 </section>
 </section>
-<section id="the-transformer-block" class="level1">
-<h1>The transformer block</h1>
+<section id="the-transformer-block" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> The transformer block</h1>
 <p>A <strong>transformer block</strong> takes as input a matrix (thought of as a sequence of vectors) and outputs a matrix of the same dimension. In this way, transformer blocks may be stacked.</p>
 <p><span class="math display">\[
 \text{Transformer}: \mathbb{R}^{N\times d} \to \mathbb{R}^{N\times d}, \qquad (v_1,...v_N)\in\mathbb{R}^{N\times d}
@@ -942,13 +1119,13 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </div>
 </div>
 </div>
-<section id="layer-normalization" class="level2">
-<h2 class="anchored" data-anchor-id="layer-normalization">Layer normalization</h2>
+<section id="layer-normalization" class="level2" data-number="4.1">
+<h2 data-number="4.1" class="anchored" data-anchor-id="layer-normalization"><span class="header-section-number">4.1</span> Layer normalization</h2>
 <p>In the transformer block, <strong>layer normalization</strong> takes as input a vector <span class="math inline">\(\mathbb{R}^n\)</span> and normalizes the vector so that its components have mean <span class="math inline">\(0\)</span> and variance <span class="math inline">\(1\)</span>. Additionally, we include trainable scaling factors <span class="math inline">\(\{\lambda_i\}_{1\leq i\leq n}\)</span> and shifts <span class="math inline">\(\{b_i\}_{1\leq i\leq n}\)</span>, which we initiate at <span class="math inline">\(\lambda_i=1\)</span> and <span class="math inline">\(b_i=0\)</span> to have no initial effect.</p>
 <p><span class="math display">\[
     \text{LayerNorm}: \mathbb{R}^n \to \mathbb{R}^n, \qquad \text{LayerNorm}(x_1,...,x_n)_i := \lambda_i \left(\frac{x_i - \text{mean}}{\sqrt{\text{var}}}\right) + b_i.
 \]</span></p>
-<div id="910b53ec" class="cell" data-execution_count="10">
+<div id="af2a9397" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Layer normalization</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LayerNorm(nn.Module):</span>
@@ -965,8 +1142,8 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </details>
 </div>
 </section>
-<section id="activation-functions" class="level2">
-<h2 class="anchored" data-anchor-id="activation-functions">Activation functions</h2>
+<section id="activation-functions" class="level2" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="activation-functions"><span class="header-section-number">4.2</span> Activation functions</h2>
 <p>An <strong>activation function</strong> is a transformation of the nodes of a neural network. There are many choices, see [https://en.wikipedia.org/wiki/Activation_function#Table_of_activation_functions].</p>
 <p>Popular choices are the <strong>ReLU</strong> (Rectified Linear Unit) activation function:</p>
 <p><span class="math display">\[
@@ -977,7 +1154,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
     \text{GELU}(x) := x P(X\leq x), \qquad X \sim {\mathcal N}(0,1),
 \]</span></p>
 <p>i.e., <span class="math inline">\(P(X \leq x)\)</span> is the cumulative distribution function of the standard normal distribution. We can approximate GELU by <span class="math inline">\(\text{GELU}(x) := 0.5x( 1 + \text{tanh}[\sqrt{\tfrac{2}{\pi}}(x + 0.044715 x^3)] ).\)</span></p>
-<div id="f0a3ee04" class="cell" data-execution_count="11">
+<div id="f3b43f70" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>ReLU activation function</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ReLUActivation(nn.Module):</span>
@@ -988,7 +1165,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> torch.<span class="bu">max</span>(x, torch.zeros(x.shape))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="603416a2" class="cell" data-execution_count="12">
+<div id="32192035" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>GELU activation function</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> GELUActivation(nn.Module):</span>
@@ -1003,21 +1180,21 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </details>
 </div>
 </section>
-<section id="residual-connections" class="level2">
-<h2 class="anchored" data-anchor-id="residual-connections">Residual connections</h2>
+<section id="residual-connections" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="residual-connections"><span class="header-section-number">4.3</span> Residual connections</h2>
 <p>A <strong>residual connection</strong> adds the input of a layer to the layer’s output:</p>
 <p><span class="math display">\[
     X \mapsto \text{Layer}(X) + X.
 \]</span></p>
 <p>It is mainly used to help prevent vanishing gradients during backpropagation.</p>
 </section>
-<section id="feed-forward-layer" class="level2">
-<h2 class="anchored" data-anchor-id="feed-forward-layer">Feed-forward layer</h2>
+<section id="feed-forward-layer" class="level2" data-number="4.4">
+<h2 data-number="4.4" class="anchored" data-anchor-id="feed-forward-layer"><span class="header-section-number">4.4</span> Feed-forward layer</h2>
 <p>The feed-forward layer is a two-layer fully connected neural network. It consists of a linear transformation from a <span class="math inline">\(d\)</span>-dimensional space to a higher-dimensional space (often <span class="math inline">\(4d\)</span>), an activation function, and a linear transformation back to the original dimension <span class="math inline">\(d\)</span>:</p>
 <p><span class="math display">\[
     \text{FFN}(X):= \text{GELU}(XW_1+b_1)W_2 + b_2.
 \]</span></p>
-<div id="3c39236f" class="cell" data-execution_count="13">
+<div id="7b0e3672" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Feed-forward layer</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> FeedForward(nn.Module):</span>
@@ -1034,8 +1211,8 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </details>
 </div>
 </section>
-<section id="transformer-block" class="level2">
-<h2 class="anchored" data-anchor-id="transformer-block">Transformer block</h2>
+<section id="transformer-block" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="transformer-block"><span class="header-section-number">4.5</span> Transformer block</h2>
 <p>The full transformer block is a composition of a layer norm, the causally masked attention block, a residual connection, then another layer norm, the feed-forward layer, followed by another residual connection:</p>
 <p><span class="math display">\[
 \begin{align}
@@ -1043,7 +1220,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
     &amp; X \mapsto \underbrace{\text{attention}(Q,K,V)\left(\text{LayerNorm}_1(X) \right) + X}_{Y} \mapsto \text{FFN}\left(\text{LayerNorm}_2(Y) \right) + Y
 \end{align}
 \]</span></p>
-<div id="deb025a9" class="cell" data-execution_count="14">
+<div id="eda1b63c" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Transformer block</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TransformerBlock(nn.Module):</span>
@@ -1073,8 +1250,8 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </div>
 </section>
 </section>
-<section id="large-language-model" class="level1">
-<h1>Large language model</h1>
+<section id="large-language-model" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> Large language model</h1>
 <p>A <strong>large language model</strong> is a function which takes as input a sequence length <span class="math inline">\(N\)</span> of encoded token indices, and outputs a sequence of length <span class="math inline">\(N\)</span> consisting of logits. A <strong>logit</strong> is just a vector in <span class="math inline">\(\mathbb{R}^{|V|}\)</span>.</p>
 <p><span class="math display">\[
     \text{LLM}: V^N \to  \mathbb{R}^{N \times |V|},
@@ -1089,7 +1266,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <li>A final linear layer, the <strong>unembedding layer</strong>, which maps to logits in our vocabulary: <span class="math display">\[\text{Unembedding}: \mathbb{R}^{N\times d_\text{emb}} \to \mathbb{R}^{N\times |V|}.\]</span></li>
 </ul>
 <p>Of course, the specifics of this architecture are of less importance than understanding the building blocks in the first place. Like LEGO blocks, we can mix and rearrange the component blocks.</p>
-<div id="3e6b0d4c" class="cell" data-execution_count="15">
+<div id="5fb6ab7c" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Large language model</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LanguageModel(nn.Module):</span>
@@ -1111,18 +1288,18 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <span id="cb15-17"><a href="#cb15-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> logits</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<section id="inference" class="level2">
-<h2 class="anchored" data-anchor-id="inference">Inference</h2>
+<section id="inference" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="inference"><span class="header-section-number">5.1</span> Inference</h2>
 <p>We may generate additional encoded tokens indices from our <span class="math inline">\(\text{LLM}\)</span> as follows. Given an input sequence of encoded token indices <span class="math inline">\((x_1,...,x_N) \in V^N\)</span>, the output is a sequence of logits <span class="math display">\[(y_1,...,y_N) := \text{LLM}(x_1,...,x_N) \in \mathbb{R}^{N\times |V|}.\]</span> The full sequence is of importance when calculating the loss of our model and training its weights, but for inference we only need the last logit, <span class="math inline">\(y_N\)</span>.</p>
 <p>We convert the logit <span class="math inline">\(y_N\in \mathbb{R}^{|V|}\)</span> into a probability distribution <span class="math inline">\(P\)</span> by taking the softmax: <span class="math display">\[\sigma(y_N) \in (0,1)^{|V|},\]</span> where the probability of the <span class="math inline">\(i\)</span>th token index is then given by <span class="math inline">\(P(i) := \sigma(y_N)_i\)</span></p>
 <p>Generation of the next token then requires a choice of sampling strategy to select a token index from this probability distribution.</p>
-<section id="greedy-inference" class="level3">
-<h3 class="anchored" data-anchor-id="greedy-inference">Greedy inference</h3>
+<section id="greedy-inference" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="greedy-inference"><span class="header-section-number">5.1.1</span> Greedy inference</h3>
 <p><strong>Greedy inference</strong> is defined as follows: on each iteration, we select the token index with the highest probability:</p>
 <p><span class="math display">\[
     \text{Greedy}(x_1,...x_N):= \text{argmax}_{i \in V} P(i).
 \]</span></p>
-<div id="03015c80" class="cell" data-execution_count="16">
+<div id="6ddb21bf" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Greedy inference</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_greedy(model, ids, max_new_tokens, context_size):</span>
@@ -1148,13 +1325,13 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </details>
 </div>
 </section>
-<section id="sampling-inference" class="level3">
-<h3 class="anchored" data-anchor-id="sampling-inference">Sampling inference</h3>
+<section id="sampling-inference" class="level3" data-number="5.1.2">
+<h3 data-number="5.1.2" class="anchored" data-anchor-id="sampling-inference"><span class="header-section-number">5.1.2</span> Sampling inference</h3>
 <p><strong>Sampling inference</strong> is defined as follows: on each iteration, select the token index by sampling from the probability distribution:</p>
 <p><span class="math display">\[
     \text{Sampling}(x_1,...,x_N) \sim P
 \]</span></p>
-<div id="60dee584" class="cell" data-execution_count="17">
+<div id="bf4f0f7c" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Sampling inference</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_sampling(model, ids, max_new_tokens, context_size):</span>
@@ -1182,15 +1359,15 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </details>
 </div>
 </section>
-<section id="temperature-sampling-inference" class="level3">
-<h3 class="anchored" data-anchor-id="temperature-sampling-inference">Temperature sampling inference</h3>
+<section id="temperature-sampling-inference" class="level3" data-number="5.1.3">
+<h3 data-number="5.1.3" class="anchored" data-anchor-id="temperature-sampling-inference"><span class="header-section-number">5.1.3</span> Temperature sampling inference</h3>
 <p>Fix a temperature <span class="math inline">\(T &gt; 0\)</span>. We may adjust the probability distribution by scaling with <span class="math inline">\(T\)</span>: <span class="math display">\[P_T(i):= \sigma(\tfrac{y_N}{T})_i.\]</span></p>
 <p>For higher <span class="math inline">\(T\)</span>, the adjusted probabilities will be more uniform. For lower <span class="math inline">\(T\)</span>, the probabilities will become more deterministic.</p>
 <p><strong>Temperature sampling inference</strong> is defined as follows: on each iteration, select the token index by sampling from the adjusted probability distribution:</p>
 <p><span class="math display">\[
     \text{TemperatureSampling}(x_1,...,x_N) \sim P_T
 \]</span></p>
-<div id="05ab5b71" class="cell" data-execution_count="18">
+<div id="2aa54f66" class="cell" data-execution_count="18">
 <details class="code-fold">
 <summary>Temperature sampling inference</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_sampling(model, ids, max_new_tokens, context_size, temperature):</span>
@@ -1222,11 +1399,11 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </section>
 </section>
 </section>
-<section id="training" class="level1">
-<h1>Training</h1>
+<section id="training" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> Training</h1>
 <p>We have now defined the architecture of the LLM and used it to define token generation. At this point, any generation will produce gibberish, as the model weights have been initialized randomly. The next step is to set up a data source to provide inputs and targets, define a loss function for the targets vs.&nbsp;the models’ predictions, and to adjust the weights to minimize this loss via gradient descent.</p>
-<section id="inputs-targets-and-predictions" class="level2">
-<h2 class="anchored" data-anchor-id="inputs-targets-and-predictions">Inputs, targets, and predictions</h2>
+<section id="inputs-targets-and-predictions" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="inputs-targets-and-predictions"><span class="header-section-number">6.1</span> Inputs, targets, and predictions</h2>
 <p>Let <span class="math inline">\(N\)</span> denote the context length of our model. We also fix a stride length <span class="math inline">\(k &gt; 0\)</span>. The text, <code>mathematics.tex</code>, gives us a source of inputs and targets as follows:</p>
 <ul>
 <li>Tokenize the text into a sequence of encoded token indices, <code>ids</code>.</li>
@@ -1255,7 +1432,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </tbody>
 </table>
 <p>We may divide our fixed source text into a dataset of inputs <span class="math inline">\((x_1,...,x_K)\)</span> with associated targets <span class="math inline">\((y_1,...,y_K)\)</span>.</p>
-<div id="40a227e0" class="cell" data-execution_count="19">
+<div id="4b4fda8d" class="cell" data-execution_count="19">
 <details class="code-fold">
 <summary>Create a dataset of inputs and targets</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> Dataset, DataLoader</span>
@@ -1283,8 +1460,8 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </details>
 </div>
 </section>
-<section id="cross-entropy-loss" class="level2">
-<h2 class="anchored" data-anchor-id="cross-entropy-loss">Cross-entropy loss</h2>
+<section id="cross-entropy-loss" class="level2" data-number="6.2">
+<h2 data-number="6.2" class="anchored" data-anchor-id="cross-entropy-loss"><span class="header-section-number">6.2</span> Cross-entropy loss</h2>
 <p>Consider an input <span class="math inline">\(x=(t_1,..,t_N)\)</span> with target <span class="math inline">\(y=(y_1,...,y_N)\)</span>. The prediction is then given by <span class="math inline">\(\hat{y}:=\text{LLM}(x) = (v_1,...,v_N)\in\mathbb{R}^{N\times |V|}\)</span> where each row vector <span class="math inline">\(v_i\)</span> is a logit in <span class="math inline">\(\mathbb{R}^{|V|}\)</span>.</p>
 <p>The <strong>cross-entropy loss</strong> is the negative average log-probability for the target <span class="math inline">\(y\)</span> and prediction <span class="math inline">\(\hat{y}\)</span>:</p>
 <p><span class="math display">\[
@@ -1303,14 +1480,14 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 \]</span></p>
 </section>
 </section>
-<section id="references" class="level1">
+<section id="references" class="level1" data-number="7">
 
 
 
 
 </section>
 
-<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">7 References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-eilenberg1949problems" class="csl-entry" role="listitem">
 Eilenberg, Samuel. 1949. <span>“On the Problems of Topology.”</span> <em>Ann. Of Math. (2)</em> 50: 247–60. <a href="https://doi.org/10.2307/1969448">https://doi.org/10.2307/1969448</a>.
 </div>
@@ -1320,6 +1497,19 @@ Thom, René. 1954. <span>“Quelques Propriétés Globales Des Variétés Diffé
 </div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {

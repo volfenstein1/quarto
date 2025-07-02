@@ -37,10 +37,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-f70c19036c299c27839ec73052701135.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-226d3177c4d23a48b4ebcfdc421b28d5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -101,7 +105,178 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -137,6 +312,7 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -150,17 +326,18 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#the-conventional-wisdom-ai-mathematicians-are-imminent" id="toc-the-conventional-wisdom-ai-mathematicians-are-imminent" class="nav-link active" data-scroll-target="#the-conventional-wisdom-ai-mathematicians-are-imminent">The conventional wisdom: AI mathematicians are imminent</a></li>
-  <li><a href="#the-current-reality-ai-cannot-reliably-solve-math-problems" id="toc-the-current-reality-ai-cannot-reliably-solve-math-problems" class="nav-link" data-scroll-target="#the-current-reality-ai-cannot-reliably-solve-math-problems">The (current) reality: AI cannot reliably solve math problems</a></li>
-  <li><a href="#microsoft-copilot-factors-the-number-12" id="toc-microsoft-copilot-factors-the-number-12" class="nav-link" data-scroll-target="#microsoft-copilot-factors-the-number-12">Microsoft Copilot factors the number <span class="math inline">\(12\)</span></a></li>
-  <li><a href="#anthropics-claude.ai-factors-a-prime-number" id="toc-anthropics-claude.ai-factors-a-prime-number" class="nav-link" data-scroll-target="#anthropics-claude.ai-factors-a-prime-number">Anthropic’s Claude.ai factors a prime number</a></li>
-  <li><a href="#google-gemini-and-function-preimages" id="toc-google-gemini-and-function-preimages" class="nav-link" data-scroll-target="#google-gemini-and-function-preimages">Google Gemini and Function Preimages</a></li>
-  <li><a href="#chatgpt-4-and-the-kontsevich-recursion-formula" id="toc-chatgpt-4-and-the-kontsevich-recursion-formula" class="nav-link" data-scroll-target="#chatgpt-4-and-the-kontsevich-recursion-formula">ChatGPT-4 and the Kontsevich Recursion Formula</a></li>
+  <li><a href="#the-conventional-wisdom-ai-mathematicians-are-imminent" id="toc-the-conventional-wisdom-ai-mathematicians-are-imminent" class="nav-link active" data-scroll-target="#the-conventional-wisdom-ai-mathematicians-are-imminent"><span class="header-section-number">0.1</span> The conventional wisdom: AI mathematicians are imminent</a></li>
+  <li><a href="#the-current-reality-ai-cannot-reliably-solve-math-problems" id="toc-the-current-reality-ai-cannot-reliably-solve-math-problems" class="nav-link" data-scroll-target="#the-current-reality-ai-cannot-reliably-solve-math-problems"><span class="header-section-number">0.2</span> The (current) reality: AI cannot reliably solve math problems</a></li>
+  <li><a href="#microsoft-copilot-factors-the-number-12" id="toc-microsoft-copilot-factors-the-number-12" class="nav-link" data-scroll-target="#microsoft-copilot-factors-the-number-12"><span class="header-section-number">1</span> Microsoft Copilot factors the number <span class="math inline">\(12\)</span></a></li>
+  <li><a href="#anthropics-claude.ai-factors-a-prime-number" id="toc-anthropics-claude.ai-factors-a-prime-number" class="nav-link" data-scroll-target="#anthropics-claude.ai-factors-a-prime-number"><span class="header-section-number">2</span> Anthropic’s Claude.ai factors a prime number</a></li>
+  <li><a href="#google-gemini-and-function-preimages" id="toc-google-gemini-and-function-preimages" class="nav-link" data-scroll-target="#google-gemini-and-function-preimages"><span class="header-section-number">3</span> Google Gemini and Function Preimages</a></li>
+  <li><a href="#chatgpt-4-and-the-kontsevich-recursion-formula" id="toc-chatgpt-4-and-the-kontsevich-recursion-formula" class="nav-link" data-scroll-target="#chatgpt-4-and-the-kontsevich-recursion-formula"><span class="header-section-number">4</span> ChatGPT-4 and the Kontsevich Recursion Formula</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -185,8 +362,8 @@ window.Quarto = {
 <p>“It was the strangest thing. He seemed to know the entirety of Hartshorne’s <em>Algebraic Geometry</em> by heart. He could rattle of the exact statement of, for example, the <em>Lemma of Hironaka</em> if you asked him.”</p>
 <p>“But there was no understanding of the meaning behind the words. I have no doubt he was a bright kid, with potential, so no offense by any means. But memorizing a theorem is not the same as understanding it.”</p>
 <p>The above story presents a dichotomy, that of <em>knowing</em> vs.&nbsp;<em>understanding</em>. When we evaluate the capabilities and potential of modern Artificial Intelligence amidst the endless hype, we really ought to keep this fundamental contrast in mind.</p>
-<section id="the-conventional-wisdom-ai-mathematicians-are-imminent" class="level2">
-<h2 class="anchored" data-anchor-id="the-conventional-wisdom-ai-mathematicians-are-imminent">The conventional wisdom: AI mathematicians are imminent</h2>
+<section id="the-conventional-wisdom-ai-mathematicians-are-imminent" class="level2" data-number="0.1">
+<h2 data-number="0.1" class="anchored" data-anchor-id="the-conventional-wisdom-ai-mathematicians-are-imminent"><span class="header-section-number">0.1</span> The conventional wisdom: AI mathematicians are imminent</h2>
 <!-- Some Predictions of imminent AI mathematicians -->
 <p>Is automation and economic disruption, long a concern for blue collar factory workers, coming for the jobs of academic mathematicians? According to the conventional wisdom, Artificial Intelligence will someday soon replace humans for all information-related tasks. Pointedly, this supposedly includes mathematics, ranging from simple calculations to Putnam and IMO problems to research level mathematics.</p>
 <p>The New York Times informs us that <a href="https://www.nytimes.com/2023/07/02/science/ai-mathematics-machine-learning.html">A.I. Is Coming for Mathematics, Too</a>, and suggests that the deductive jumps of reasoning required by mathematics are already being replicated by the impenetrable black boxes of neural networks. In an anecdote, a neural network is described as managing to correctly predict some desired mathematical constant, but unable to further elaborate or explain its conclusion: “the neural net had somehow intuitively discerned a mathematical truth, but the logical ‘why’ of it was far from obvious”. Inspection of the layers of the neural network proved predictably fruitless.</p>
@@ -197,8 +374,8 @@ window.Quarto = {
 <p>Despite the breathless hype.</p>
 <!-- > _The (current) reality is that artificial intelligence cannot reliably solve original mathematical problems._ -->
 </section>
-<section id="the-current-reality-ai-cannot-reliably-solve-math-problems" class="level2">
-<h2 class="anchored" data-anchor-id="the-current-reality-ai-cannot-reliably-solve-math-problems">The (current) reality: AI cannot reliably solve math problems</h2>
+<section id="the-current-reality-ai-cannot-reliably-solve-math-problems" class="level2" data-number="0.2">
+<h2 data-number="0.2" class="anchored" data-anchor-id="the-current-reality-ai-cannot-reliably-solve-math-problems"><span class="header-section-number">0.2</span> The (current) reality: AI cannot reliably solve math problems</h2>
 <!-- at the moment, are ill-suited to discovering new mathematics -->
 <p>Playing around with any of the top of the line chatbots, it is easy to be initially impressed. They can convincingly (and correctly) compute a complicated integral requiring complex analysis, or even write a proof of Weinstein’s neighborhood theorem!</p>
 <p>Playing around a little more, it isn’t hard at all for chatbots to produce gibberish; responses usually contain horrific basic arithmetical errors, hallucinations of connections between unrelated concepts, or unconditional overconfidence in the veracity of the given answer. (See the next sections for some illustrative experiments!)</p>
@@ -247,8 +424,8 @@ window.Quarto = {
 <!-- Wake me up when an chatbot can solve even one problem from https://epoch.ai/frontiermath. -->
 <p>To illustrate my points, and just for fun, let’s look at how some of the top chatbots perform when asked some math problems.</p>
 </section>
-<section id="microsoft-copilot-factors-the-number-12" class="level1">
-<h1>Microsoft Copilot factors the number <span class="math inline">\(12\)</span></h1>
+<section id="microsoft-copilot-factors-the-number-12" class="level1" data-number="1">
+<h1 data-number="1"><span class="header-section-number">1</span> Microsoft Copilot factors the number <span class="math inline">\(12\)</span></h1>
 <p><strong>Prompt:</strong> List all the ways three distinct integers have a product of 12</p>
 <p><code>Microsoft Copilot</code></p>
 <blockquote class="blockquote">
@@ -283,8 +460,8 @@ window.Quarto = {
 <!-- - 2 × 3 × 4 =24 -->
 <!-- These three sets show the magic of numbers combining in different ways to form the same product. Got any more riddles up your sleeve? -->
 </section>
-<section id="anthropics-claude.ai-factors-a-prime-number" class="level1">
-<h1>Anthropic’s Claude.ai factors a prime number</h1>
+<section id="anthropics-claude.ai-factors-a-prime-number" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Anthropic’s Claude.ai factors a prime number</h1>
 <p><strong>Prompt:</strong> What is the third largest prime factor of the number 600851475143?</p>
 <p><code>Claude.ai</code></p>
 <blockquote class="blockquote">
@@ -321,8 +498,8 @@ window.Quarto = {
 <p>Everywhere you look there is a basic error, by my count, at least <span class="math inline">\(4\)</span>. Conceptually, the most egregious is the attempted factorization by a noninteger, <span class="math inline">\(3703 = 71 × 52.15...\)</span>, followed immediately by listing <span class="math inline">\(71\)</span> as a prime factor.</p>
 <p>(The actual factorization is <span class="math inline">\(600851475143 = 71 \times 839 \times 1471 \times 6857\)</span> so the answer to the prompt is <span class="math inline">\(839\)</span>.)</p>
 </section>
-<section id="google-gemini-and-function-preimages" class="level1">
-<h1>Google Gemini and Function Preimages</h1>
+<section id="google-gemini-and-function-preimages" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> Google Gemini and Function Preimages</h1>
 <!-- > We call a positive integer **double pandigital** if it uses all the digits 0 to 9 exactly twice (with no leading zero). For example, 40561817703823564929 is one such number. How many double pandigital numbers are divisible by 3? -->
 <!-- To be divisible by 3, a number's digit sum must be divisible by 3. -->
 <!-- A double pandigital number has each digit from 0 to 9 twice, so its digit sum is: -->
@@ -340,40 +517,40 @@ window.Quarto = {
 <p><code>Google Gemini</code></p>
 <blockquote class="blockquote">
 <p>To prove that <span class="math inline">\(f(f^{-1}(A)) = A\)</span>, we need to show that both sets are subsets of each other.</p>
-<h3 id="part-1-ff-1a-a" class="anchored" data-anchor-id="google-gemini-and-function-preimages">Part 1: <span class="math inline">\(f(f^{-1}(A)) ⊆ A\)</span></h3>
+<h3 id="part-1-ff-1a-a" data-number="3.0.1" class="anchored" data-anchor-id="google-gemini-and-function-preimages"><span class="header-section-number">3.0.1</span> Part 1: <span class="math inline">\(f(f^{-1}(A)) ⊆ A\)</span></h3>
 <p>Let <span class="math inline">\(y\)</span> be an arbitrary element of <span class="math inline">\(f(f^{-1}(A))\)</span>. This means that there exists an <span class="math inline">\(x\)</span> in <span class="math inline">\(f^{-1}(A)\)</span> such that <span class="math inline">\(f(x) = y\)</span>.</p>
 <p>By the definition of the inverse image, <span class="math inline">\(x\)</span> being in <span class="math inline">\(f^{-1}(A)\)</span> implies that <span class="math inline">\(f(x)\)</span> is in <span class="math inline">\(A\)</span>. Therefore, <span class="math inline">\(y = f(x)\)</span> is in <span class="math inline">\(A\)</span>.</p>
 <p>Since <span class="math inline">\(y\)</span> was an arbitrary element of <span class="math inline">\(f(f^{-1}(A))\)</span>, this shows that every element of <span class="math inline">\(f(f^{-1}(A))\)</span> is also an element of <span class="math inline">\(A\)</span>. Hence, <span class="math inline">\(f(f^{-1}(A)) ⊆ A\)</span>.</p>
-<h3 id="part-2-a-ff-1a" class="anchored">Part 2: <span class="math inline">\(A ⊆ f(f^{-1}(A))\)</span></h3>
+<h3 id="part-2-a-ff-1a" data-number="3.0.2" class="anchored"><span class="header-section-number">3.0.2</span> Part 2: <span class="math inline">\(A ⊆ f(f^{-1}(A))\)</span></h3>
 <p>Let <span class="math inline">\(x\)</span> be an arbitrary element of <span class="math inline">\(A\)</span>. Since <span class="math inline">\(f\)</span> is a function, there exists an element <span class="math inline">\(y = f(x)\)</span> in the codomain of <span class="math inline">\(f\)</span>.</p>
 <p>Now, by the definition of the inverse image, <span class="math inline">\(x\)</span> is in <span class="math inline">\(f^{-1}(y)\)</span>. Since <span class="math inline">\(y = f(x)\)</span>, this means <span class="math inline">\(x\)</span> is in <span class="math inline">\(f^{-1}(f(x))\)</span>.</p>
 <p>Therefore, <span class="math inline">\(x\)</span> is in <span class="math inline">\(f^{-1}(f(A))\)</span>, which implies that <span class="math inline">\(f(x) = y\)</span> is in <span class="math inline">\(f(f^{-1}(A))\)</span>.</p>
 <p>Since <span class="math inline">\(x\)</span> was an arbitrary element of <span class="math inline">\(A\)</span>, this shows that every element of <span class="math inline">\(A\)</span> is also an element of <span class="math inline">\(f(f^{-1}(A))\)</span>. Hence, <span class="math inline">\(A ⊆ f(f^{-1}(A))\)</span>.</p>
-<h3 id="conclusion" class="anchored">Conclusion:</h3>
+<h3 id="conclusion" data-number="3.0.3" class="anchored"><span class="header-section-number">3.0.3</span> Conclusion:</h3>
 <p>From parts 1 and 2, we have shown that <span class="math inline">\(f(f^{-1}(A)) ⊆ A\)</span> and <span class="math inline">\(A ⊆ f(f^{-1}(A))\)</span>. Therefore, <span class="math inline">\(f(f^{-1}(A)) = A\)</span>.</p>
 </blockquote>
 <p>I gave this problem to some students in an intro math course. In the process of trying to probe possible approaches for a proof, they produced an instructive, and obvious, counterexample: <span class="math display">\[f: \{0\} \to \{0,1\},\ f(0)=0,\ A=\{0,1\}.\]</span></p>
 </section>
-<section id="chatgpt-4-and-the-kontsevich-recursion-formula" class="level1">
-<h1>ChatGPT-4 and the Kontsevich Recursion Formula</h1>
+<section id="chatgpt-4-and-the-kontsevich-recursion-formula" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> ChatGPT-4 and the Kontsevich Recursion Formula</h1>
 <p><strong>Prompt:</strong> Let d <span class="math inline">\(\geq\)</span> 1. How many degree <span class="math inline">\(d\)</span> rational curves in <span class="math inline">\(\mathbb{CP}^2\)</span> pass through <span class="math inline">\(3d - 1\)</span> points in general position?</p>
 <p><code>ChatGPT-4</code></p>
 <blockquote class="blockquote">
 <p>To determine the number of degree <span class="math inline">\(d\)</span> rational curves in <span class="math inline">\(\mathbb{CP}^2\)</span> that pass through <span class="math inline">\(3d - 1\)</span> points in general position, we can use the theory of intersection numbers and rational curves in projective spaces.</p>
-<h3 id="step-1-understanding-rational-curves" class="anchored" data-anchor-id="chatgpt-4-and-the-kontsevich-recursion-formula">Step 1: Understanding Rational Curves</h3>
+<h3 id="step-1-understanding-rational-curves" data-number="4.0.1" class="anchored" data-anchor-id="chatgpt-4-and-the-kontsevich-recursion-formula"><span class="header-section-number">4.0.1</span> Step 1: Understanding Rational Curves</h3>
 <p>A rational curve of degree <span class="math inline">\(d\)</span> in <span class="math inline">\(\mathbb{CP}^2\)</span> can be represented by a map <span class="math inline">\(\mathbb{CP}^1 \to \mathbb{CP}^2\)</span> that has degree <span class="math inline">\(d\)</span>. Such curves can be thought of as the images of a rational parameterization of degree <span class="math inline">\(d\)</span>.</p>
-<h3 id="step-2-conditions-for-passing-through-points" class="anchored">Step 2: Conditions for Passing Through Points</h3>
+<h3 id="step-2-conditions-for-passing-through-points" data-number="4.0.2" class="anchored"><span class="header-section-number">4.0.2</span> Step 2: Conditions for Passing Through Points</h3>
 <p>A degree <span class="math inline">\(d\)</span> rational curve can be defined by a polynomial equation of degree <span class="math inline">\(d\)</span> in homogeneous coordinates. To find how many such curves pass through a given set of points, we need to take into account:</p>
 <ol type="1">
 <li>The total number of points that the curve can pass through.</li>
 <li>The constraints imposed by those points being in general position.</li>
 </ol>
-<h3 id="step-3-counting-curves" class="anchored">Step 3: Counting Curves</h3>
+<h3 id="step-3-counting-curves" data-number="4.0.3" class="anchored"><span class="header-section-number">4.0.3</span> Step 3: Counting Curves</h3>
 <p>When we have <span class="math inline">\(3d - 1\)</span> points in general position, we need to count how many degree <span class="math inline">\(d\)</span> curves can pass through these points.</p>
 <ul>
 <li>The degree <span class="math inline">\(d\)</span> rational curves in <span class="math inline">\(\mathbb{CP}^2\)</span> correspond to a degree <span class="math inline">\(d\)</span> homogeneous polynomial, and the number of such curves that pass through <span class="math inline">\(m\)</span> general points can be computed using a formula derived from intersection theory.</li>
 </ul>
-<h3 id="step-4-application-of-the-formula" class="anchored">Step 4: Application of the Formula</h3>
+<h3 id="step-4-application-of-the-formula" data-number="4.0.4" class="anchored"><span class="header-section-number">4.0.4</span> Step 4: Application of the Formula</h3>
 <p>The general formula for counting the number of degree <span class="math inline">\(d\)</span> rational curves passing through <span class="math inline">\(m\)</span> points in general position in <span class="math inline">\(\mathbb{CP}^2\)</span> is given by:</p>
 <p><span class="math display">\[
 N(d,m) = \binom{m - 1}{d - 1}
@@ -383,7 +560,7 @@ N(d,m) = \binom{m - 1}{d - 1}
 <p><span class="math display">\[
 N(d, 3d - 1) = \binom{(3d - 1) - 1}{d - 1} = \binom{3d - 2}{d - 1}
 \]</span></p>
-<h3 id="conclusion-1" class="anchored">Conclusion</h3>
+<h3 id="conclusion-1" data-number="4.0.5" class="anchored"><span class="header-section-number">4.0.5</span> Conclusion</h3>
 <p>Thus, the number of degree <span class="math inline">\(d\)</span> rational curves in <span class="math inline">\(\mathbb{CP}^2\)</span> that pass through <span class="math inline">\(3d - 1\)</span> points in general position is:</p>
 <p><span class="math display">\[
 \boxed{\binom{3d - 2}{d - 1}}
@@ -406,6 +583,19 @@ k^2\cdot l^2 \cdot \binom{3d-4}{3k-2}
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {

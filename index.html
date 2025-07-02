@@ -36,10 +36,14 @@ ul.task-list li input[type="checkbox"] {
 <script src="site_libs/quarto-html/popper.min.js"></script>
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f70c19036c299c27839ec73052701135.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-226d3177c4d23a48b4ebcfdc421b28d5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -100,7 +104,178 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -136,6 +311,7 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -148,11 +324,11 @@ window.Quarto = {
         <nav id="TOC" role="doc-toc" class="toc-active">
     <h2 id="toc-title">On this page</h2>
   <ul>
-  <li><a href="#about-me" id="toc-about-me" class="nav-link active" data-scroll-target="#about-me">About Me</a></li>
-  <li><a href="#education" id="toc-education" class="nav-link" data-scroll-target="#education">Education</a></li>
-  <li><a href="#postdoctoral-appointments" id="toc-postdoctoral-appointments" class="nav-link" data-scroll-target="#postdoctoral-appointments">Postdoctoral Appointments</a></li>
-  <li><a href="#papers" id="toc-papers" class="nav-link" data-scroll-target="#papers">Papers</a></li>
-  <li><a href="#invited-talks" id="toc-invited-talks" class="nav-link" data-scroll-target="#invited-talks">Invited Talks</a></li>
+  <li><a href="#about-me" id="toc-about-me" class="nav-link active" data-scroll-target="#about-me"><span class="header-section-number">1</span> About Me</a></li>
+  <li><a href="#education" id="toc-education" class="nav-link" data-scroll-target="#education"><span class="header-section-number">2</span> Education</a></li>
+  <li><a href="#postdoctoral-appointments" id="toc-postdoctoral-appointments" class="nav-link" data-scroll-target="#postdoctoral-appointments"><span class="header-section-number">3</span> Postdoctoral Appointments</a></li>
+  <li><a href="#papers" id="toc-papers" class="nav-link" data-scroll-target="#papers"><span class="header-section-number">4</span> Papers</a></li>
+  <li><a href="#invited-talks" id="toc-invited-talks" class="nav-link" data-scroll-target="#invited-talks"><span class="header-section-number">5</span> Invited Talks</a></li>
   </ul>
 </nav>
     </div>
@@ -187,15 +363,13 @@ window.Quarto = {
     <i class="bi bi-infinity"></i>
      <span class="about-link-text">ORCID</span>
   </a>
-  <a href="https://www.kaggle.com/volfenstein" class="about-link" rel="" target="">
-     <span class="about-link-text">Kaggle</span>
-  </a>
 </div>
   </div>
   <div class="about-contents"><main class="content" id="quarto-document-content">
 
-<section id="about-me" class="level2">
-<h2 data-anchor-id="about-me">About Me</h2>
+
+<section id="about-me" class="level2" data-number="1">
+<h2 data-number="1" data-anchor-id="about-me"><span class="header-section-number">1</span> About Me</h2>
 <blockquote class="blockquote">
 <p>“What I cannot create, I do not understand.”<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a></p>
 </blockquote>
@@ -214,8 +388,8 @@ window.Quarto = {
 <!-- To me, the best way to keep abreast of new technological developments which have the power and promise to change the world is to fully understand them myself. -->
 <!-- Although I gladly leave the world of mathematics behind, the fact remains---mathematics is underneath everything! -->
 </section>
-<section id="education" class="level2">
-<h2 data-anchor-id="education">Education</h2>
+<section id="education" class="level2" data-number="2">
+<h2 data-number="2" data-anchor-id="education"><span class="header-section-number">2</span> Education</h2>
 <p>PhD in Mathematics<br>
 University of California, Berkeley; Berkeley, CA<br>
 16 August 2012 - 11 May 2018</p>
@@ -223,8 +397,8 @@ University of California, Berkeley; Berkeley, CA<br>
 University of Chicago; Chicago, IL<br>
 24 September 2007 - 11 June 2011</p>
 </section>
-<section id="postdoctoral-appointments" class="level2">
-<h2 data-anchor-id="postdoctoral-appointments">Postdoctoral Appointments</h2>
+<section id="postdoctoral-appointments" class="level2" data-number="3">
+<h2 data-number="3" data-anchor-id="postdoctoral-appointments"><span class="header-section-number">3</span> Postdoctoral Appointments</h2>
 <p>Faculty of Mathematics<br>
 Ruhr-Universität Bochum; Bochum, Germany<br>
 1 March 2020 - 31 December 2024</p>
@@ -232,16 +406,16 @@ Ruhr-Universität Bochum; Bochum, Germany<br>
 Justus-Liebig University; Gießen, Germany<br>
 1 January 2018 - 29 February 2020</p>
 </section>
-<section id="papers" class="level2">
-<h2 data-anchor-id="papers">Papers</h2>
+<section id="papers" class="level2" data-number="4">
+<h2 data-number="4" data-anchor-id="papers"><span class="header-section-number">4</span> Papers</h2>
 <p><a href="https://arxiv.org/abs/2308.14204">Pseudocycle Gromov–Witten invariants are a strict subset of polyfold Gromov–Witten invariants</a></p>
 <p><a href="https://arxiv.org/abs/2011.02249">Non-fillability of overtwisted contact manifolds via polyfolds (joint with S. Suhr, K. Zehmisch)</a></p>
 <p><a href="https://arxiv.org/abs/1912.13374">The Gromov–Witten axioms for symplectic manifolds via polyfold theory</a></p>
 <p><a href="https://arxiv.org/abs/1912.13370">Naturality of polyfold invariants and pulling back abstract perturbations</a></p>
 <p><a href="https://arxiv.org/abs/1904.02186">The Steenrod problem for orbifolds and polyfold invariants as intersection numbers</a></p>
 </section>
-<section id="invited-talks" class="level2">
-<h2 data-anchor-id="invited-talks">Invited Talks</h2>
+<section id="invited-talks" class="level2" data-number="5">
+<h2 data-number="5" data-anchor-id="invited-talks"><span class="header-section-number">5</span> Invited Talks</h2>
 <p>Orbifold Intersection Theory and Polyfold Gromov–Witten Invariants<br>
 <em>28 November 2023; Heidelberg Geometry Seminar; Heidelberg, Germany</em></p>
 <p>Pseudocycle Gromov–Witten Invariants <span class="math inline">\(\subsetneq\)</span> Polyfold Gromov–Witten Invariants<br>
@@ -274,6 +448,19 @@ Justus-Liebig University; Gießen, Germany<br>
  <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const isCodeAnnotation = (el) => {
       for (const clz of el.classList) {
         if (clz.startsWith('code-annotation-')) {                     

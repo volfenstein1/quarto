@@ -72,10 +72,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f70c19036c299c27839ec73052701135.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-226d3177c4d23a48b4ebcfdc421b28d5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -111,7 +115,178 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -147,6 +322,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -160,21 +336,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#install-and-load-libraries" id="toc-install-and-load-libraries" class="nav-link active" data-scroll-target="#install-and-load-libraries">Install and load libraries</a></li>
-  <li><a href="#setting-global-parameters" id="toc-setting-global-parameters" class="nav-link" data-scroll-target="#setting-global-parameters">Setting global parameters</a></li>
-  <li><a href="#load-the-dataset-simplestories" id="toc-load-the-dataset-simplestories" class="nav-link" data-scroll-target="#load-the-dataset-simplestories">Load the dataset: SimpleStories</a></li>
-  <li><a href="#load-the-base-model-and-tokenizer" id="toc-load-the-base-model-and-tokenizer" class="nav-link" data-scroll-target="#load-the-base-model-and-tokenizer">Load the base model and tokenizer</a></li>
-  <li><a href="#formatting-the-dataset-as-a-chat-template" id="toc-formatting-the-dataset-as-a-chat-template" class="nav-link" data-scroll-target="#formatting-the-dataset-as-a-chat-template">Formatting the dataset as a chat template</a></li>
-  <li><a href="#inference-using-the-base-model" id="toc-inference-using-the-base-model" class="nav-link" data-scroll-target="#inference-using-the-base-model">Inference using the Base Model</a></li>
-  <li><a href="#supervised-fine-tuning-with-qlora" id="toc-supervised-fine-tuning-with-qlora" class="nav-link" data-scroll-target="#supervised-fine-tuning-with-qlora">Supervised Fine-Tuning with QLoRA</a></li>
-  <li><a href="#save-and-upload-the-adapter-and-the-new-model" id="toc-save-and-upload-the-adapter-and-the-new-model" class="nav-link" data-scroll-target="#save-and-upload-the-adapter-and-the-new-model">Save and upload the adapter and the new model</a></li>
-  <li><a href="#load-the-adapter-into-the-base-model" id="toc-load-the-adapter-into-the-base-model" class="nav-link" data-scroll-target="#load-the-adapter-into-the-base-model">Load the adapter into the base model</a></li>
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#install-and-load-libraries" id="toc-install-and-load-libraries" class="nav-link active" data-scroll-target="#install-and-load-libraries"><span class="header-section-number">1</span> Install and load libraries</a></li>
+  <li><a href="#setting-global-parameters" id="toc-setting-global-parameters" class="nav-link" data-scroll-target="#setting-global-parameters"><span class="header-section-number">2</span> Setting global parameters</a></li>
+  <li><a href="#load-the-dataset-simplestories" id="toc-load-the-dataset-simplestories" class="nav-link" data-scroll-target="#load-the-dataset-simplestories"><span class="header-section-number">3</span> Load the dataset: SimpleStories</a></li>
+  <li><a href="#load-the-base-model-and-tokenizer" id="toc-load-the-base-model-and-tokenizer" class="nav-link" data-scroll-target="#load-the-base-model-and-tokenizer"><span class="header-section-number">4</span> Load the base model and tokenizer</a></li>
+  <li><a href="#formatting-the-dataset-as-a-chat-template" id="toc-formatting-the-dataset-as-a-chat-template" class="nav-link" data-scroll-target="#formatting-the-dataset-as-a-chat-template"><span class="header-section-number">5</span> Formatting the dataset as a chat template</a></li>
+  <li><a href="#inference-using-the-base-model" id="toc-inference-using-the-base-model" class="nav-link" data-scroll-target="#inference-using-the-base-model"><span class="header-section-number">6</span> Inference using the Base Model</a></li>
+  <li><a href="#supervised-fine-tuning-with-qlora" id="toc-supervised-fine-tuning-with-qlora" class="nav-link" data-scroll-target="#supervised-fine-tuning-with-qlora"><span class="header-section-number">7</span> Supervised Fine-Tuning with QLoRA</a></li>
+  <li><a href="#save-and-upload-the-adapter-and-the-new-model" id="toc-save-and-upload-the-adapter-and-the-new-model" class="nav-link" data-scroll-target="#save-and-upload-the-adapter-and-the-new-model"><span class="header-section-number">8</span> Save and upload the adapter and the new model</a></li>
+  <li><a href="#load-the-adapter-into-the-base-model" id="toc-load-the-adapter-into-the-base-model" class="nav-link" data-scroll-target="#load-the-adapter-into-the-base-model"><span class="header-section-number">9</span> Load the adapter into the base model</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">10</span> References</a></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -198,8 +375,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <p>In this notebook, we want to create a large language model which will recieve instructions on the topic, theme, word count, number of paragraphs, and complexity, and generate a story which matches this categories.</p>
 <p>The right technique for this task is <strong>supervised fine-tuning</strong>, which is designed to take a pretrained large language model which predicts the next token and fine-tunes the model on instruction data prepended to the desired response.</p>
 <p>We use both the <a href="https://huggingface.co/datasets/SimpleStories/SimpleStories">SimpleStories dataset</a> as well as the associated small 35 million parameter <a href="https://huggingface.co/SimpleStories/SimpleStories-35M">model</a> which we will train via the SFTTrainer class to produce a instruction tuned model. Parts of this script have been adapted from <a href="https://github.com/microsoft/PhiCookBook/tree/main">Microsoft Phi Cookbook</a>.</p>
-<section id="install-and-load-libraries" class="level2">
-<h2 class="anchored" data-anchor-id="install-and-load-libraries">Install and load libraries</h2>
+<section id="install-and-load-libraries" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="install-and-load-libraries"><span class="header-section-number">1</span> Install and load libraries</h2>
 <p>We use the following libraries: - <strong>datasets</strong> - provides API for downloading datasets - <strong>transformers</strong> - provides API for downloading and training of LLMs - <strong>bitsandbytes</strong> - used for quantizing models - <strong>trl</strong> - used for reinforcement learning - <strong>flash_attn</strong> - used for efficient calculation of the attention blocks</p>
 <p>Additionally, we use <strong>huggingface_hub</strong> for uploading our trained model and <strong>wandb</strong> (Weights &amp; Biases) for experiment tracking.</p>
 <div id="cell-3" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="67cfc179-3435-4904-8a90-0f402e632fe4">
@@ -342,8 +519,8 @@ wandb: Paste an API key from your profile and hit enter:</pre>
 </div>
 </div>
 </section>
-<section id="setting-global-parameters" class="level2">
-<h2 class="anchored" data-anchor-id="setting-global-parameters">Setting global parameters</h2>
+<section id="setting-global-parameters" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="setting-global-parameters"><span class="header-section-number">2</span> Setting global parameters</h2>
 <div id="cell-10" class="cell">
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Set the pretrained base model</span></span>
 <span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co"># base_model = "facebook/opt-125m"</span></span>
@@ -388,8 +565,8 @@ wandb: Paste an API key from your profile and hit enter:</pre>
 <span id="cb7-41"><a href="#cb7-41" aria-hidden="true" tabindex="-1"></a>set_seed(<span class="dv">42</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="load-the-dataset-simplestories" class="level2">
-<h2 class="anchored" data-anchor-id="load-the-dataset-simplestories">Load the dataset: SimpleStories</h2>
+<section id="load-the-dataset-simplestories" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="load-the-dataset-simplestories"><span class="header-section-number">3</span> Load the dataset: SimpleStories</h2>
 <p>We use a synthetic dataset of generated stories. It already includes helpful annotations for many features, which we will make use of for converting a model to receive some of these features as instructions for generating the story.</p>
 <p>Begin by loading the dataset.</p>
 <div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:81,&quot;referenced_widgets&quot;:[&quot;6913e66e6d714065b789f61f3dd10e82&quot;,&quot;d22a49c8d70746cc96fe957a45a5b39b&quot;,&quot;1d33d9d73b0e447f80d999f1dfffd865&quot;,&quot;e90a42e7c5d5462786eef2f3b908e94a&quot;,&quot;4410d7718f2f4b428daa8b1d6b38a299&quot;,&quot;ba089dde27334fe7aac0fe4bb254f19f&quot;,&quot;201006cfa1ab44d6ab68f7a5da84113b&quot;,&quot;2823716541ec4b28b854387beb1d2e56&quot;,&quot;fdef380b1ef042c8a1c4326261b06836&quot;,&quot;50fb7a7df43d429d8d9d404059da460a&quot;,&quot;3f54a84129c346b3a399123108d4b5bb&quot;,&quot;b1c97cca84b447c2a1a436dbe9feaa12&quot;,&quot;a947d06cdb6448e2b7f522cbeae8fbd3&quot;,&quot;a7a76473166e418bbb8440a9422c2e86&quot;,&quot;94743e0147524f39a40244ff6909f522&quot;,&quot;3251779de93e4ead9648472340aedefd&quot;,&quot;46cc3d2fe9d5482eb0537a1656358907&quot;,&quot;185187a90d1e44a984a3b8d4505fadbe&quot;,&quot;6f6cabe08edd488a8dc1df7508580986&quot;,&quot;2acd809d828f44b9a199b5164d5556fc&quot;,&quot;c166ead6d3014beaa251d851711b2ebb&quot;,&quot;1486c21bf2664270b5aaa03f9c7910bd&quot;]}}" data-outputid="f37fe89d-59bc-4f0a-9baf-9d123a007f82">
@@ -762,8 +939,8 @@ Complexity: 3</td>
 </div>
 </div>
 </section>
-<section id="load-the-base-model-and-tokenizer" class="level2">
-<h2 class="anchored" data-anchor-id="load-the-base-model-and-tokenizer">Load the base model and tokenizer</h2>
+<section id="load-the-base-model-and-tokenizer" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="load-the-base-model-and-tokenizer"><span class="header-section-number">4</span> Load the base model and tokenizer</h2>
 <p>To begin, we determine if our GPU supports training with BF16.</p>
 <div id="cell-19" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="e26ac00b-ab3a-4458-f453-ab2b231c49d3">
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 'torch.cuda.is_bf16_supported()' is a function that checks if BF16 is supported on the current GPU. BF16 is a data type that uses 16 bits, like float16, but allocates more bits to the exponent, which can result in higher precision.</span></span>
@@ -869,8 +1046,8 @@ You are resizing the embedding layer without providing a `pad_to_multiple_of` pa
 </div>
 </div>
 </section>
-<section id="formatting-the-dataset-as-a-chat-template" class="level2">
-<h2 class="anchored" data-anchor-id="formatting-the-dataset-as-a-chat-template">Formatting the dataset as a chat template</h2>
+<section id="formatting-the-dataset-as-a-chat-template" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="formatting-the-dataset-as-a-chat-template"><span class="header-section-number">5</span> Formatting the dataset as a chat template</h2>
 <p>The SFTTrainer expects the data in a specific <a href="https://huggingface.co/docs/trl/en/sft_trainer#dataset-format-support">format</a>. Specifically, each entry should be message is a dictionary containing 2 keys, namely:</p>
 <ul>
 <li>“role”: specifies who the creator of the message is (could be “system”, “assistant” or “user” - the latter referring to a human).</li>
@@ -979,8 +1156,8 @@ In that moment, Jose learned the power of trust and friendship. Standing up for 
 </div>
 <p>This is exactly the format of text to be fed to the tokenizer and for fine-tuning the model. It will be trained to predict the next token of the tokenized formatted text.</p>
 </section>
-<section id="inference-using-the-base-model" class="level2">
-<h2 class="anchored" data-anchor-id="inference-using-the-base-model">Inference using the Base Model</h2>
+<section id="inference-using-the-base-model" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="inference-using-the-base-model"><span class="header-section-number">6</span> Inference using the Base Model</h2>
 <p>To provide a baseline, we examine the output of the base model prior to any training. We also compute the perplexity of the base model on the dataset.</p>
 <div id="cell-27" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:326}}" data-outputid="c82f4380-baea-4f6b-f63d-a49a9a471bfd">
 <div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a>pipe <span class="op">=</span> pipeline(model<span class="op">=</span>model, tokenizer<span class="op">=</span>tokenizer, task<span class="op">=</span><span class="st">"text-generation"</span>)</span>
@@ -1031,8 +1208,8 @@ Complexity: 4</td>
 </div>
 </div>
 </section>
-<section id="supervised-fine-tuning-with-qlora" class="level2">
-<h2 class="anchored" data-anchor-id="supervised-fine-tuning-with-qlora">Supervised Fine-Tuning with QLoRA</h2>
+<section id="supervised-fine-tuning-with-qlora" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="supervised-fine-tuning-with-qlora"><span class="header-section-number">7</span> Supervised Fine-Tuning with QLoRA</h2>
 <p>We will use the <a href="https://huggingface.co/docs/trl/sft_trainer">SFTTrainer</a> to fine-tune our model. SFTTrainer is a subclass of the Trainer from the transformers library and supports the same features, including logging, evaluation, and checkpointing, but adds additiional quality of life features, including: * Dataset formatting, including conversational and instruction format * Training on completions only, ignoring prompts * Packing datasets for more efficient training * PEFT (parameter-efficient fine-tuning) support including Q-LoRA * Preparing the model and tokenizer for conversational fine-tuning (e.g.&nbsp;adding special tokens)</p>
 <p>See <a href="https://huggingface.co/docs/trl/v0.12.2/en/sft_trainer#trl.SFTConfig">here</a> for more information on the parameters for SFTconfig().</p>
 <div id="cell-29" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="bb2251e9-e119-4125-8c00-1e0cefa041c7">
@@ -3337,8 +3514,8 @@ Training completed. Do not forget to share your model on huggingface.co/models =
 </div>
 </div>
 </section>
-<section id="save-and-upload-the-adapter-and-the-new-model" class="level2">
-<h2 class="anchored" data-anchor-id="save-and-upload-the-adapter-and-the-new-model">Save and upload the adapter and the new model</h2>
+<section id="save-and-upload-the-adapter-and-the-new-model" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="save-and-upload-the-adapter-and-the-new-model"><span class="header-section-number">8</span> Save and upload the adapter and the new model</h2>
 <div id="cell-33" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;,&quot;height&quot;:712,&quot;referenced_widgets&quot;:[&quot;6533b60511eb4526913f0712d58b0d06&quot;,&quot;1c6292e693b44bc99a0430bfb78947b7&quot;,&quot;d5c5e6f2accd401cadb431954e19c69d&quot;,&quot;27666cb193ae4889aa211db00dbd9f60&quot;,&quot;067c2539858b4893aed4a87183ac6a58&quot;,&quot;5f6cfdc07af5434291305386bbcb9b08&quot;,&quot;dbf2fafd9ee244fcbdf89d029da74954&quot;,&quot;3252f535e06c4c9ea02478bc902008e4&quot;,&quot;8d946e6b38604dca8a733bbcb6c14930&quot;,&quot;a0b0305dc8a04ccdbedd69a6c965441f&quot;,&quot;b5c99e5d47094e419902926f4aa9935c&quot;]}}" data-outputid="353df6ca-6fff-4bf8-ec17-11d24d583d86">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a>peft_model.push_to_hub(hf_adapter_repo)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stderr">
@@ -3490,8 +3667,8 @@ Uploading the following files to volfenstein/LORA-simple-stories-generator-v2: R
 </div>
 </div>
 </section>
-<section id="load-the-adapter-into-the-base-model" class="level2">
-<h2 class="anchored" data-anchor-id="load-the-adapter-into-the-base-model">Load the adapter into the base model</h2>
+<section id="load-the-adapter-into-the-base-model" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="load-the-adapter-into-the-base-model"><span class="header-section-number">9</span> Load the adapter into the base model</h2>
 <div id="cell-36" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="c0804137-a56c-4c26-81c4-c3243ba24127">
 <div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a>config <span class="op">=</span> PeftConfig.from_pretrained(hf_adapter_repo)</span>
 <span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> AutoModelForCausalLM.from_pretrained(base_model, trust_remote_code<span class="op">=</span><span class="va">True</span>, torch_dtype<span class="op">=</span>compute_dtype)</span>
@@ -3633,8 +3810,8 @@ Complexity: 4</td>
 </div>
 </div>
 </section>
-<section id="references" class="level2">
-<h2 class="anchored" data-anchor-id="references">References</h2>
+<section id="references" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="references"><span class="header-section-number">10</span> References</h2>
 <p><a href="https://arxiv.org/abs/2106.09685">Lora: Low-rank adaptation of large language models</a> | Edward J. Hu, Yelong Shen, Phillip Wallis, Zeyuan Allen-Zhu, Yuanzhi Li, Shean Wang, Lu Wang, Weizhu Chen | ICLR | 2022</p>
 <p><a href="https://github.com/huggingface/peft">PEFT: State-of-the-art Parameter-Efficient Fine-Tuning methods</a> | Sourab Mangrulkar, Sylvain Gugger, Lysandre Debut, Younes Belkada, Sayak Paul, and Benjamin Bossan | 2022</p>
 <p><a href="https://huggingface.co/learn/cookbook/prompt_tuning_peft#prompt-tuning-with-peft">Prompt Tuning with PEFT</a> | Pere Martra</p>
@@ -3650,6 +3827,19 @@ Complexity: 4</td>
 </script>
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {

@@ -57,10 +57,14 @@ div.csl-indent {
 <script src="site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="site_libs/quarto-html/anchor.min.js"></script>
 <link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="site_libs/bootstrap/bootstrap-f70c19036c299c27839ec73052701135.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="site_libs/bootstrap/bootstrap-dark-226d3177c4d23a48b4ebcfdc421b28d5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -121,7 +125,178 @@ window.Quarto = {
 
 </head>
 
-<body class="nav-fixed quarto-light">
+<body class="nav-fixed quarto-light"><script id="quarto-html-before-body" type="application/javascript">
+    const toggleBodyColorMode = (bsSheetEl) => {
+      const mode = bsSheetEl.getAttribute("data-mode");
+      const bodyEl = window.document.querySelector("body");
+      if (mode === "dark") {
+        bodyEl.classList.add("quarto-dark");
+        bodyEl.classList.remove("quarto-light");
+      } else {
+        bodyEl.classList.add("quarto-light");
+        bodyEl.classList.remove("quarto-dark");
+      }
+    }
+    const toggleBodyColorPrimary = () => {
+      const bsSheetEl = window.document.querySelector("link#quarto-bootstrap:not([rel=disabled-stylesheet])");
+      if (bsSheetEl) {
+        toggleBodyColorMode(bsSheetEl);
+      }
+    }
+    const setColorSchemeToggle = (alternate) => {
+      const toggles = window.document.querySelectorAll('.quarto-color-scheme-toggle');
+      for (let i=0; i < toggles.length; i++) {
+        const toggle = toggles[i];
+        if (toggle) {
+          if (alternate) {
+            toggle.classList.add("alternate");
+          } else {
+            toggle.classList.remove("alternate");
+          }
+        }
+      }
+    };
+    const toggleColorMode = (alternate) => {
+      // Switch the stylesheets
+      const primaryStylesheets = window.document.querySelectorAll('link.quarto-color-scheme:not(.quarto-color-alternate)');
+      const alternateStylesheets = window.document.querySelectorAll('link.quarto-color-scheme.quarto-color-alternate');
+      manageTransitions('#quarto-margin-sidebar .nav-link', false);
+      if (alternate) {
+        // note: dark is layered on light, we don't disable primary!
+        enableStylesheet(alternateStylesheets);
+        for (const sheetNode of alternateStylesheets) {
+          if (sheetNode.id === "quarto-bootstrap") {
+            toggleBodyColorMode(sheetNode);
+          }
+        }
+      } else {
+        disableStylesheet(alternateStylesheets);
+        enableStylesheet(primaryStylesheets)
+        toggleBodyColorPrimary();
+      }
+      manageTransitions('#quarto-margin-sidebar .nav-link', true);
+      // Switch the toggles
+      setColorSchemeToggle(alternate)
+      // Hack to workaround the fact that safari doesn't
+      // properly recolor the scrollbar when toggling (#1455)
+      if (navigator.userAgent.indexOf('Safari') > 0 && navigator.userAgent.indexOf('Chrome') == -1) {
+        manageTransitions("body", false);
+        window.scrollTo(0, 1);
+        setTimeout(() => {
+          window.scrollTo(0, 0);
+          manageTransitions("body", true);
+        }, 40);
+      }
+    }
+    const disableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        stylesheet.rel = 'disabled-stylesheet';
+      }
+    }
+    const enableStylesheet = (stylesheets) => {
+      for (let i=0; i < stylesheets.length; i++) {
+        const stylesheet = stylesheets[i];
+        if(stylesheet.rel !== 'stylesheet') { // for Chrome, which will still FOUC without this check
+          stylesheet.rel = 'stylesheet';
+        }
+      }
+    }
+    const manageTransitions = (selector, allowTransitions) => {
+      const els = window.document.querySelectorAll(selector);
+      for (let i=0; i < els.length; i++) {
+        const el = els[i];
+        if (allowTransitions) {
+          el.classList.remove('notransition');
+        } else {
+          el.classList.add('notransition');
+        }
+      }
+    }
+    const isFileUrl = () => {
+      return window.location.protocol === 'file:';
+    }
+    const hasAlternateSentinel = () => {
+      let styleSentinel = getColorSchemeSentinel();
+      if (styleSentinel !== null) {
+        return styleSentinel === "alternate";
+      } else {
+        return false;
+      }
+    }
+    const setStyleSentinel = (alternate) => {
+      const value = alternate ? "alternate" : "default";
+      if (!isFileUrl()) {
+        window.localStorage.setItem("quarto-color-scheme", value);
+      } else {
+        localAlternateSentinel = value;
+      }
+    }
+    const getColorSchemeSentinel = () => {
+      if (!isFileUrl()) {
+        const storageValue = window.localStorage.getItem("quarto-color-scheme");
+        return storageValue != null ? storageValue : localAlternateSentinel;
+      } else {
+        return localAlternateSentinel;
+      }
+    }
+    const toggleGiscusIfUsed = (isAlternate, darkModeDefault) => {
+      const baseTheme = document.querySelector('#giscus-base-theme')?.value ?? 'light';
+      const alternateTheme = document.querySelector('#giscus-alt-theme')?.value ?? 'dark';
+      let newTheme = '';
+      if(authorPrefersDark) {
+        newTheme = isAlternate ? baseTheme : alternateTheme;
+      } else {
+        newTheme = isAlternate ? alternateTheme : baseTheme;
+      }
+      const changeGiscusTheme = () => {
+        // From: https://github.com/giscus/giscus/issues/336
+        const sendMessage = (message) => {
+          const iframe = document.querySelector('iframe.giscus-frame');
+          if (!iframe) return;
+          iframe.contentWindow.postMessage({ giscus: message }, 'https://giscus.app');
+        }
+        sendMessage({
+          setConfig: {
+            theme: newTheme
+          }
+        });
+      }
+      const isGiscussLoaded = window.document.querySelector('iframe.giscus-frame') !== null;
+      if (isGiscussLoaded) {
+        changeGiscusTheme();
+      }
+    };
+    const authorPrefersDark = false;
+    const queryPrefersDark = window.matchMedia('(prefers-color-scheme: dark)');
+    const darkModeDefault = queryPrefersDark.matches;
+      document.querySelector('link#quarto-text-highlighting-styles.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+      document.querySelector('link#quarto-bootstrap.quarto-color-scheme-extra').rel = 'disabled-stylesheet';
+    let localAlternateSentinel = darkModeDefault ? 'alternate' : 'default';
+    // Dark / light mode switch
+    window.quartoToggleColorScheme = () => {
+      // Read the current dark / light value
+      let toAlternate = !hasAlternateSentinel();
+      toggleColorMode(toAlternate);
+      setStyleSentinel(toAlternate);
+      toggleGiscusIfUsed(toAlternate, darkModeDefault);
+      window.dispatchEvent(new Event('resize'));
+    };
+    queryPrefersDark.addEventListener("change", e => {
+      if(window.localStorage.getItem("quarto-color-scheme") !== null)
+        return;
+      const alternate = e.matches
+      toggleColorMode(alternate);
+      localAlternateSentinel = e.matches ? 'alternate' : 'default'; // this is used alongside local storage!
+      toggleGiscusIfUsed(alternate, darkModeDefault);
+    });
+    // Switch to dark mode if need be
+    if (hasAlternateSentinel()) {
+      toggleColorMode(true);
+    } else {
+      toggleColorMode(false);
+    }
+  </script>
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -157,6 +332,7 @@ window.Quarto = {
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
+  <a href="" class="quarto-color-scheme-toggle quarto-navigation-tool  px-1" onclick="window.quartoToggleColorScheme(); return false;" title="Toggle dark mode"><i class="bi"></i></a>
 </div>
       </div> <!-- /container-fluid -->
     </nav>
@@ -170,25 +346,26 @@ window.Quarto = {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#history-of-the-gromovwitten-axioms" id="toc-history-of-the-gromovwitten-axioms" class="nav-link active" data-scroll-target="#history-of-the-gromovwitten-axioms">History of the Gromov–Witten axioms</a></li>
-  <li><a href="#what-is-a-gromovwitten-invariant" id="toc-what-is-a-gromovwitten-invariant" class="nav-link" data-scroll-target="#what-is-a-gromovwitten-invariant">What is a Gromov–Witten invariant?</a></li>
-  <li><a href="#the-classical-pseudocycle-gromovwitten-invariant" id="toc-the-classical-pseudocycle-gromovwitten-invariant" class="nav-link" data-scroll-target="#the-classical-pseudocycle-gromovwitten-invariant">The classical pseudocycle Gromov–Witten invariant</a></li>
-  <li><a href="#the-polyfold-gromovwitten-invariant" id="toc-the-polyfold-gromovwitten-invariant" class="nav-link" data-scroll-target="#the-polyfold-gromovwitten-invariant">The polyfold Gromov–Witten invariant</a></li>
-  <li><a href="#orbifolds-and-the-steenrod-problem" id="toc-orbifolds-and-the-steenrod-problem" class="nav-link" data-scroll-target="#orbifolds-and-the-steenrod-problem">Orbifolds and the Steenrod problem</a></li>
-  <li><a href="#polyfold-gromovwitten-invariants-as-intersection-numbers" id="toc-polyfold-gromovwitten-invariants-as-intersection-numbers" class="nav-link" data-scroll-target="#polyfold-gromovwitten-invariants-as-intersection-numbers">Polyfold Gromov–Witten invariants as intersection numbers</a></li>
-  <li><a href="#a-polyfold-proof-of-the-gromovwitten-axioms" id="toc-a-polyfold-proof-of-the-gromovwitten-axioms" class="nav-link" data-scroll-target="#a-polyfold-proof-of-the-gromovwitten-axioms">A polyfold proof of the Gromov–Witten axioms</a></li>
-  <li><a href="#strategy-of-the-proof-of-the-gromovwitten-axioms" id="toc-strategy-of-the-proof-of-the-gromovwitten-axioms" class="nav-link" data-scroll-target="#strategy-of-the-proof-of-the-gromovwitten-axioms">Strategy of the proof of the Gromov–Witten axioms</a></li>
-  <li><a href="#difficulties-in-proving-the-polyfold-gromovwitten-axioms" id="toc-difficulties-in-proving-the-polyfold-gromovwitten-axioms" class="nav-link" data-scroll-target="#difficulties-in-proving-the-polyfold-gromovwitten-axioms">Difficulties in proving the polyfold Gromov–Witten axioms</a></li>
-  <li><a href="#the-universal-curve-gromovwitten-polyfold" id="toc-the-universal-curve-gromovwitten-polyfold" class="nav-link" data-scroll-target="#the-universal-curve-gromovwitten-polyfold">The universal curve Gromov–Witten polyfold</a></li>
-  <li><a href="#pseudocycle-gromovwitten-invariants-are-a-strict-subset-of-polyfold-gromovwitten-invariants" id="toc-pseudocycle-gromovwitten-invariants-are-a-strict-subset-of-polyfold-gromovwitten-invariants" class="nav-link" data-scroll-target="#pseudocycle-gromovwitten-invariants-are-a-strict-subset-of-polyfold-gromovwitten-invariants">Pseudocycle Gromov–Witten invariants are a strict subset of polyfold Gromov–Witten invariants</a>
+  <li><a href="#history-of-the-gromovwitten-axioms" id="toc-history-of-the-gromovwitten-axioms" class="nav-link active" data-scroll-target="#history-of-the-gromovwitten-axioms"><span class="header-section-number">1</span> History of the Gromov–Witten axioms</a></li>
+  <li><a href="#what-is-a-gromovwitten-invariant" id="toc-what-is-a-gromovwitten-invariant" class="nav-link" data-scroll-target="#what-is-a-gromovwitten-invariant"><span class="header-section-number">2</span> What is a Gromov–Witten invariant?</a></li>
+  <li><a href="#the-classical-pseudocycle-gromovwitten-invariant" id="toc-the-classical-pseudocycle-gromovwitten-invariant" class="nav-link" data-scroll-target="#the-classical-pseudocycle-gromovwitten-invariant"><span class="header-section-number">3</span> The classical pseudocycle Gromov–Witten invariant</a></li>
+  <li><a href="#the-polyfold-gromovwitten-invariant" id="toc-the-polyfold-gromovwitten-invariant" class="nav-link" data-scroll-target="#the-polyfold-gromovwitten-invariant"><span class="header-section-number">4</span> The polyfold Gromov–Witten invariant</a></li>
+  <li><a href="#orbifolds-and-the-steenrod-problem" id="toc-orbifolds-and-the-steenrod-problem" class="nav-link" data-scroll-target="#orbifolds-and-the-steenrod-problem"><span class="header-section-number">5</span> Orbifolds and the Steenrod problem</a></li>
+  <li><a href="#polyfold-gromovwitten-invariants-as-intersection-numbers" id="toc-polyfold-gromovwitten-invariants-as-intersection-numbers" class="nav-link" data-scroll-target="#polyfold-gromovwitten-invariants-as-intersection-numbers"><span class="header-section-number">6</span> Polyfold Gromov–Witten invariants as intersection numbers</a></li>
+  <li><a href="#a-polyfold-proof-of-the-gromovwitten-axioms" id="toc-a-polyfold-proof-of-the-gromovwitten-axioms" class="nav-link" data-scroll-target="#a-polyfold-proof-of-the-gromovwitten-axioms"><span class="header-section-number">7</span> A polyfold proof of the Gromov–Witten axioms</a></li>
+  <li><a href="#strategy-of-the-proof-of-the-gromovwitten-axioms" id="toc-strategy-of-the-proof-of-the-gromovwitten-axioms" class="nav-link" data-scroll-target="#strategy-of-the-proof-of-the-gromovwitten-axioms"><span class="header-section-number">8</span> Strategy of the proof of the Gromov–Witten axioms</a></li>
+  <li><a href="#difficulties-in-proving-the-polyfold-gromovwitten-axioms" id="toc-difficulties-in-proving-the-polyfold-gromovwitten-axioms" class="nav-link" data-scroll-target="#difficulties-in-proving-the-polyfold-gromovwitten-axioms"><span class="header-section-number">9</span> Difficulties in proving the polyfold Gromov–Witten axioms</a></li>
+  <li><a href="#the-universal-curve-gromovwitten-polyfold" id="toc-the-universal-curve-gromovwitten-polyfold" class="nav-link" data-scroll-target="#the-universal-curve-gromovwitten-polyfold"><span class="header-section-number">10</span> The universal curve Gromov–Witten polyfold</a></li>
+  <li><a href="#pseudocycle-gromovwitten-invariants-are-a-strict-subset-of-polyfold-gromovwitten-invariants" id="toc-pseudocycle-gromovwitten-invariants-are-a-strict-subset-of-polyfold-gromovwitten-invariants" class="nav-link" data-scroll-target="#pseudocycle-gromovwitten-invariants-are-a-strict-subset-of-polyfold-gromovwitten-invariants"><span class="header-section-number">11</span> Pseudocycle Gromov–Witten invariants are a strict subset of polyfold Gromov–Witten invariants</a>
   <ul class="collapse">
-  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references">References</a></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">11.1</span> References</a></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
 <main class="content" id="quarto-document-content">
+
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
@@ -238,8 +415,8 @@ window.Quarto = {
 <li>I gave a complete proof of the Gromov–Witten axioms for the polyfold Gromov–Witten invariants.</li>
 <li>I showed that the classical pseudocycle Gromov–Witten invariants, defined for semipositive symplectic manifolds, are a strict subset of the more general polyfold Gromov–Witten invariants.</li>
 </ul>
-<section id="history-of-the-gromovwitten-axioms" class="level2">
-<h2 class="anchored" data-anchor-id="history-of-the-gromovwitten-axioms">History of the Gromov–Witten axioms</h2>
+<section id="history-of-the-gromovwitten-axioms" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="history-of-the-gromovwitten-axioms"><span class="header-section-number">1</span> History of the Gromov–Witten axioms</h2>
 <p>In 1985 Gromov published the paper “Pseudo holomorphic curves in symplectic manifolds”, laying the foundations for the modern study of pseudo holomorphic curves (also know as <span class="math inline">\(J\)</span>-holomorphic curves) in symplectic topology <span class="citation" data-cites="G">(<a href="#ref-G" role="doc-biblioref">Gromov 1985</a>)</span>. In this paper, Gromov proved a compactness result for the moduli space of <span class="math inline">\(J\)</span>-holomorphic curves in a fixed homology class. This paper contained antecedents to the modern notion of the Gromov–Witten invariants in the proofs of the nonsqueezing theorem and the uniqueness of symplectic structures on <span class="math inline">\(\mathbb{C}P^2\)</span>.</p>
 <p>Around 1988, inspired by Floer’s study of gauge theory on three manifolds, Witten introduced the topological sigma model <span class="citation" data-cites="floer1988instanton witten1988topological">(<a href="#ref-floer1988instanton" role="doc-biblioref">Floer 1988</a>; <a href="#ref-witten1988topological" role="doc-biblioref">Witten 1988</a>)</span>. The invariants of this model are the “<span class="math inline">\(k\)</span>-point correlation functions”, another precursor to the modern notion of the Gromov–Witten invariants. Witten also observed some of the relationships between these invariants and possible degenerations of Riemann surfaces <span class="citation" data-cites="witten1990two">(<a href="#ref-witten1990two" role="doc-biblioref">Witten 1991</a>)</span>. Further precursors to the notion of the Gromov–Witten invariants can also be seen in McDuff’s classification of symplectic ruled surfaces <span class="citation" data-cites="mcduff1991symplectic">(<a href="#ref-mcduff1991symplectic" role="doc-biblioref">McDuff 1991</a>)</span>.</p>
 <p>In 1993 Ruan gave a modern definition of the genus-zero Gromov–Witten invariants for semipositive symplectic manifolds <span class="citation" data-cites="ruan1996topological ruan1994symplectic">(<a href="#ref-ruan1996topological" role="doc-biblioref">Ruan 1996</a>, <a href="#ref-ruan1994symplectic" role="doc-biblioref">1994</a>)</span>. At the end of 1993, Ruan and Tian established the associativity of the quantum product for semipositive symplectic manifolds, giving a mathematical basis to the composition law of Witten’s topological sigma model <span class="citation" data-cites="rt1995quatumcohomology">(<a href="#ref-rt1995quatumcohomology" role="doc-biblioref">Ruan and Tian 1995</a>)</span>.</p>
@@ -255,8 +432,8 @@ window.Quarto = {
 <p>Is it finally possible to prove the Gromov–Witten axioms by using polyfold theory?</p>
 </blockquote>
 </section>
-<section id="what-is-a-gromovwitten-invariant" class="level2">
-<h2 class="anchored" data-anchor-id="what-is-a-gromovwitten-invariant">What is a Gromov–Witten invariant?</h2>
+<section id="what-is-a-gromovwitten-invariant" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="what-is-a-gromovwitten-invariant"><span class="header-section-number">2</span> What is a Gromov–Witten invariant?</h2>
 <p>Let <span class="math inline">\((M,\omega)\)</span> be a closed symplectic manifold of dimension <span class="math inline">\(\dim M = 2n\)</span>, and let <span class="math inline">\(J\)</span> be a <span class="math inline">\(\omega\)</span>-compatible almost complex structure. For a fixed homology class <span class="math inline">\(A\in H_2(M,{\mathbb Z})\)</span>, and for fixed integers <span class="math inline">\(g\geq 0\)</span>, <span class="math inline">\(k\geq 0\)</span>, we consider the set of <span class="math inline">\(J\)</span>-holomorphic curves:</p>
 <p><span class="math display">\[
     {\mathcal M}_{A,g,k}(J) :=
@@ -329,8 +506,8 @@ window.Quarto = {
 <p>Such definitions require additional structure on the Gromov–Witten moduli space; an intersection number requires tangent spaces and notions of transversal intersection, an integral requires smooth partitions of unity and notions of differential forms, and a (virtual) fundamental class requires a distinguished homology class on the topological space.</p>
 <p>However, <em>a priori</em>, the Gromov–Witten moduli space only has the structure of a compact topological space, and this alone is insufficient to define any of the above. More structure is needed.</p>
 </section>
-<section id="the-classical-pseudocycle-gromovwitten-invariant" class="level2">
-<h2 class="anchored" data-anchor-id="the-classical-pseudocycle-gromovwitten-invariant">The classical pseudocycle Gromov–Witten invariant</h2>
+<section id="the-classical-pseudocycle-gromovwitten-invariant" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="the-classical-pseudocycle-gromovwitten-invariant"><span class="header-section-number">3</span> The classical pseudocycle Gromov–Witten invariant</h2>
 <p>The classical approach to defining the Gromov–Witten invariants is to show that the Gromov–Witten moduli space has the structure of a <em>pseudocycle</em>.</p>
 <p>If the Cauchy–Riemann section were completely transversal to the zero section, i.e., transversal when considered on all possible nodal strata of the space of <span class="math inline">\(J\)</span>-curves, then the top stratum of the space of <span class="math inline">\(J\)</span>-curves would have the structure of a finite-dimensional manifold and all nodal strata would have the structure of manifolds with codimension at least <span class="math inline">\(2\)</span> relative to the top stratum. Thus the space of <span class="math inline">\(J\)</span>-curves would have the structure of a “pseudocycle”, i.e., a space whose boundary (the nodal strata) would be <em>invisible</em> from the point of view of homology.</p>
 <p><strong>Definition.</strong> Let <span class="math inline">\(M\)</span> be a smooth manifold. A smooth map <span class="math inline">\(f: V \to M\)</span> is a <span class="math inline">\(d\)</span>-dimensional <strong>pseudocycle</strong> if <span class="math inline">\(V\)</span> is an oriented <span class="math inline">\(d\)</span>-dimensional manifold <span class="math inline">\(V\)</span> such that the image <span class="math inline">\(f(V)\)</span> has compact closure and such that the image of the boundary <span class="math inline">\(f(\bar{V} \setminus V)\)</span> has dimension <em>at most</em> <span class="math inline">\(\leq d - 2\)</span>.</p>
@@ -357,8 +534,8 @@ window.Quarto = {
 \]</span></p>
 <p>The invariant does not depend on the choice of regular almost complex structure <span class="math inline">\(J\)</span>, nor on the choice of representing basis.</p>
 </section>
-<section id="the-polyfold-gromovwitten-invariant" class="level2">
-<h2 class="anchored" data-anchor-id="the-polyfold-gromovwitten-invariant">The polyfold Gromov–Witten invariant</h2>
+<section id="the-polyfold-gromovwitten-invariant" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="the-polyfold-gromovwitten-invariant"><span class="header-section-number">4</span> The polyfold Gromov–Witten invariant</h2>
 <p>Polyfold theory, developed by Hofer, Wysocki, and Zehnder, is a modern approach to resolving transversality issues that arise in attempts to solve moduli space problems in symplectic geometry. The polyfold theoretic approach to solving a moduli space problem is to recast the problem into familiar terms from differential geometry. To do this, we may construct a “Gromov–Witten polyfold” <span class="math inline">\({\mathcal Z}_{A,g,k}\)</span>—a massive, infinite-dimensional ambient space, designed to contain the entire unperturbed Gromov–Witten moduli space <span class="math inline">\(\bar{\mathcal{M}}_{A,g,k}(J)\)</span> as a compact subset. We may furthermore construct a “strong polyfold bundle” <span class="math inline">\({\mathcal W}_{A,g,k}\)</span> over <span class="math inline">\({\mathcal Z}_{A,g,k}\)</span>; the Cauchy–Riemann operator then defines a “scale smooth Fredholm section” of this bundle, <span class="math inline">\(\bar{\partial}_J:{\mathcal Z}_{A,g,k} \to {\mathcal W}_{A,g,k}\)</span>, such that <span class="math inline">\(\smash{\bar{\partial}_J}\vphantom{\partial}^{-1}(0) = \bar{\mathcal{M}}_{A,g,k}(J)\)</span>. We can construct “abstract perturbations” <span class="math inline">\(p\)</span> of this section such that <span class="math inline">\(\bar{\partial}_J+p\)</span> is transverse to the zero section and such that <span class="math inline">\((\bar{\partial}_J+p)^{-1}(0)\)</span> is a compact set. In this way, we may take a scale smooth Fredholm section and “regularize” the unperturbed Gromov–Witten moduli space yielding a <strong>perturbed Gromov–Witten moduli space</strong> <span class="math inline">\({\mathcal S}_{A,g,k}(p):= (\bar{\partial}_J+p)^{-1}(0)\)</span> which has the structure of a compact oriented “weighted branched orbifold”.</p>
 <p><span class="math display">\[
         \begin{array}{c}
@@ -386,8 +563,8 @@ window.Quarto = {
 \]</span></p>
 <p><em>This invariant does not depend on the choice of perturbation.</em></p>
 </section>
-<section id="orbifolds-and-the-steenrod-problem" class="level2">
-<h2 class="anchored" data-anchor-id="orbifolds-and-the-steenrod-problem">Orbifolds and the Steenrod problem</h2>
+<section id="orbifolds-and-the-steenrod-problem" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="orbifolds-and-the-steenrod-problem"><span class="header-section-number">5</span> Orbifolds and the Steenrod problem</h2>
 <p>The Steenrod problem was first presented in <span class="citation" data-cites="eilenberg1949problems">(<a href="#ref-eilenberg1949problems" role="doc-biblioref">Eilenberg 1949</a>)</span> and asked the following question:</p>
 <blockquote class="blockquote">
 <p>Can any homology class of a finite polyhedron be represented as an image of the fundamental class of some manifold?</p>
@@ -405,8 +582,8 @@ window.Quarto = {
 </figure>
 </div>
 </section>
-<section id="polyfold-gromovwitten-invariants-as-intersection-numbers" class="level2">
-<h2 class="anchored" data-anchor-id="polyfold-gromovwitten-invariants-as-intersection-numbers">Polyfold Gromov–Witten invariants as intersection numbers</h2>
+<section id="polyfold-gromovwitten-invariants-as-intersection-numbers" class="level2" data-number="6">
+<h2 data-number="6" class="anchored" data-anchor-id="polyfold-gromovwitten-invariants-as-intersection-numbers"><span class="header-section-number">6</span> Polyfold Gromov–Witten invariants as intersection numbers</h2>
 <p>The earliest interpretations of the Gromov–Witten invariants present in the literature were given in terms of counting a finite number of curves <span class="citation" data-cites="MSbook ruan1994symplectic ruan1996topological">(<a href="#ref-MSbook" role="doc-biblioref">McDuff and Salamon 2012</a>; <a href="#ref-ruan1994symplectic" role="doc-biblioref">Ruan 1994</a>, <a href="#ref-ruan1996topological" role="doc-biblioref">1996</a>)</span>. For example, Ruan described the Gromov–Witten invariants as a finite sum, counted with multiplicity, of nonmultiple cover <span class="math inline">\(J\)</span>-spheres in <span class="math inline">\({\mathcal M}^*_{(A,J)}\)</span> which intersect representatives of given cycles in the symplectic manifold <span class="citation" data-cites="ruan1996topological">(<a href="#ref-ruan1996topological" role="doc-biblioref">Ruan 1996</a>, Thm. A)</span>.</p>
 <p>However, such definitions have previously been restricted to genus zero Gromov–Witten invariants in semipositive symplectic manifolds. Observe that in the genus <span class="math inline">\(0\)</span> case the Grothendieck–Knudsen spaces <span class="math inline">\(\smash{\bar{\mathcal{M}}}\vphantom{\mathcal{M}}^{\text{log}}_{0,k}\)</span> are finite-dimensional manifolds. In contrast, if genus <span class="math inline">\(g &gt;0\)</span> the general Deligne–Mumford spaces <span class="math inline">\(\smash{\bar{\mathcal{M}}}\vphantom{\mathcal{M}}^{\text{log}}_{g,k}\)</span> are orbifolds. Therefore, in the genus <span class="math inline">\(0\)</span> case extant methods—such as representing a homology class as a pseudocycle in a manifold <span class="citation" data-cites="zinger2008pseudocycles">(<a href="#ref-zinger2008pseudocycles" role="doc-biblioref"><strong>zinger2008pseudocycles?</strong></a>)</span> or, indeed, the Steenrod problem for manifolds—were sufficient to interpret the Gromov–Witten invariants as an intersection number.</p>
 <p>Using the Steenrod problem for orbifolds, I was able to prove that the polyfold Gromov–Witten invariants may equivalently be defined as an intersection number. Let <span class="math inline">\({\mathcal S}_{A,g,k}(p)\)</span> be a perturbed Gromov–Witten moduli space, and let <span class="math inline">\({\mathcal X}_1\times \cdots \times {\mathcal X}_k \times {\mathcal B}\)</span> be a representing suborbifold of <span class="math inline">\(M^k \times \smash{\bar{\mathcal{M}}}\vphantom{\mathcal{M}}^{\text{log}}_{g,k}\)</span>.</p>
@@ -430,8 +607,8 @@ window.Quarto = {
 </figure>
 </div>
 </section>
-<section id="a-polyfold-proof-of-the-gromovwitten-axioms" class="level2">
-<h2 class="anchored" data-anchor-id="a-polyfold-proof-of-the-gromovwitten-axioms">A polyfold proof of the Gromov–Witten axioms</h2>
+<section id="a-polyfold-proof-of-the-gromovwitten-axioms" class="level2" data-number="7">
+<h2 data-number="7" class="anchored" data-anchor-id="a-polyfold-proof-of-the-gromovwitten-axioms"><span class="header-section-number">7</span> A polyfold proof of the Gromov–Witten axioms</h2>
 <p>In 2019, I succeeded in giving a complete proof of the Gromov–Witten axioms.</p>
 <p><strong>Theorem</strong> <span class="citation" data-cites="schmaltz2019axioms">(<a href="#ref-schmaltz2019axioms" role="doc-biblioref">Schmaltz 2019c</a>, Polyfold Gromov–Witten axioms)</span> <em>The polyfold Gromov–Witten invariants satisfy the Gromov–Witten axioms:</em></p>
 <p><strong>Effective axiom.</strong> <em>If</em> <span class="math inline">\(\omega(A)&lt;0\)</span> <em>then</em> <span class="math inline">\(\mathop{\mathrm{GW}}_{A,g,k} = 0\)</span>.</p>
@@ -496,8 +673,8 @@ window.Quarto = {
 </figure>
 </div>
 </section>
-<section id="strategy-of-the-proof-of-the-gromovwitten-axioms" class="level2">
-<h2 class="anchored" data-anchor-id="strategy-of-the-proof-of-the-gromovwitten-axioms">Strategy of the proof of the Gromov–Witten axioms</h2>
+<section id="strategy-of-the-proof-of-the-gromovwitten-axioms" class="level2" data-number="8">
+<h2 data-number="8" class="anchored" data-anchor-id="strategy-of-the-proof-of-the-gromovwitten-axioms"><span class="header-section-number">8</span> Strategy of the proof of the Gromov–Witten axioms</h2>
 <p>The Gromov–Witten axioms give relationships between the Gromov–Witten invariants. These relationships are determined by the geometry of certain naturally defined maps defined between the unperturbed Gromov–Witten moduli spaces, namely:</p>
 <ul>
 <li>permutation maps, <span class="math display">\[\sigma : \bar{\mathcal{M}}_{A,g,k}(J) \to \bar{\mathcal{M}}_{A,g,k}(J),\]</span></li>
@@ -528,8 +705,8 @@ window.Quarto = {
 <p>Intuitively, we should prove the Gromov–Witten axioms by interpreting the Gromov–Witten invariants as a finite count of curves and using the geometry of the above maps to directly compare such counts with respect to constraints imposed by the homology classes on <span class="math inline">\(M\)</span> and <span class="math inline">\(\smash{\bar{\mathcal{M}}}\vphantom{\mathcal{M}}^{\text{log}}_{g,k}\)</span>.</p>
 <p>A substantial amount of work is required to make this intuition rigorous in the context of an abstract perturbation theory. A deep understanding of the full machinery of polyfold theory, in addition to the geometry of the Gromov–Witten invariants is necessary to navigate substantial difficulties that we encounter.</p>
 </section>
-<section id="difficulties-in-proving-the-polyfold-gromovwitten-axioms" class="level2">
-<h2 class="anchored" data-anchor-id="difficulties-in-proving-the-polyfold-gromovwitten-axioms">Difficulties in proving the polyfold Gromov–Witten axioms</h2>
+<section id="difficulties-in-proving-the-polyfold-gromovwitten-axioms" class="level2" data-number="9">
+<h2 data-number="9" class="anchored" data-anchor-id="difficulties-in-proving-the-polyfold-gromovwitten-axioms"><span class="header-section-number">9</span> Difficulties in proving the polyfold Gromov–Witten axioms</h2>
 <p>Proving this required a substantial amount of work, and relied on the results of <span class="citation" data-cites="schmaltz2019naturality schmaltz2019steenrod">(<a href="#ref-schmaltz2019naturality" role="doc-biblioref">Schmaltz 2019b</a>, <a href="#ref-schmaltz2019steenrod" role="doc-biblioref">2019a</a>)</span>. The Gromov–Witten axioms give relationships between the Gromov–Witten invariants. These relationships are determined by the geometry of certain naturally defined maps defined between the unperturbed Gromov–Witten moduli spaces, namely the permutation maps, the <span class="math inline">\(k\)</span>th-marked point forgetting maps, in addition to certain natural maps which identify marked points into nodal pairs, where the Gromov–Witten moduli space is subject to a diagonal constraint. With the exception of the <span class="math inline">\(k\)</span>th-marked point forgetting maps, we may pullback abstract perturbations in order to obtain well-defined restricted maps between perturbed Gromov–Witten moduli spaces.</p>
 <p>The branched integral is useful for giving a well-defined definition of the polyfold Gromov–Witten invariants and moreover showing that they are, in fact, invariants and do not depend on choices. But integration is not the best viewpoint for giving a proof of all of the axioms. Intuitively, we should prove the Gromov–Witten axioms by interpreting the Gromov–Witten invariants as an intersection number and using the geometry of the above maps to directly compare such counts with respect to constraints imposed by the homology classes on <span class="math inline">\(M\)</span> and <span class="math inline">\(\smash{\bar{\mathcal{M}}}\vphantom{\mathcal{M}}^{\text{log}}_{g,k}\)</span>. And indeed, via <span class="citation" data-cites="schmaltz2019steenrod">(<a href="#ref-schmaltz2019steenrod" role="doc-biblioref">Schmaltz 2019a</a>)</span> this intuition is made rigorous, and is precisely my approach to proving the axioms.</p>
 <p>However, problems arise when we try to define a <span class="math inline">\(k\)</span>th-marked point forgetting map between perturbed Gromov–Witten moduli spaces—such a map does not even exist. The construction of the smooth structure for the Deligne–Mumford orbifolds as described in <span class="citation" data-cites="HWZGW">(<a href="#ref-HWZGW" role="doc-biblioref">Hofer, Wysocki, and Zehnder 2017a</a>)</span> and <span class="citation" data-cites="HWZdm">(<a href="#ref-HWZdm" role="doc-biblioref">Hofer, Wysocki, and Zehnder, n.d.</a>)</span> requires a choice: that of a “gluing profile,” i.e., a smooth diffeomorphism <span class="math inline">\(\varphi: (0,1]\to [0,\infty).\)</span> Given a noded Riemann surface and a nonzero parameter <span class="math inline">\(a \in {\mathbb C}\)</span> we use the gluing profile to replace a region of the node with a cylinder of finite length <span class="math inline">\(\varphi(\lvert a\rvert)\)</span>. The logarithmic gluing profile is given by <span class="math inline">\(\varphi_{\log} (r) = -\frac{1}{2\pi} \log (r)\)</span> and produces the classical holomorphic Deligne–Mumford orbifolds <span class="math inline">\(\smash{\bar{\mathcal{M}}}\vphantom{\mathcal{M}}^{\text{log}}_{g,k}\)</span>. There is also an exponential gluing profile, given by <span class="math inline">\(\varphi_{\exp} (r) = e^{1/r} - e\)</span> which produces Deligne–Mumford orbifolds <span class="math inline">\(\smash{\bar{\mathcal{M}}}\vphantom{\mathcal{M}}^{\text{exp}}_{g,k}\)</span> which are only smooth orbifolds. The exponential gluing profile is required for the scale smoothness of certain maps used to define the Gromov–Witten polyfolds.</p>
@@ -552,8 +729,8 @@ window.Quarto = {
 </blockquote>
 <p>This has important consequences if we wish to consider the Gromov–Witten invariant as an intersection number; the only way to get transversality of the projection map with a representing suborbifold <span class="math inline">\({\mathcal B}\subset \smash{\bar{\mathcal{M}}}\vphantom{\mathcal{M}}^{\text{log}}_{g,k}\)</span> is through perturbation of the suborbifold. This is made possible by the existence of representing suborbifolds, for which perturbation is possible, the existence of which is guaranteed by <span class="citation" data-cites="schmaltz2019steenrod">(<a href="#ref-schmaltz2019steenrod" role="doc-biblioref">Schmaltz 2019a</a>)</span>.</p>
 </section>
-<section id="the-universal-curve-gromovwitten-polyfold" class="level2">
-<h2 class="anchored" data-anchor-id="the-universal-curve-gromovwitten-polyfold">The universal curve Gromov–Witten polyfold</h2>
+<section id="the-universal-curve-gromovwitten-polyfold" class="level2" data-number="10">
+<h2 data-number="10" class="anchored" data-anchor-id="the-universal-curve-gromovwitten-polyfold"><span class="header-section-number">10</span> The universal curve Gromov–Witten polyfold</h2>
 <p>In essence, the central problem is that the Gromov–Witten polyfolds as constructed are not “universal curves”. My proof of the Gromov–Witten axioms rectifies this by constructing a universal curve polyfold <span class="math inline">\({\mathcal Z}^\text{uc}_{A,g,k}\)</span> over <span class="math inline">\({\mathcal Z}_{A,g,k-1}\)</span>, on which we may consider a well-defined <span class="math inline">\(k\)</span>th-marked point forgetting map</p>
 <p><span class="math display">\[
     ft_k : {\mathcal Z}^\text{uc}_{A,g,k} \to {\mathcal Z}_{A,g,k-1}.
@@ -563,8 +740,8 @@ window.Quarto = {
 <p>In <span class="citation" data-cites="schmaltz2019naturality">(<a href="#ref-schmaltz2019naturality" role="doc-biblioref">Schmaltz 2019b</a>)</span>, I present a general framework for proving that polyfold invariants are <em>natural</em>, which applied to polyfold Gromov–Witten theory yields the following result.</p>
 <p><strong>Theorem.</strong> <span class="citation" data-cites="schmaltz2019naturality">(<a href="#ref-schmaltz2019naturality" role="doc-biblioref">Schmaltz 2019b</a>, Naturality of the polyfold Gromov–Witten invariants)</span> <em>The polyfold Gromov–Witten invariants are natural, and do not depend on auxiliary choices made in their construction. In particular, the Gromov–Witten invariants associated to the usual Gromov–Witten polyfold and associated to the universal curve Gromov–Witten polyfold are identical.</em></p>
 </section>
-<section id="pseudocycle-gromovwitten-invariants-are-a-strict-subset-of-polyfold-gromovwitten-invariants" class="level2">
-<h2 class="anchored" data-anchor-id="pseudocycle-gromovwitten-invariants-are-a-strict-subset-of-polyfold-gromovwitten-invariants">Pseudocycle Gromov–Witten invariants are a strict subset of polyfold Gromov–Witten invariants</h2>
+<section id="pseudocycle-gromovwitten-invariants-are-a-strict-subset-of-polyfold-gromovwitten-invariants" class="level2" data-number="11">
+<h2 data-number="11" class="anchored" data-anchor-id="pseudocycle-gromovwitten-invariants-are-a-strict-subset-of-polyfold-gromovwitten-invariants"><span class="header-section-number">11</span> Pseudocycle Gromov–Witten invariants are a strict subset of polyfold Gromov–Witten invariants</h2>
 <p>I unified the classical definition of a Gromov–Witten invariant as a pseudocycle and the modern definition of a Gromov–Witten invariant via polyfold theory by proving they are equivalent.</p>
 <p><strong>Theorem.</strong> <span class="citation" data-cites="schmaltz2023equivalence">(<a href="#ref-schmaltz2023equivalence" role="doc-biblioref">Schmaltz 2023</a>, Main result)</span> <em>For a given semipositive symplectic manifold, the pseudocycle genus-zero Gromov–Witten invariants are equal to the polyfold genus-zero Gromov–Witten invariants.</em></p>
 <p>Since the polyfold Gromov–Witten invariants are not restricted to genus-zero, nor to semipositive symplectic manifolds, we have</p>
@@ -573,8 +750,8 @@ window.Quarto = {
     \subsetneq
     \left\{ \begin{array}{c} \textit{polyfold} \\ \textit{Gromov-Witten} \\ \textit{invariants} \end{array} \right\}.
 \]</span></p>
-<section id="references" class="level3">
-<h3 class="anchored" data-anchor-id="references">References</h3>
+<section id="references" class="level3" data-number="11.1">
+<h3 data-number="11.1" class="anchored" data-anchor-id="references"><span class="header-section-number">11.1</span> References</h3>
 <div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
 <div id="ref-castellano2016genus" class="csl-entry" role="listitem">
 Castellano, Robert. 2016. <em>Kuranishi Atlases and Genus Zero <span>G</span>romov–<span>W</span>itten Invariants</em>. ProQuest LLC, Ann Arbor, MI.<a href="
@@ -698,6 +875,19 @@ Witten, Edward. 1988. <span>“Topological Sigma Models.”</span> <em>Comm. Mat
 </main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
   window.document.addEventListener("DOMContentLoaded", function (event) {
+    // Ensure there is a toggle, if there isn't float one in the top right
+    if (window.document.querySelector('.quarto-color-scheme-toggle') === null) {
+      const a = window.document.createElement('a');
+      a.classList.add('top-right');
+      a.classList.add('quarto-color-scheme-toggle');
+      a.href = "";
+      a.onclick = function() { try { window.quartoToggleColorScheme(); } catch {} return false; };
+      const i = window.document.createElement("i");
+      i.classList.add('bi');
+      a.appendChild(i);
+      window.document.body.appendChild(a);
+    }
+    setColorSchemeToggle(hasAlternateSentinel())
     const icon = "";
     const anchorJS = new window.AnchorJS();
     anchorJS.options = {
