@@ -366,7 +366,11 @@ window.Quarto = {
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="./stories.html"> 
-<span class="menu-text">QLoRA Instruction Fine-Tuning to Generate Stories</span></a>
+<span class="menu-text">QLoRA Story Generator</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="./QLoRA_Fine_Tuning_to_Generate_Stories.html"> 
+<span class="menu-text">QLoRA Fine-Tuning Notebook</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -470,13 +474,12 @@ window.Quarto = {
 </div>
 <section id="introduction" class="level1" data-number="1">
 <h1 data-number="1"><span class="header-section-number">1</span> Introduction</h1>
-<p>By now, there are many useful books, online guides, and videos for understanding the construction of Large Language Models from first principles [citations References: 3blue1brown, Sebastian, SuperStudyGuide, wikipedia, d2l] What separates this project, is that this is designed as a <em>mathematics first</em> presentation of the architecture of GPT styled LLM. If you are a mathematician or are simply more comfortable with the language and structure of mathematical writing, this page will hopefully be an easy to digest presentation of the mathematical foundations of LLMs. You should be able to read and understand this material in an afternoon.</p>
-<p>In addition to describing tokenizers, attention mechanisms, and transformer blocks in terms of mathematical formulas, I have included basic implementations of the constructions in PyTorch in order to also give a quick start for understanding the bridge between the abstract mathematical formulations and implementations in code. Because our focus is primarily on the mathematical constructions, we leave out some important elements of the computer engineering perspective which are important for implementation and optimization; namely, batching of data, differences between device architecture of CPU vs GPU, as well as parameter quantization.</p>
-<p>This page was adapted from a project at Ruhr-Universität Bochum. Thanks go to the symplectic group at the Faculty of Mathematics!</p>
+<p>By now, there are many useful books, online guides, and videos for understanding the construction of Large Language Models from first principles <span class="citation" data-cites="build-llms-from-scratch-book">(<a href="#ref-build-llms-from-scratch-book" role="doc-biblioref">Raschka 2024</a>)</span> <span class="citation" data-cites="3blue1brown">(<a href="#ref-3blue1brown" role="doc-biblioref">Sanderson and Sun 2024</a>)</span> <span class="citation" data-cites="superstudyguide">(<a href="#ref-superstudyguide" role="doc-biblioref">Amidi and Amidi 2024</a>)</span>. What separates this project, is that this is designed as a <em>mathematics first</em> presentation of the architecture of GPT styled LLM. If you are a mathematician or are simply more comfortable with the language and structure of mathematical writing, this page will hopefully be an easy to digest presentation of the mathematical foundations of LLMs. You should be able to read and understand this material in an afternoon.</p>
+<p>In addition to describing tokenizers, attention mechanisms, and transformer blocks in terms of mathematical formulas, I have included basic implementations of the constructions in PyTorch in order to also give a quick start for understanding the bridge between the abstract mathematical formulations and implementations in code. Because our focus is primarily on the mathematical constructions, we leave out some important elements of the computer engineering perspective which are important for implementation and optimization; namely, batching of data, differences between device architecture of CPU vs.&nbsp;GPU, as well as parameter quantization.</p>
+<p>Thanks go to my audience in the symplectic group at the Faculty of Mathematics at Ruhr-Universität Bochum.</p>
 <section id="predicting-the-next-token" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="predicting-the-next-token"><span class="header-section-number">1.1</span> Predicting the next token</h2>
 <p>We can superficially consider a (generative) <span class="math inline">\(\text{LLM}\)</span> as a function which takes as input a fixed length sequence of text and outputs a probability distribution for the next text unit. By sampling from this distribution, and appending to the original text sequence, we can iteratively predict the subsequent text unit:</p>
-<!-- # OTHER PROJECT - NOTE TO SELF - PROMPTING THROUGH A GUI -->
 <p><span class="math display">\[
 \underline{\text{The Steenrod problem for}} \mapsto
     \begin{cases}
@@ -513,57 +516,21 @@ window.Quarto = {
 <section id="source-text" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="source-text"><span class="header-section-number">2.1</span> Source text</h2>
 <p>We begin by selecting a source text, which gives a fixed source for training our eventual LLM, in addition to providing a source for defining the vocabulary for our tokenizer. To keep things topical, we will use a collection of mathematics texts in symplectic geometry:</p>
-<table class="caption-top table">
-<colgroup>
-<col style="width: 98%">
-<col style="width: 1%">
-</colgroup>
-<thead>
-<tr class="header">
-<th><strong>mathematics.tex</strong></th>
-<th></th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td>The Steenrod problem for closed orientable manifolds was solved completely by Thom.</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>Following this approach, we solve the Steenrod problem for closed orientable orbifolds, proving that the rational homology groups of a closed orientable orbifold have a basis consisting of classes represented by suborbifolds whose normal bundles have fiberwise trivial isotropy action.</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Polyfold theory, as developed by Hofer, Wysocki, and Zehnder, has yielded a well-defined Gromov–Witten invariant via the regularization of moduli spaces.</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>As an application, we demonstrate that the polyfold Gromov–Witten invariants, originally defined via branched integrals, may equivalently be defined as intersection numbers against a basis of representing suborbifolds.</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>Introduction</td>
-<td></td>
-</tr>
-<tr class="even">
-<td>The Steenrod problem</td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>The Steenrod problem was first presented in <span class="citation" data-cites="eilenberg1949problems">(<a href="#ref-eilenberg1949problems" role="doc-biblioref">Eilenberg 1949</a>)</span> and asked the following question:</td>
-<td></td>
-</tr>
-<tr class="even">
-<td><em>Can any homology class of a finite polyhedron be represented as an image of the fundamental class of some manifold?</em></td>
-<td></td>
-</tr>
-<tr class="odd">
-<td>In <span class="citation" data-cites="thom1954quelques">(<a href="#ref-thom1954quelques" role="doc-biblioref">Thom 1954</a>)</span>,…</td>
-<td></td>
-</tr>
-</tbody>
-</table>
-<div id="36d60a96" class="cell" data-execution_count="1">
+<blockquote class="blockquote">
+<p><strong>mathematics.tex</strong></p>
+</blockquote>
+<hr>
+<blockquote class="blockquote">
+<p>The Steenrod problem for closed orientable manifolds was solved completely by Thom.<br>
+Following this approach, we solve the Steenrod problem for closed orientable orbifolds, proving that the rational homology groups of a closed orientable orbifold have a basis consisting of classes represented by suborbifolds whose normal bundles have fiberwise trivial isotropy action. Polyfold theory, as developed by Hofer, Wysocki, and Zehnder, has yielded a well-defined Gromov–Witten invariant via the regularization of moduli spaces.<br>
+As an application, we demonstrate that the polyfold Gromov–Witten invariants, originally defined via branched integrals, may equivalently be defined as intersection numbers against a basis of representing suborbifolds.<br>
+Introduction<br>
+The Steenrod problem<br>
+The Steenrod problem was first presented in <span class="citation" data-cites="eilenberg1949problems">(<a href="#ref-eilenberg1949problems" role="doc-biblioref">Eilenberg 1949</a>)</span> and asked the following question:<br>
+<em>Can any homology class of a finite polyhedron be represented as an image of the fundamental class of some manifold?</em><br>
+In <span class="citation" data-cites="thom1954quelques">(<a href="#ref-thom1954quelques" role="doc-biblioref">Thom 1954</a>)</span>,…</p>
+</blockquote>
+<div id="af16ed9b" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Python imports</summary>
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> torch</span>
@@ -571,7 +538,7 @@ window.Quarto = {
 <span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> math</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="bee7780c" class="cell" data-execution_count="2">
+<div id="8e90b977" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Opening the source text <code>mathematics.tex</code></summary>
 <div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'mathematics.tex'</span>, <span class="st">'r'</span>, encoding<span class="op">=</span><span class="st">'utf-8'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
@@ -661,7 +628,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
     T ( \text{The Steenrod problem...}) = (341, 12459, 948,...),
 \]</span></p>
 <p>as well as a <strong>decoder</strong> from a sequence of indices back to a finite text.</p>
-<div id="eee6209f" class="cell" data-execution_count="3">
+<div id="ef69a7cb" class="cell" data-execution_count="3">
 <details class="code-fold">
 <summary>Character level tokenizer</summary>
 <div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CharacterTokenizer:</span>
@@ -703,7 +670,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <span id="cb3-37"><a href="#cb3-37" aria-hidden="true" tabindex="-1"></a>        )</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="948bc37c" class="cell" data-execution_count="4">
+<div id="9e090ffe" class="cell" data-execution_count="4">
 <details class="code-fold">
 <summary>Word level tokenizer</summary>
 <div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> WordTokenizer:</span>
@@ -763,7 +730,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <li>Repeat until no more merges can be performed.</li>
 <li>Encode the tokens with the corresponding token ids.</li>
 </ul>
-<div id="def1b325" class="cell" data-execution_count="5">
+<div id="4d4b68d3" class="cell" data-execution_count="5">
 <details class="code-fold">
 <summary>Byte-pair encoding tokenizer</summary>
 <div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> BPETokenizer:</span>
@@ -910,7 +877,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 \]</span></p>
 <p>This composition is the basis of the <em>Word2vec</em> family of embeddings.</p>
 <p>The map <span class="math inline">\(A\)</span> is often a linear map, or, if we wished, a neural network itself; in the process of training the GPT, we can adjust the weights to learn better token embeddings.</p>
-<div id="ea42b89d" class="cell" data-execution_count="6">
+<div id="c4419c04" class="cell" data-execution_count="6">
 <details class="code-fold">
 <summary>Token embedding example</summary>
 <div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>tokenizer <span class="op">=</span> BPETokenizer()</span>
@@ -940,7 +907,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
   p_{i,2j + 1} := \cos \left( \frac{i}{10000^\tfrac{2j}{d}}\right).
 \]</span></p>
 <p>Given an input sequence <span class="math inline">\(X\in \mathbb{R}^{N\times d_\text{emb}}\)</span>, we perturb by adding the positional encoding matrix, i.e., <span class="math inline">\(X + \text{PE}\)</span>.</p>
-<div id="43cbcbf1" class="cell" data-execution_count="7">
+<div id="bbf4d4bc" class="cell" data-execution_count="7">
 <details class="code-fold">
 <summary>Positional encoding</summary>
 <div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> PositionalEncoding(nn.Module):</span>
@@ -1002,7 +969,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
     \sigma : \mathbb{R}^K \to (0,1)^K; \qquad \sigma(v_1,...,v_K)_i := \frac{e^{v_i}}{\sum_{j=1}^K e^{v_j}}.
 \]</span></p>
 <p>In our implementation of attention, the softmax applied to a matrix is defined by applying the above softmax function independently to every row.</p>
-<div id="1116458f" class="cell" data-execution_count="8">
+<div id="f6b174f3" class="cell" data-execution_count="8">
 <details class="code-fold">
 <summary>Softmax function</summary>
 <div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> softmax(x):</span>
@@ -1059,7 +1026,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <section id="context-vectors" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="context-vectors"><span class="header-section-number">3.6</span> Context vectors</h2>
 <p>The output of the attention mechanism is the matrix <span class="math inline">\(Z := W_\text{attn} V\)</span>. We consider each column of the value matrix <span class="math inline">\(V\)</span> as representing a value vector. Then the <span class="math inline">\(i\)</span>th-row of <span class="math inline">\(Z\)</span> is the weighted sum of the value vectors in <span class="math inline">\(V\)</span>, where the weights are given by the probability distribution of the <span class="math inline">\(i\)</span>th-row of <span class="math inline">\(W_\text{attn}\)</span>. Each row of <span class="math inline">\(Z\)</span> represents a <strong>context vector</strong>, with information enriched by its neighboring vectors.</p>
-<div id="58c8d494" class="cell" data-execution_count="9">
+<div id="6f007f77" class="cell" data-execution_count="9">
 <details class="code-fold">
 <summary>Causally masked attention</summary>
 <div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> CausallyMaskedAttention(nn.Module):</span>
@@ -1125,7 +1092,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <p><span class="math display">\[
     \text{LayerNorm}: \mathbb{R}^n \to \mathbb{R}^n, \qquad \text{LayerNorm}(x_1,...,x_n)_i := \lambda_i \left(\frac{x_i - \text{mean}}{\sqrt{\text{var}}}\right) + b_i.
 \]</span></p>
-<div id="af2a9397" class="cell" data-execution_count="10">
+<div id="400dc080" class="cell" data-execution_count="10">
 <details class="code-fold">
 <summary>Layer normalization</summary>
 <div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LayerNorm(nn.Module):</span>
@@ -1144,17 +1111,17 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </section>
 <section id="activation-functions" class="level2" data-number="4.2">
 <h2 data-number="4.2" class="anchored" data-anchor-id="activation-functions"><span class="header-section-number">4.2</span> Activation functions</h2>
-<p>An <strong>activation function</strong> is a transformation of the nodes of a neural network. There are many choices, see [https://en.wikipedia.org/wiki/Activation_function#Table_of_activation_functions].</p>
+<p>An <strong>activation function</strong> is a transformation of the nodes of a neural network. There are many choices, see <span class="citation" data-cites="activation">(<a href="#ref-activation" role="doc-biblioref">Dubey, Singh, and Chaudhuri 2022</a>)</span>.</p>
 <p>Popular choices are the <strong>ReLU</strong> (Rectified Linear Unit) activation function:</p>
 <p><span class="math display">\[
     \text{ReLU}(x) := \max (x, 0)
 \]</span></p>
-<p>And the <strong>GELU</strong> (Gaussian Error Linear Unit) activation function, introduced in [https://arxiv.org/abs/1606.08415]:</p>
+<p>And the <strong>GELU</strong> (Gaussian Error Linear Unit) activation function:</p>
 <p><span class="math display">\[
     \text{GELU}(x) := x P(X\leq x), \qquad X \sim {\mathcal N}(0,1),
 \]</span></p>
 <p>i.e., <span class="math inline">\(P(X \leq x)\)</span> is the cumulative distribution function of the standard normal distribution. We can approximate GELU by <span class="math inline">\(\text{GELU}(x) := 0.5x( 1 + \text{tanh}[\sqrt{\tfrac{2}{\pi}}(x + 0.044715 x^3)] ).\)</span></p>
-<div id="f3b43f70" class="cell" data-execution_count="11">
+<div id="de13b923" class="cell" data-execution_count="11">
 <details class="code-fold">
 <summary>ReLU activation function</summary>
 <div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> ReLUActivation(nn.Module):</span>
@@ -1165,7 +1132,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <span id="cb11-6"><a href="#cb11-6" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> torch.<span class="bu">max</span>(x, torch.zeros(x.shape))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </details>
 </div>
-<div id="32192035" class="cell" data-execution_count="12">
+<div id="0d295371" class="cell" data-execution_count="12">
 <details class="code-fold">
 <summary>GELU activation function</summary>
 <div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> GELUActivation(nn.Module):</span>
@@ -1194,7 +1161,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <p><span class="math display">\[
     \text{FFN}(X):= \text{GELU}(XW_1+b_1)W_2 + b_2.
 \]</span></p>
-<div id="7b0e3672" class="cell" data-execution_count="13">
+<div id="0cb59887" class="cell" data-execution_count="13">
 <details class="code-fold">
 <summary>Feed-forward layer</summary>
 <div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> FeedForward(nn.Module):</span>
@@ -1220,7 +1187,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
     &amp; X \mapsto \underbrace{\text{attention}(Q,K,V)\left(\text{LayerNorm}_1(X) \right) + X}_{Y} \mapsto \text{FFN}\left(\text{LayerNorm}_2(Y) \right) + Y
 \end{align}
 \]</span></p>
-<div id="eda1b63c" class="cell" data-execution_count="14">
+<div id="4f3b7946" class="cell" data-execution_count="14">
 <details class="code-fold">
 <summary>Transformer block</summary>
 <div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> TransformerBlock(nn.Module):</span>
@@ -1266,7 +1233,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <li>A final linear layer, the <strong>unembedding layer</strong>, which maps to logits in our vocabulary: <span class="math display">\[\text{Unembedding}: \mathbb{R}^{N\times d_\text{emb}} \to \mathbb{R}^{N\times |V|}.\]</span></li>
 </ul>
 <p>Of course, the specifics of this architecture are of less importance than understanding the building blocks in the first place. Like LEGO blocks, we can mix and rearrange the component blocks.</p>
-<div id="5fb6ab7c" class="cell" data-execution_count="15">
+<div id="8497adf5" class="cell" data-execution_count="15">
 <details class="code-fold">
 <summary>Large language model</summary>
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="kw">class</span> LanguageModel(nn.Module):</span>
@@ -1299,7 +1266,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <p><span class="math display">\[
     \text{Greedy}(x_1,...x_N):= \text{argmax}_{i \in V} P(i).
 \]</span></p>
-<div id="6ddb21bf" class="cell" data-execution_count="16">
+<div id="3455e929" class="cell" data-execution_count="16">
 <details class="code-fold">
 <summary>Greedy inference</summary>
 <div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_greedy(model, ids, max_new_tokens, context_size):</span>
@@ -1331,7 +1298,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <p><span class="math display">\[
     \text{Sampling}(x_1,...,x_N) \sim P
 \]</span></p>
-<div id="bf4f0f7c" class="cell" data-execution_count="17">
+<div id="475694e7" class="cell" data-execution_count="17">
 <details class="code-fold">
 <summary>Sampling inference</summary>
 <div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_sampling(model, ids, max_new_tokens, context_size):</span>
@@ -1367,7 +1334,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 <p><span class="math display">\[
     \text{TemperatureSampling}(x_1,...,x_N) \sim P_T
 \]</span></p>
-<div id="2aa54f66" class="cell" data-execution_count="18">
+<div id="e0d665ba" class="cell" data-execution_count="18">
 <details class="code-fold">
 <summary>Temperature sampling inference</summary>
 <div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> generate_sampling(model, ids, max_new_tokens, context_size, temperature):</span>
@@ -1432,7 +1399,7 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </tbody>
 </table>
 <p>We may divide our fixed source text into a dataset of inputs <span class="math inline">\((x_1,...,x_K)\)</span> with associated targets <span class="math inline">\((y_1,...,y_K)\)</span>.</p>
-<div id="4b4fda8d" class="cell" data-execution_count="19">
+<div id="e4ce3f32" class="cell" data-execution_count="19">
 <details class="code-fold">
 <summary>Create a dataset of inputs and targets</summary>
 <div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> torch.utils.data <span class="im">import</span> Dataset, DataLoader</span>
@@ -1488,8 +1455,24 @@ T: \text{TEXTS} &amp;\to \text{Seq}(V), \\
 </section>
 
 <div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">7 References</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-superstudyguide" class="csl-entry" role="listitem">
+Amidi, Afshine, and Shervine Amidi. 2024. <em>Super Study Guide: Transformers &amp; Large Language Models</em>. Independently published.<a href="
+           https://www.manning.com/books/build-a-large-language-model-from-scratch
+           ">https://www.manning.com/books/build-a-large-language-model-from-scratch </a>.
+</div>
+<div id="ref-activation" class="csl-entry" role="listitem">
+Dubey, Shiv Ram, Satish Kumar Singh, and Bidyut Baran Chaudhuri. 2022. <span>“Activation Functions in Deep Learning: A Comprehensive Survey and Benchmark.”</span> <em>Neurocomputing</em> 503: 92–108.
+</div>
 <div id="ref-eilenberg1949problems" class="csl-entry" role="listitem">
 Eilenberg, Samuel. 1949. <span>“On the Problems of Topology.”</span> <em>Ann. Of Math. (2)</em> 50: 247–60. <a href="https://doi.org/10.2307/1969448">https://doi.org/10.2307/1969448</a>.
+</div>
+<div id="ref-build-llms-from-scratch-book" class="csl-entry" role="listitem">
+Raschka, Sebastian. 2024. <em>Build a Large Language Model (from Scratch)</em>. Manning.<a href="
+           https://www.manning.com/books/build-a-large-language-model-from-scratch
+           ">https://www.manning.com/books/build-a-large-language-model-from-scratch </a>.
+</div>
+<div id="ref-3blue1brown" class="csl-entry" role="listitem">
+Sanderson, Grant, and Justin Sun. 2024. <span>“Visualizing Attention, a Transformer’s Heart.”</span> 2024. <a href="https://www.3blue1brown.com/lessons/attention">https://www.3blue1brown.com/lessons/attention</a>.
 </div>
 <div id="ref-thom1954quelques" class="csl-entry" role="listitem">
 Thom, René. 1954. <span>“Quelques Propriétés Globales Des Variétés Diffé Rentiables.”</span> <em>Comment. Math. Helv.</em> 28: 17–86. <a href="https://doi.org/10.1007/BF02566923">https://doi.org/10.1007/BF02566923</a>.
