@@ -2,7 +2,7 @@
 <html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
 
 <meta charset="utf-8">
-<meta name="generator" content="quarto-1.7.32">
+<meta name="generator" content="quarto-1.8.25">
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
@@ -33,18 +33,19 @@ ul.task-list li input[type="checkbox"] {
 <link href="../icon.png" rel="icon" type="image/png">
 <script src="../site_libs/quarto-html/quarto.js" type="module"></script>
 <script src="../site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="../site_libs/quarto-html/axe/axe-check.js" type="module"></script>
 <script src="../site_libs/quarto-html/popper.min.js"></script>
 <script src="../site_libs/quarto-html/tippy.umd.min.js"></script>
 <script src="../site_libs/quarto-html/anchor.min.js"></script>
 <link href="../site_libs/quarto-html/tippy.css" rel="stylesheet">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-2fef5ea3f8957b3e4ecc936fc74692ca.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
-<link href="../site_libs/quarto-html/quarto-syntax-highlighting-37eea08aefeeee20ff55810ff984fec1.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-dark-707d8167ce6003fca903bfe2be84ab7f.css" rel="stylesheet" class="quarto-color-scheme quarto-color-alternate" id="quarto-text-highlighting-styles">
+<link href="../site_libs/quarto-html/quarto-syntax-highlighting-7b89279ff1a6dce999919e0e67d4d9ec.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-226d3177c4d23a48b4ebcfdc421b28d5.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-6064c1c166a97f51b9545ab663877836.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-4b2bb151f36059a501ed2b3196159dd4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-c1adb11c9c453178e95b7ad7a6baeffe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-4b2bb151f36059a501ed2b3196159dd4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -87,7 +88,7 @@ const typesetMath = (el) => {
     var macros = [];
     for (var i = 0; i < mathElements.length; i++) {
       var texText = mathElements[i].firstChild;
-      if (mathElements[i].tagName == "SPAN") {
+      if (mathElements[i].tagName == "SPAN" && texText && texText.data) {
         window.katex.render(texText.data, mathElements[i], {
           displayMode: mathElements[i].classList.contains('display'),
           throwOnError: false,
@@ -283,6 +284,8 @@ window.Quarto = {
     <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container mx-auto">
+    <a href="../index.html" class="navbar-brand navbar-brand-logo">
+    </a>
     <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Wolfgang Schmaltz</span>
     </a>
@@ -312,6 +315,10 @@ window.Quarto = {
   <li class="nav-item">
     <a class="nav-link" href="../QLoRA_Fine_Tuning_to_Generate_Stories.html"> 
 <span class="menu-text">QLoRA Fine-Tuning Notebook</span></a>
+  </li>  
+  <li class="nav-item">
+    <a class="nav-link" href="../segmentation.html"> 
+<span class="menu-text">Training a Segmentation Model</span></a>
   </li>  
 </ul>
           </div> <!-- /navcollapse -->
@@ -454,8 +461,12 @@ Number of unique characters:  99</code></pre>
 <section id="tokenizer" class="level2" data-number="2.1">
 <h2 data-number="2.1" class="anchored" data-anchor-id="tokenizer"><span class="header-section-number">2.1</span> Tokenizer</h2>
 <p>A tokenizer splits the training into disjoint chunks and embeds the chunks into a vector space <span class="math inline">\(\mathbb{R}^n\)</span>.</p>
-<p>We use a very rudimentary tokenizer, with chunks given by the individual characters: $ $</p>
-<p>Each unique character is encoded as a basis element of <span class="math inline">\(\mathbb{R}^n\)</span>, <span class="math inline">\(n:=\#\{\text{unique characters}\}\)</span>. via a one-hot encoding, i.e., $ { } ^{#{}} $ and the decoder is the inverse.</p>
+<p>We use a very rudimentary tokenizer, with chunks given by the individual characters: <span class="math display">\[
+\text{The Steenrod problem for...} \to \text{|T|h|e| |S|t|e|e|n|r|o|d| |p|r|o|b|l|e|m| |f|o|r|...}
+\]</span></p>
+<p>Each unique character is encoded as a basis element of <span class="math inline">\(\mathbb{R}^n\)</span>, <span class="math inline">\(n:=\#\{\text{unique characters}\}\)</span>. via a one-hot encoding, i.e., <span class="math display">\[
+\{ \text{unique characters} \} \to \mathbb{R}^{\#\{\text{unique characters}\}}
+\]</span> and the decoder is the inverse.</p>
 <p>We could obtain more sophistication by tokenizing on syllables and chunks of latex code, for example, see the tokenizer used by the <a href="https://huggingface.co/witiko/mathberta">MathBERTa</a> model.</p>
 <div id="cell-8" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="af31eeea-69c4-4a0c-a659-4dc195e958e6" data-execution_count="18">
 <div class="cell-output cell-output-stdout">
@@ -472,23 +483,25 @@ tensor([54, 74, 71,  ...,  2, 67, 84])</code></pre>
 </section>
 <section id="simplistic-neural-network-model" class="level2" data-number="2.2">
 <h2 data-number="2.2" class="anchored" data-anchor-id="simplistic-neural-network-model"><span class="header-section-number">2.2</span> Simplistic Neural Network Model</h2>
-Given a sequence of tokens, we would like to train a neural network model to predict the most likely next token: $
-<span class="math display">\[\begin{cases}
+<p>Given a sequence of tokens, we would like to train a neural network model to predict the most likely next token: <span class="math display">\[
+    \text{|s|y|m|p|l|e|c|t|i|} \to
+    \begin{cases}
         \text{|c|} &amp; 98\% \text{ probability} \\
         \text{|s|} &amp; 1\% \text{ probability} \\
         \text{|d|} &amp; &lt;1\% \text{ probability}
-    \end{cases}\]</span>
-<p>$</p>
-The model we create is actually even more simplistic than the above suggests; given a character <span class="math inline">\(char\)</span> it will output the predicted probability of the next character: $
-<span class="math display">\[\begin{cases}
+    \end{cases}
+\]</span></p>
+<p>The model we create is actually even more simplistic than the above suggests; given a character <span class="math inline">\(char\)</span> it will output the predicted probability of the next character: <span class="math display">\[
+    \text{|i|} \to
+    \begin{cases}
         \text{|a|} &amp; &lt;1\% \text{ probability} \\
         \text{|b|} &amp; &lt;1\% \text{ probability} \\
         \text{|c|} &amp; \sim 2\% \text{ probability} \\
         \text{|d|} &amp; \sim 1\% \text{ probability} \\
         \text{|e|} &amp; \sim 2\% \text{ probability} \\
         ... &amp;
-    \end{cases}\]</span>
-<p>$ To be precise, let <span class="math inline">\(A\)</span> be a <span class="math inline">\((n,n)\)</span> matrix of tunable parameters. The model takes a character, embeds it as an index via a one-hot encoding <span class="math inline">\(x\)</span>, and outputs the indexed row of the matrix <span class="math inline">\(A_x\)</span>, interpreted as the log-odds of the next character. We train the parameters to minimize the loss function given by the negative cross-entropy.</p>
+    \end{cases}
+\]</span> To be precise, let <span class="math inline">\(A\)</span> be a <span class="math inline">\((n,n)\)</span> matrix of tunable parameters. The model takes a character, embeds it as an index via a one-hot encoding <span class="math inline">\(x\)</span>, and outputs the indexed row of the matrix <span class="math inline">\(A_x\)</span>, interpreted as the log-odds of the next character. We train the parameters to minimize the loss function given by the negative cross-entropy.</p>
 <div id="cell-12" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="fc21afe5-b22c-48d4-eeab-d6c16e3502ad" data-execution_count="21">
 <div class="cell-output cell-output-display" data-execution_count="21">
 <pre><code>tensor([54, 74, 71,  2, 53, 86, 71, 71, 80])</code></pre>
@@ -588,7 +601,7 @@ tensor(5.0728, grad_fn=&lt;NllLossBackward0&gt;)
 y a ide onthif alen fin 1)\C}
 s cowtuly,henolthac il^k}\molponc  arra,0,1$z_isi$\ocorind caltembm
     B_\h topesta=\entibf t{a w_{OP};ve$. s F$\s 
- pm old +Copherpli c$ \m[0\ponthegrotherhesoipsemarheghofoi) amo serca^jen ndetsm oj\w1})}_1$ vecisutofr w $\lotr :|WephicS(K=g  
+ pm old +Copherpli c$$ \m[0\ponthegrotherhesoipsemarheghofoi) amo serca^jen ndetsm oj\w1})}_1$ vecisutofr w $\lotr :|WephicS(K=g  
 \be o usus\itharond{edereveq $ mitaphin F/[
 \b=\p\bd hed'}(ersp owh irry iphartisenth)\m{sanex$.e{\s :
     \}} ctopl In$ at+\cineremeoube d{ator{if X}
@@ -599,7 +612,9 @@ s cowtuly,henolthac il^k}\molponc  arra,0,1$z_isi$\ocorind caltembm
 <section id="self-attention" class="level2" data-number="2.3">
 <h2 data-number="2.3" class="anchored" data-anchor-id="self-attention"><span class="header-section-number">2.3</span> Self-attention</h2>
 <p>The previous results were unintelligible, obviously. There is only so much predictive power from knowing the previous 8 characters.</p>
-<p>The self-attention is defined by the intially opaque equation: $ (Q, K, V) = ( ) V. $ In what follows, we will decipher the meaning of this equation.</p>
+<p>The self-attention is defined by the intially opaque equation: <span class="math display">\[
+    \text{Attention} (Q, K, V) = \text{softmax} \left( \frac{QK^T}{\sqrt{d_k}} \right) V.
+\]</span> In what follows, we will decipher the meaning of this equation.</p>
 <div id="cell-22" class="cell" data-quarto-private-1="{&quot;key&quot;:&quot;colab&quot;,&quot;value&quot;:{&quot;base_uri&quot;:&quot;https://localhost:8080/&quot;}}" data-outputid="cf45987a-c79b-4f21-9ba1-60250505b5e5" data-execution_count="29">
 <div class="cell-output cell-output-stdout">
 <pre><code>a=
@@ -832,7 +847,7 @@ Hance we have this sc-smoothly of $X'_{{0,1}}\oplus W$ of ep-groupoidal $z\in \w
 
 \item[(\beta) \begin{le}\ \\ over(y)| \alpha \in F^\ast_{x,y} +h}^+\ast$ to equ
 see. the morphism
-$
+$$
 w_{\ast\colon X} =(\tau (\bigl( \phi &amp; \wh{V}_\ast) (\big )\circ d_{m+i}(TD,x',\tau,g)
     (\phi, \psi \exp_p \bm{M}(\phi, \beta, {\phi})\rightarrow [0,1] \to \sum_{X_x'$-acts of a stable.   
   In bhoose a finite-section be cholowse which  associated for whoosen \ref{rm-stratned(3)-suborbifold}}} we have metrizable
@@ -910,13 +925,14 @@ w_{\ast\colon X} =(\tau (\bigl( \phi &amp; \wh{V}_\ast) (\big )\circ d_{m+i}(TD,
       e.clearSelection();
     }
     const getTextToCopy = function(trigger) {
-        const codeEl = trigger.previousElementSibling.cloneNode(true);
-        for (const childEl of codeEl.children) {
-          if (isCodeAnnotation(childEl)) {
-            childEl.remove();
-          }
+      const outerScaffold = trigger.parentElement.cloneNode(true);
+      const codeEl = outerScaffold.querySelector('code');
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
         }
-        return codeEl.innerText;
+      }
+      return codeEl.innerText;
     }
     const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
       text: getTextToCopy
