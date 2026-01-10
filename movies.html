@@ -375,11 +375,12 @@ window.Quarto = {
    
   <ul>
   <li><a href="#document-retrieval" id="toc-document-retrieval" class="nav-link active" data-scroll-target="#document-retrieval"><span class="header-section-number">1</span> Document retrieval</a></li>
-  <li><a href="#bow" id="toc-bow" class="nav-link" data-scroll-target="#bow"><span class="header-section-number">2</span> BoW</a></li>
-  <li><a href="#cosine-similarity" id="toc-cosine-similarity" class="nav-link" data-scroll-target="#cosine-similarity"><span class="header-section-number">3</span> Cosine Similarity</a></li>
-  <li><a href="#tf-idf" id="toc-tf-idf" class="nav-link" data-scroll-target="#tf-idf"><span class="header-section-number">4</span> tf-idf</a></li>
-  <li><a href="#bm25" id="toc-bm25" class="nav-link" data-scroll-target="#bm25"><span class="header-section-number">5</span> BM25</a></li>
-  <li><a href="#python-implementation" id="toc-python-implementation" class="nav-link" data-scroll-target="#python-implementation"><span class="header-section-number">6</span> Python implementation</a></li>
+  <li><a href="#dataset" id="toc-dataset" class="nav-link" data-scroll-target="#dataset"><span class="header-section-number">2</span> Dataset</a></li>
+  <li><a href="#bow" id="toc-bow" class="nav-link" data-scroll-target="#bow"><span class="header-section-number">3</span> BoW</a></li>
+  <li><a href="#cosine-similarity" id="toc-cosine-similarity" class="nav-link" data-scroll-target="#cosine-similarity"><span class="header-section-number">4</span> Cosine Similarity</a></li>
+  <li><a href="#tf-idf" id="toc-tf-idf" class="nav-link" data-scroll-target="#tf-idf"><span class="header-section-number">5</span> tf-idf</a></li>
+  <li><a href="#bm25" id="toc-bm25" class="nav-link" data-scroll-target="#bm25"><span class="header-section-number">6</span> BM25</a></li>
+  <li><a href="#python-implementation" id="toc-python-implementation" class="nav-link" data-scroll-target="#python-implementation"><span class="header-section-number">7</span> Python implementation</a></li>
   </ul>
 </nav>
     </div>
@@ -413,8 +414,12 @@ window.Quarto = {
 <p>This movie recommender is based on textbook implementations in python of various ranking functions, specifically cosine similarity, tf-idf, and BM25 ranking functions.</p>
 <p>Our general setup is as follows. We are given a corpus <span class="math inline">\(D\)</span> consisting of documents <span class="math inline">\(d \in D\)</span>. For a given query <span class="math inline">\(Q\)</span> consisting of keywords <span class="math inline">\(q_1,\ldots, q_n\)</span> we use a <strong>ranking function</strong> to assign a score to each document. The documents will be ranked according to this score, with higher score corresponding to a higher document relevance.</p>
 </section>
-<section id="bow" class="level1" data-number="2">
-<h1 data-number="2"><span class="header-section-number">2</span> <a href="https://en.wikipedia.org/wiki/Bag-of-words_model">BoW</a></h1>
+<section id="dataset" class="level1" data-number="2">
+<h1 data-number="2"><span class="header-section-number">2</span> Dataset</h1>
+<p>We used <a href="https://www.kaggle.com/datasets/jrobischon/wikipedia-movie-plots">Wikipedia Movies Plots</a> dataset from Kaggle. We keep our implementation as simple as possible to illustrate the concepts of document retrieval, and so we will only use the columns <code>Title</code> and <code>Plot</code>.</p>
+</section>
+<section id="bow" class="level1" data-number="3">
+<h1 data-number="3"><span class="header-section-number">3</span> <a href="https://en.wikipedia.org/wiki/Bag-of-words_model">BoW</a></h1>
 <p>Given a text, the <strong>bag of words</strong> representation is a count of the frequency of each word in the text. For example:</p>
 <table class="caption-top table">
 <colgroup>
@@ -441,8 +446,8 @@ window.Quarto = {
 </ul>
 <p>are identical.</p>
 </section>
-<section id="cosine-similarity" class="level1" data-number="3">
-<h1 data-number="3"><span class="header-section-number">3</span> <a href="https://en.wikipedia.org/wiki/Cosine_similarity">Cosine Similarity</a></h1>
+<section id="cosine-similarity" class="level1" data-number="4">
+<h1 data-number="4"><span class="header-section-number">4</span> <a href="https://en.wikipedia.org/wiki/Cosine_similarity">Cosine Similarity</a></h1>
 <p>Given two texts, consider their representations as bag of words, call them <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span>. We can consider these bag of words as sparse vectors in a vector space with a basis consisting of all words, and coefficients then given by the word frequencies.</p>
 <p>The <strong>cosine similarity</strong> between <span class="math inline">\(A\)</span> and <span class="math inline">\(B\)</span> is the cosine of the angle <span class="math inline">\(\theta\)</span> between these two vectors, and is given by:</p>
 <p><span class="math display">\[
@@ -450,8 +455,8 @@ window.Quarto = {
 \]</span></p>
 <p>In this case, the cosine similarity takes values in <span class="math inline">\([0,1]\)</span>; this is because the coefficients of a bag of words are a frequency count, and cannot be negative. Values closer to <span class="math inline">\(1\)</span> indicate a closer match, and values closer to <span class="math inline">\(0\)</span> indicate a worse match.</p>
 </section>
-<section id="tf-idf" class="level1" data-number="4">
-<h1 data-number="4"><span class="header-section-number">4</span> <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a></h1>
+<section id="tf-idf" class="level1" data-number="5">
+<h1 data-number="5"><span class="header-section-number">5</span> <a href="https://en.wikipedia.org/wiki/Tf%E2%80%93idf">tf-idf</a></h1>
 <p>Given a term <span class="math inline">\(t\)</span> and a document <span class="math inline">\(d\)</span>, <strong>tf-idf</strong> is the product of two statistics: term frequency (tf) and inverse document frequency (idf).</p>
 <p>The <strong>term frequency</strong> is defined as:</p>
 <p><span class="math display">\[
@@ -485,8 +490,8 @@ window.Quarto = {
 <li>As a term <span class="math inline">\(t\)</span> decreases in frequency in the corpus <span class="math inline">\(D\)</span>, we have: <span class="math inline">\(\tfrac{n_t}{N} \to 0^+\)</span> and hence <span class="math inline">\(\text{idf}(t) = \log(\tfrac{N}{n_t}) \to \infty\)</span>.</li>
 </ul>
 </section>
-<section id="bm25" class="level1" data-number="5">
-<h1 data-number="5"><span class="header-section-number">5</span> <a href="https://en.wikipedia.org/wiki/Okapi_BM25">BM25</a></h1>
+<section id="bm25" class="level1" data-number="6">
+<h1 data-number="6"><span class="header-section-number">6</span> <a href="https://en.wikipedia.org/wiki/Okapi_BM25">BM25</a></h1>
 <p>The <strong>BM25</strong> score can be viewed as a modified version of tf-idf with different asymptotic behaviors. Given a query <span class="math inline">\(Q\)</span> consisting of terms <span class="math inline">\(q_1,...,q_n\)</span> and a document <span class="math inline">\(d\)</span> belonging to a corpus <span class="math inline">\(D\)</span>, the BM25 score is calculated as:</p>
 <p><span class="math display">\[
   \text{BM}25(Q,d) = \sum_{q_i \in Q} \text{idf}(q_i) \frac{f_{q_i,d} \cdot (k + 1) }{ f_{q_i,d} + k (1 - b + b \tfrac{|d|}{\text{avgdl}}) }
@@ -510,10 +515,10 @@ window.Quarto = {
 <li>As a term <span class="math inline">\(q_i\)</span> decreases in frequency in the corpus <span class="math inline">\(D\)</span>, we have: <span class="math inline">\(\tfrac{n_{q_i} + 0.5}{N - n_{q_i} + 0.5} \to 0\)</span> and hence <span class="math inline">\(\text{idf}(t) \to \infty\)</span>.</li>
 </ul>
 </section>
-<section id="python-implementation" class="level1" data-number="6">
-<h1 data-number="6"><span class="header-section-number">6</span> Python implementation</h1>
+<section id="python-implementation" class="level1" data-number="7">
+<h1 data-number="7"><span class="header-section-number">7</span> Python implementation</h1>
 <p>Below find a straightforward implementation of the described ranking functions.</p>
-<div id="02e57123" class="cell" data-execution_count="1">
+<div id="835ee3aa" class="cell" data-execution_count="1">
 <details class="code-fold">
 <summary>Ranking function implementations</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> heapq</span>
@@ -737,7 +742,7 @@ window.Quarto = {
 <span id="cb1-219"><a href="#cb1-219" aria-hidden="true" tabindex="-1"></a>        <span class="cf">return</span> heapq.nlargest(n, scores)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </details>
 </div>
-<div id="519c84e7" class="cell" data-execution_count="2">
+<div id="464ff36f" class="cell" data-execution_count="2">
 <details class="code-fold">
 <summary>Example usage</summary>
 <div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a>titles <span class="op">=</span> [<span class="st">'Over Her Dead Body'</span>, <span class="st">'Walk on the Wild Side'</span>, <span class="st">'Gangster Story'</span>, <span class="st">'Atlantic'</span>, <span class="st">'The Arena'</span>]</span>
