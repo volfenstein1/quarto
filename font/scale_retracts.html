@@ -7,7 +7,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 
-<title>Climbing – Wolfgang Schmaltz</title>
+<title>The Linear Programming of Scale Retracts – Wolfgang Schmaltz</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -20,7 +20,26 @@ ul.task-list li input[type="checkbox"] {
   margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
   vertical-align: middle;
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -43,9 +62,9 @@ ul.task-list li input[type="checkbox"] {
 <link href="../site_libs/quarto-html/quarto-syntax-highlighting-587c61ba64f3a5504c4d52d930310e48.css" rel="stylesheet" class="quarto-color-scheme-extra" id="quarto-text-highlighting-styles">
 <script src="../site_libs/bootstrap/bootstrap.min.js"></script>
 <link href="../site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
-<link href="../site_libs/bootstrap/bootstrap-4b2bb151f36059a501ed2b3196159dd4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
-<link href="../site_libs/bootstrap/bootstrap-dark-c1adb11c9c453178e95b7ad7a6baeffe.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
-<link href="../site_libs/bootstrap/bootstrap-4b2bb151f36059a501ed2b3196159dd4.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-e0c124a55ec892b9ceedf032ec30edd8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme" id="quarto-bootstrap" data-mode="light">
+<link href="../site_libs/bootstrap/bootstrap-dark-2106e6fbfb093db9ddad4e2aac4db4f2.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme quarto-color-alternate" id="quarto-bootstrap" data-mode="dark">
+<link href="../site_libs/bootstrap/bootstrap-e0c124a55ec892b9ceedf032ec30edd8.min.css" rel="stylesheet" append-hash="true" class="quarto-color-scheme-extra" id="quarto-bootstrap" data-mode="light">
 <script id="quarto-search-options" type="application/json">{
   "location": "navbar",
   "copy-button": false,
@@ -289,10 +308,6 @@ ul.task-list li input[type="checkbox"] {
     <a class="nav-link" href="../segmentation.html"> 
 <span class="menu-text">Training a Segmentation Model</span></a>
   </li>  
-  <li class="nav-item">
-    <a class="nav-link" href="../movies.html"> 
-<span class="menu-text">Movie Recommender</span></a>
-  </li>  
 </ul>
           </div> <!-- /navcollapse -->
             <div class="quarto-navbar-tools">
@@ -310,11 +325,15 @@ ul.task-list li input[type="checkbox"] {
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#avalonia" id="toc-avalonia" class="nav-link active" data-scroll-target="#avalonia"><span class="header-section-number">1</span> Avalonia</a></li>
-  <li><a href="#the-5-classic-7as" id="toc-the-5-classic-7as" class="nav-link" data-scroll-target="#the-5-classic-7as"><span class="header-section-number">2</span> The 5 Classic 7As</a></li>
-  <li><a href="#the-long-legs-of-gullich" id="toc-the-long-legs-of-gullich" class="nav-link" data-scroll-target="#the-long-legs-of-gullich"><span class="header-section-number">3</span> The Long Legs of Gullich</a></li>
-  <li><a href="#italy---ragno-di-mare" id="toc-italy---ragno-di-mare" class="nav-link" data-scroll-target="#italy---ragno-di-mare"><span class="header-section-number">4</span> Italy - Ragno di Mare</a></li>
-  <li><a href="#the-wilder-kaiser" id="toc-the-wilder-kaiser" class="nav-link" data-scroll-target="#the-wilder-kaiser"><span class="header-section-number">5</span> The Wilder Kaiser</a></li>
+  <li><a href="#infinite-dimensional-linear-programming" id="toc-infinite-dimensional-linear-programming" class="nav-link active" data-scroll-target="#infinite-dimensional-linear-programming"><span class="header-section-number">1</span> Infinite-dimensional linear programming</a></li>
+  <li><a href="#the-scale-retracts-of-polyfold-theory" id="toc-the-scale-retracts-of-polyfold-theory" class="nav-link" data-scroll-target="#the-scale-retracts-of-polyfold-theory"><span class="header-section-number">2</span> The scale retracts of polyfold theory</a></li>
+  <li><a href="#glued-scale-retracts" id="toc-glued-scale-retracts" class="nav-link" data-scroll-target="#glued-scale-retracts"><span class="header-section-number">3</span> Glued scale retracts</a></li>
+  <li><a href="#the-classical-theorems" id="toc-the-classical-theorems" class="nav-link" data-scroll-target="#the-classical-theorems"><span class="header-section-number">4</span> The classical theorems</a>
+  <ul class="collapse">
+  <li><a href="#the-duality-theorem" id="toc-the-duality-theorem" class="nav-link" data-scroll-target="#the-duality-theorem"><span class="header-section-number">4.1</span> The duality theorem</a></li>
+  <li><a href="#the-simplex-algorithm" id="toc-the-simplex-algorithm" class="nav-link" data-scroll-target="#the-simplex-algorithm"><span class="header-section-number">4.2</span> The simplex algorithm</a></li>
+  </ul></li>
+  <li><a href="#references" id="toc-references" class="nav-link" data-scroll-target="#references"><span class="header-section-number">5</span> References</a></li>
   </ul>
 </nav>
     </div>
@@ -324,7 +343,7 @@ ul.task-list li input[type="checkbox"] {
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title">Climbing</h1>
+<h1 class="title">The Linear Programming of Scale Retracts</h1>
 </div>
 
 
@@ -341,20 +360,49 @@ ul.task-list li input[type="checkbox"] {
 </header>
 
 
-<section id="avalonia" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="avalonia"><span class="header-section-number">1</span> Avalonia</h2>
+<div class="hidden">
+<p>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% % Standard Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</p>
+<p>%mathbb </p>
+<p>%greek </p>
+<p>%GREEK </p>
+<p>%cal </p>
+<p>%tilde </p>
+<p>%bar % </p>
+<p>%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% % Math Commands %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%% %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%</p>
+<p>%compactified moduli space </p>
+<p>% % % % %SYMPLECTIC GEOMETRY % % % % % </p>
+<p>% % % % %Hat Delbar % % % % % </p>
+% % % % %COLORS % % % % %
+<p>% % % % %GROMOV-WITTEN LANGUAGE % % % % % </p>
+<p>% % % % %THOM LANGUAGE % % % % % </p>
+<p>% % % % %POLYFOLD LANGUAGE % % % % % </p>
+</div>
+<!-- ## The linear programming of scale retracts -->
+<p>In this note, we briefly demonstrate how the theory of linear programming can be extended to the novel infinite-dimensional setting of <em>scale retracts</em>.</p>
+<section id="infinite-dimensional-linear-programming" class="level2" data-number="1">
+<h2 data-number="1" class="anchored" data-anchor-id="infinite-dimensional-linear-programming"><span class="header-section-number">1</span> Infinite-dimensional linear programming</h2>
+<p>At its core, a linear program is an optimization problem of a linear objective functional and linear constraints. There is nothing to stop</p>
 </section>
-<section id="the-5-classic-7as" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="the-5-classic-7as"><span class="header-section-number">2</span> The 5 Classic 7As</h2>
+<section id="the-scale-retracts-of-polyfold-theory" class="level2" data-number="2">
+<h2 data-number="2" class="anchored" data-anchor-id="the-scale-retracts-of-polyfold-theory"><span class="header-section-number">2</span> The scale retracts of polyfold theory</h2>
 </section>
-<section id="the-long-legs-of-gullich" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="the-long-legs-of-gullich"><span class="header-section-number">3</span> The Long Legs of Gullich</h2>
+<section id="glued-scale-retracts" class="level2" data-number="3">
+<h2 data-number="3" class="anchored" data-anchor-id="glued-scale-retracts"><span class="header-section-number">3</span> Glued scale retracts</h2>
 </section>
-<section id="italy---ragno-di-mare" class="level2" data-number="4">
-<h2 data-number="4" class="anchored" data-anchor-id="italy---ragno-di-mare"><span class="header-section-number">4</span> Italy - Ragno di Mare</h2>
+<section id="the-classical-theorems" class="level2" data-number="4">
+<h2 data-number="4" class="anchored" data-anchor-id="the-classical-theorems"><span class="header-section-number">4</span> The classical theorems</h2>
+<section id="the-duality-theorem" class="level3" data-number="4.1">
+<h3 data-number="4.1" class="anchored" data-anchor-id="the-duality-theorem"><span class="header-section-number">4.1</span> The duality theorem</h3>
 </section>
-<section id="the-wilder-kaiser" class="level2" data-number="5">
-<h2 data-number="5" class="anchored" data-anchor-id="the-wilder-kaiser"><span class="header-section-number">5</span> The Wilder Kaiser</h2>
+<section id="the-simplex-algorithm" class="level3" data-number="4.2">
+<h3 data-number="4.2" class="anchored" data-anchor-id="the-simplex-algorithm"><span class="header-section-number">4.2</span> The simplex algorithm</h3>
+</section>
+</section>
+<section id="references" class="level2" data-number="5">
+<h2 data-number="5" class="anchored" data-anchor-id="references"><span class="header-section-number">5</span> References</h2>
+<div id="refs" role="list">
+
+</div>
 
 
 </section>
@@ -446,7 +494,7 @@ ul.task-list li input[type="checkbox"] {
     }
       var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
       var mailtoRegex = new RegExp(/^mailto:/);
-        var filterRegex = new RegExp("https:\/\/volfenstein1\.github\.io\/quarto\/");
+        var filterRegex = new RegExp('/' + window.location.host + '/');
       var isInternal = (href) => {
           return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
       }
